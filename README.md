@@ -1,4 +1,4 @@
-<h1 align="center">Mollie API client for Ruby</h1>
+<h1 align="center">Mollie API client for Crystal</h1>
 
 <img src="https://info.mollie.com/hubfs/github/ruby/editor.png" />
 
