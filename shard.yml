@@ -1,0 +1,14 @@
+name: mollie
+version: 0.1.0
+
+authors:
+  - wout <wout@mick-wout.com>
+
+crystal: 0.32.1
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+    version: ~> 0.11.0
+
+license: MIT
