@@ -25,29 +25,31 @@ struct Mollie
     end
 
     def self.build_nested_query(
-      value : Array(String) | Hash(String, String) | String?,
-      prefix : String? = ""
+      value : Hash(Symbol | String, String),
+      prefix : String? = nil
     )
-      case value
-      when Array
-        value.map do |v|
-          self.build_nested_query(v, "#{prefix}[]")
-        end.join("&")
-      when Hash
-        value.map do |k, v|
-          escaped = prefix ? "#{prefix}[#{self.escape(k)}]" : self.escape(k)
-          self.build_nested_query(v, escaped)
-        end.reject(&.empty?).join("&")
-      when nil
-        prefix
-      else
-        raise ArgumentError.new("value must be a Hash") if prefix.nil?
-        "#{prefix}=#{self.escape(value)}"
-      end
+      value.map do |k, v|
+        escaped = prefix ? "#{prefix}[#{self.escape(k)}]" : self.escape(k)
+        self.build_nested_query(v, escaped)
+      end.reject(&.empty?).join("&")
     end
 
-    private def self.escape(value : String)
-      URI.encode_www_form(value)
+    def self.build_nested_query(value : Array(String), prefix : String? = nil)
+      value.map do |v|
+        self.build_nested_query(v, "#{prefix}[]")
+      end.join("&")
+    end
+
+    def self.build_nested_query(value : String, prefix : String)
+      "#{prefix}=#{self.escape(value)}"
+    end
+
+    def self.build_nested_query(value : Nil, prefix : String? = nil)
+      prefix
+    end
+
+    private def self.escape(value : Symbol | String)
+      URI.encode_www_form(value.to_s)
     end
   end
 end

@@ -50,4 +50,55 @@ describe "Mollie::Util" do
       camelized["keyWithUnderscores"].should be("first")
     end
   end
+
+  describe ".build_nested_query" do
+    context "given a hash" do
+      it "returns a query param string" do
+        query = Mollie::Util.build_nested_query({
+          :name  => "Aap",
+          :email => "noot@mies.wim",
+        })
+        query.should eq("name=Aap&email=noot%40mies.wim")
+      end
+
+      it "returns prefixed query param string" do
+        query = Mollie::Util.build_nested_query({
+          :name  => "Aap",
+          :email => "noot@mies.wim",
+        }, "zus")
+        query.should eq("zus[name]=Aap&zus[email]=noot%40mies.wim")
+      end
+    end
+
+    context "given an array" do
+      it "returns a query param string" do
+        query = Mollie::Util.build_nested_query(%w[aap noot mies])
+        query.should eq("[]=aap&[]=noot&[]=mies")
+      end
+
+      it "returns prefixed query param string" do
+        query = Mollie::Util.build_nested_query(%w[aap noot mies], "zus")
+        query.should eq("zus[]=aap&zus[]=noot&zus[]=mies")
+      end
+    end
+
+    context "given a string" do
+      it "returns a query param string" do
+        query = Mollie::Util.build_nested_query("aap", "noot")
+        query.should eq("noot=aap")
+      end
+    end
+
+    context "given nil" do
+      it "returns nil" do
+        query = Mollie::Util.build_nested_query(nil)
+        query.should be_nil
+      end
+
+      it "returns the prefix" do
+        query = Mollie::Util.build_nested_query(nil, "aap")
+        query.should eq("aap")
+      end
+    end
+  end
 end
