@@ -2,16 +2,6 @@ require "../spec_helper.cr"
 require "../spec_helpers/client_helper.cr"
 
 describe "Mollie::Client" do
-  describe ".version_string" do
-    it "compiles a string with mollie shard, crystal and openssl versions" do
-      mollie = Mollie::VERSION
-      crystal = Crystal::VERSION
-      openssl = LibSSL::OPENSSL_VERSION
-      Mollie::Client.version_string
-        .should eq("Mollie/#{mollie} Crystal/#{crystal} OpenSSL/#{openssl}")
-    end
-  end
-
   describe "#initialize" do
     it "stores the api key" do
       create_mollie_client.api_key
@@ -52,5 +42,18 @@ describe "Mollie::Client" do
   end
 
   describe "#perform_http_call" do
+    it "has defaults to perform a request" do
+      client = create_mollie_client
+      headers = {
+        "Accept"        => "application/json",
+        "Content-type"  => "application/json",
+        "Authorization" => "Bearer test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM",
+        "User-Agent"    => Mollie::Util.version_string,
+      }
+      WebMock.stub(:any, "https://api.mollie.com/v2/my-method")
+        .with(headers: headers)
+        .to_return(status: 200, body: "{}", headers: Hash(String, String).new)
+      client.perform_http_call("GET", "my-method", nil, Hash(String, String).new)
+    end
   end
 end

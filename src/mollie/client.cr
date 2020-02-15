@@ -6,8 +6,6 @@ struct Mollie
     MODE_TEST = "test"
     MODE_LIVE = "live"
 
-    @@version_string : String?
-
     property :api_key
     getter :api_endpoint
 
@@ -28,14 +26,25 @@ struct Mollie
       end
     end
 
-    def self.version_string
-      if @@version_string.nil?
-        mollie = "Mollie/" + Mollie::VERSION
-        crystal = "Crystal/" + Crystal::VERSION
-        openssl = "OpenSSL/" + LibSSL::OPENSSL_VERSION
-        @@version_string = "#{mollie} #{crystal} #{openssl}"
+    def perform_http_call(
+      http_method : String,
+      api_method : String,
+      id : String? = "",
+      http_body : Hash = Hash(String, String).new,
+      query : Hash = Hash(String, String).new
+    )
+      path = api_path(api_method, id)
+      api_key = http_body.delete(:api_key) ||
+                query.delete(:api_key) ||
+                @api_key
+      api_endpoint = http_body.delete(:api_endpoint) ||
+                     query.delete(:api_endpoint) ||
+                     @api_endpoint
+
+      unless query.empty?
+        camelized_query = Util.camelize_keys(query)
+        path += "?#{Util.build_nested_query(camelized_query)}"
       end
-      @@version_string
     end
 
     def self.configuration

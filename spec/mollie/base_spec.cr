@@ -20,7 +20,7 @@ struct Mollie
     def initialize(
       @id : String?,
       @foo : String?,
-      @my_field : String?
+      @my_field : String
     )
     end
 
