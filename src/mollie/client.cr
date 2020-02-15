@@ -30,8 +30,8 @@ struct Mollie
       http_method : String,
       api_method : String,
       id : String? = "",
-      http_body : Hash = Hash(String, String).new,
-      query : Hash = Hash(String, String).new
+      http_body : Hash(Symbol | String, String) = Hash(String, String).new,
+      query : Hash(Symbol | String, String) = Hash(String, String).new
     )
       path = api_path(api_method, id)
       api_key = http_body.delete(:api_key) ||

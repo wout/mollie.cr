@@ -43,7 +43,6 @@ describe "Mollie::Client" do
 
   describe "#perform_http_call" do
     it "has defaults to perform a request" do
-      client = create_mollie_client
       headers = {
         "Accept"        => "application/json",
         "Content-type"  => "application/json",
@@ -52,8 +51,26 @@ describe "Mollie::Client" do
       }
       WebMock.stub(:any, "https://api.mollie.com/v2/my-method")
         .with(headers: headers)
-        .to_return(status: 200, body: "{}", headers: Hash(String, String).new)
-      client.perform_http_call("GET", "my-method", nil, Hash(String, String).new)
+        .to_return(status: 200, body: "{}", headers: empty_string_hash)
+      create_mollie_client
+        .perform_http_call("GET", "my-method", nil, empty_string_hash)
+    end
+
+    it "overrides defaults with given values" do
+      headers = {
+        "Accept"        => "application/json",
+        "Content-type"  => "application/json",
+        "Authorization" => "Bearer my_key",
+        "User-Agent"    => Mollie::Util.version_string,
+      }
+      query = {:api_key => "my_key", :api_endpoint => "https://localhost"}
+      WebMock.stub(:any, "https://localhost/v2/my-method")
+        .with(headers: headers)
+        .to_return(status: 200, body: "{}", headers: empty_string_hash)
+      create_mollie_client
+        .perform_http_call("GET", "my-method", nil, query)
+      create_mollie_client
+        .perform_http_call("GET", "my-method", nil, empty_string_hash, query)
     end
   end
 end
