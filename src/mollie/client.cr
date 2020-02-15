@@ -42,8 +42,8 @@ struct Mollie
                      @api_endpoint
 
       unless query.empty?
-        camelized_query = Util.camelize_keys(query)
-        path += "?#{Util.build_nested_query(camelized_query)}"
+        query = Util.build_nested_query(Util.camelize_keys(query))
+        path += "?#{query}"
       end
     end
 
@@ -51,8 +51,7 @@ struct Mollie
       @@configuration
     end
 
-    def self.configuration=(configuration : Configuration)
-      @@configuration = configuration
+    def self.configuration=(@@configuration : Configuration)
     end
 
     class Configuration
