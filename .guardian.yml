@@ -1,0 +1,2 @@
+files: ./spec/**/*_spec.cr
+run: crystal spec %file%

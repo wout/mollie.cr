@@ -6,6 +6,11 @@ authors:
 
 crystal: 0.32.1
 
+dependencies:
+  wordsmith:
+    github: luckyframework/wordsmith
+    version: ~> 0.2
+
 development_dependencies:
   ameba:
     github: crystal-ameba/ameba

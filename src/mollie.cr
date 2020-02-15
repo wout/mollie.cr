@@ -1,7 +1,7 @@
-# TODO: Write documentation for `Mollie`
-module Mollie
-  VERSION = "0.1.0"
+require "json"
+require "http/client"
+require "wordsmith"
+require "./mollie/**"
 
-  # TODO: Put your code here
-  puts "This is Mollie"
+struct Mollie
 end
