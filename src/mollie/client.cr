@@ -6,6 +6,8 @@ struct Mollie
     MODE_TEST = "test"
     MODE_LIVE = "live"
 
+    METHODS = %w[GET POST PATCH DELETE]
+
     property :api_key
     getter :api_endpoint
 
@@ -59,7 +61,8 @@ struct Mollie
                      @api_endpoint
 
       unless api_key
-        raise Mollie::MissingApiKeyException.new("Missing API key")
+        raise Mollie::MissingApiKeyException.new(
+          "Expected API key but none was provided")
       end
 
       path = api_path(api_method, id)
@@ -71,15 +74,21 @@ struct Mollie
       client = http_client(URI.parse(api_endpoint))
       headers = http_headers(api_key: api_key)
 
+      unless METHODS.includes?(http_method)
+        raise Mollie::MethodNotSupportedException.new(
+          "Invalid HTTP Method #{http_method}")
+      end
+
       begin
         case http_method
         when "GET"
           response = client.get(path, headers: headers)
         when "POST", "PATCH", "DELETE"
-        else
         end
       rescue e : IO::Timeout
-        # puts e.message
+        raise Mollie::RequestTimeoutException.new(e.message)
+      rescue e : Exception
+        raise Mollie::Exception.new(e.message)
       end
     end
   end

@@ -71,11 +71,15 @@ describe "Mollie::Client" do
   describe "#perform_http_call" do
     it "fails if no api key is provided" do
       expect_raises(Mollie::MissingApiKeyException) do
-        WebMock.stub(:get, "https://api.mollie.com/v2/my-method")
-          .with(headers: client_http_headers)
-          .to_return(status: 200, body: "{}", headers: empty_string_hash)
         Mollie::Client.new
           .perform_http_call("GET", "my-method", nil, empty_string_hash)
+      end
+    end
+
+    it "fails with an invalid http method" do
+      expect_raises(Mollie::MethodNotSupportedException) do
+        create_mollie_client
+          .perform_http_call("PUT", "my-method", nil, empty_string_hash)
       end
     end
 
