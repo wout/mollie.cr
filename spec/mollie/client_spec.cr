@@ -7,6 +7,15 @@ describe "Mollie::Client" do
       create_mollie_client.api_key
         .should be("test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM")
     end
+
+    it "falls back to the globally configured api key" do
+      Mollie::Config.api_key = "my_key"
+      Mollie::Client.new.api_key.should eq("my_key")
+    end
+
+    it "can be initialized without an api key" do
+      Mollie::Client.new.api_key.should be_nil
+    end
   end
 
   describe "#api_endpoint=" do
@@ -41,30 +50,47 @@ describe "Mollie::Client" do
     end
   end
 
+  describe "#http_headers" do
+    it "contains mime type headers, bearer with token and version string" do
+      headers = create_mollie_client.http_headers("Superpowers")
+      headers["Accept"].should eq("application/json")
+      headers["Content-Type"].should eq("application/json")
+      headers["Authorization"].should eq("Bearer Superpowers")
+      headers["User-Agent"].should eq(Mollie::Util.version_string)
+    end
+  end
+
+  describe "#http_client" do
+    it "returns a http client configured with certificate verification" do
+      endpoint = URI.parse("https://example.com")
+      client = create_mollie_client.http_client(endpoint)
+      client.tls.should be_a(OpenSSL::SSL::Context::Client)
+    end
+  end
+
   describe "#perform_http_call" do
+    it "fails if no api key is provided" do
+      expect_raises(Mollie::MissingApiKeyException) do
+        WebMock.stub(:get, "https://api.mollie.com/v2/my-method")
+          .with(headers: client_http_headers)
+          .to_return(status: 200, body: "{}", headers: empty_string_hash)
+        Mollie::Client.new
+          .perform_http_call("GET", "my-method", nil, empty_string_hash)
+      end
+    end
+
     it "has defaults to perform a request" do
-      headers = {
-        "Accept"        => "application/json",
-        "Content-type"  => "application/json",
-        "Authorization" => "Bearer test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM",
-        "User-Agent"    => Mollie::Util.version_string,
-      }
-      WebMock.stub(:any, "https://api.mollie.com/v2/my-method")
-        .with(headers: headers)
+      WebMock.stub(:get, "https://api.mollie.com/v2/my-method")
+        .with(headers: client_http_headers)
         .to_return(status: 200, body: "{}", headers: empty_string_hash)
       create_mollie_client
         .perform_http_call("GET", "my-method", nil, empty_string_hash)
     end
 
     it "overrides defaults with given values" do
-      headers = {
-        "Accept"        => "application/json",
-        "Content-type"  => "application/json",
-        "Authorization" => "Bearer my_key",
-        "User-Agent"    => Mollie::Util.version_string,
-      }
-      query = {:api_key => "my_key", :api_endpoint => "https://localhost"}
-      WebMock.stub(:any, "https://localhost/v2/my-method")
+      query = {:api_key => "my_key", :api_endpoint => "https://some-host.com"}
+      headers = client_http_headers({"Authorization" => "Bearer my_key"})
+      WebMock.stub(:get, "https://some-host.com/v2/my-method")
         .with(headers: headers)
         .to_return(status: 200, body: "{}", headers: empty_string_hash)
       create_mollie_client
