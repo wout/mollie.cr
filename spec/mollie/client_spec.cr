@@ -71,15 +71,13 @@ describe "Mollie::Client" do
   describe "#perform_http_call" do
     it "fails if no api key is provided" do
       expect_raises(Mollie::MissingApiKeyException) do
-        Mollie::Client.new
-          .perform_http_call("GET", "my-method", nil, empty_string_hash)
+        Mollie::Client.new.perform_http_call("GET", "my-method")
       end
     end
 
     it "fails with an invalid http method" do
       expect_raises(Mollie::MethodNotSupportedException) do
-        create_mollie_client
-          .perform_http_call("PUT", "my-method", nil, empty_string_hash)
+        create_mollie_client.perform_http_call("PUT", "my-method")
       end
     end
 
@@ -87,8 +85,7 @@ describe "Mollie::Client" do
       WebMock.stub(:get, "https://api.mollie.com/v2/my-method")
         .with(headers: client_http_headers)
         .to_return(status: 200, body: "{}", headers: empty_string_hash)
-      create_mollie_client
-        .perform_http_call("GET", "my-method", nil, empty_string_hash)
+      create_mollie_client.perform_http_call("GET", "my-method")
     end
 
     it "overrides defaults with given values" do
@@ -101,6 +98,39 @@ describe "Mollie::Client" do
         .perform_http_call("GET", "my-method", nil, query)
       create_mollie_client
         .perform_http_call("GET", "my-method", nil, empty_string_hash, query)
+    end
+
+    it "converts query params to camel case" do
+      query = {:my_param => "ok"}
+      WebMock.stub(:get, "https://api.mollie.com/v2/my-method?myParam=ok")
+        .with(headers: client_http_headers)
+        .to_return(status: 200, body: "{}", headers: empty_string_hash)
+      create_mollie_client
+        .perform_http_call("GET", "my-method", nil, empty_string_hash, query)
+    end
+
+    it "includes error data in request exceptions" do
+      response = <<-JSON
+        {
+          "status": 401,
+          "title": "Unauthorized Request",
+          "detail": "Missing authentication, or failed to authenticate",
+          "field": "test-field",
+          "_links": {
+            "documentation": {
+              "href": "https://www.mollie.com/en/docs/authentication",
+              "type": "text/html"
+            }
+          }
+        }
+      JSON
+
+      json = JSON.parse(response)
+      WebMock.stub(:get, "https://api.mollie.com/v2/my-method")
+        .with(headers: client_http_headers)
+        .to_return(status: 401, body: response)
+
+      create_mollie_client.perform_http_call("POST", "my-method")
     end
   end
 end

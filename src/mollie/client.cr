@@ -54,6 +54,11 @@ struct Mollie
       http_body : Hash(Symbol | String, String) = Hash(String, String).new,
       query : Hash(Symbol | String, String) = Hash(String, String).new
     )
+      unless METHODS.includes?(http_method)
+        raise Mollie::MethodNotSupportedException.new(
+          "Invalid HTTP Method #{http_method}")
+      end
+
       api_key = http_body.delete(:api_key) || query.delete(:api_key) ||
                 @api_key || Mollie::Config.api_key
       api_endpoint = http_body.delete(:api_endpoint) ||
@@ -74,21 +79,34 @@ struct Mollie
       client = http_client(URI.parse(api_endpoint))
       headers = http_headers(api_key: api_key)
 
-      unless METHODS.includes?(http_method)
-        raise Mollie::MethodNotSupportedException.new(
-          "Invalid HTTP Method #{http_method}")
-      end
-
       begin
         case http_method
         when "GET"
           response = client.get(path, headers: headers)
         when "POST", "PATCH", "DELETE"
+          http_body.delete_if { |_k, v| v.nil? }
+          body = Util.camelize_keys(http_body).to_json
+          response = client.exec(http_method, path, headers: headers, body: body)
         end
       rescue e : IO::Timeout
         raise Mollie::RequestTimeoutException.new(e.message)
       rescue e : Exception
         raise Mollie::Exception.new(e.message)
+      end
+
+      case response.code.to_i
+      when 200, 201
+        Util.nested_underscore_keys(JSON.parse(response.body))
+      when 204
+        Hash.new # No Content
+      when 404
+        # json = JSON.parse(response.body)
+        # exception = ResourceNotFoundError.new(json)
+        # raise exception
+      else
+        # json = JSON.parse(response.body)
+        # exception = Mollie::RequestError.new(json)
+        # raise exception
       end
     end
   end

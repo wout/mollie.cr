@@ -24,6 +24,21 @@ struct Mollie
       end
     end
 
+    def self.nested_underscore_keys(hash : Hash)
+      hash.each_with_object(Hash(String, String).new) do |(key, value), underscored|
+        underscored_key = Wordsmith::Inflector.underscore(key)
+        underscored[underscored_key] = self.nested_underscore_keys(value)
+      end
+    end
+
+    def self.nested_underscore_keys(array : Array)
+      array.map { |item| self.nested_underscore_keys(item) }
+    end
+
+    def self.nested_underscore_keys(value : Number | Bool | String?)
+      value
+    end
+
     def self.build_nested_query(
       value : Hash(Symbol | String, String),
       prefix : String? = nil
