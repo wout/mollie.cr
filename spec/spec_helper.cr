@@ -23,6 +23,22 @@ def example_error_response
   JSON
 end
 
+def example_not_found_response
+  <<-JSON
+    {
+      "status": 404,
+      "title": "Not Found",
+      "detail": "No payment exists with token tr_WDqYK6vllg.",
+      "_links": {
+        "documentation": {
+          "href": "https://docs.mollie.com/guides/handling-errors",
+          "type": "text/html"
+        }
+      }
+    }
+  JSON
+end
+
 Spec.after_each do
   Mollie::Config.api_key = nil
   Mollie::Config.open_timeout = 60

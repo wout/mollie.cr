@@ -92,23 +92,19 @@ struct Mollie
         render(response)
       rescue e : IO::Timeout
         raise Mollie::RequestTimeoutException.new(e.message)
-      rescue e : Exception
-        raise Mollie::Exception.new(e.message)
       end
     end
 
-    private def render(response)
-      case response.status.code
+    private def render(response : HTTP::Client::Response)
+      case response.status_code
       when 200, 201
         response.body
       when 204
-        "" # No Content
+        ""
       when 404
-        # json = JSON.parse(response.body)
-        # raise ResourceNotFoundError.new(json)
+        raise Mollie::ResourceNotFoundException.from_json(response.body)
       else
-        # json = JSON.parse(response.body)
-        # raise Mollie::RequestError.new(json)
+        raise Mollie::RequestException.from_json(response.body)
       end
     end
 

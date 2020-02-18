@@ -15,6 +15,9 @@ struct Mollie
     end
   end
 
+  class ResourceNotFoundException < Mollie::RequestException
+  end
+
   class MissingApiKeyException < Mollie::Exception; end
 
   class RequestTimeoutException < Mollie::Exception; end

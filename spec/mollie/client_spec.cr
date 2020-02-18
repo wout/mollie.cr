@@ -81,7 +81,7 @@ describe Mollie::Client do
       end
     end
 
-    it "has defaults to perform a request" do
+    it "has defaults to be able to perform a request" do
       WebMock.stub(:get, "https://api.mollie.com/v2/my-method")
         .with(headers: client_http_headers)
         .to_return(status: 200, body: "{}", headers: empty_string_hash)
@@ -109,27 +109,24 @@ describe Mollie::Client do
         .perform_http_call("GET", "my-method", nil, empty_string_hash, query)
     end
 
-    pending "includes error data in request exceptions" do
-      response = <<-JSON
-        {
-          "status": 401,
-          "title": "Unauthorized Request",
-          "detail": "Missing authentication, or failed to authenticate",
-          "field": "test-field",
-          "_links": {
-            "documentation": {
-              "href": "https://www.mollie.com/en/docs/authentication",
-              "type": "text/html"
-            }
-          }
-        }
-      JSON
-
-      WebMock.stub(:get, "https://api.mollie.com/v2/my-method")
+    it "raises request exceptions" do
+      WebMock.stub(:post, "https://api.mollie.com/v2/my-method")
         .with(headers: client_http_headers)
-        .to_return(status: 401, body: response)
+        .to_return(status: 401, body: example_error_response)
 
-      create_mollie_client.perform_http_call("POST", "my-method")
+      expect_raises(Mollie::RequestException) do
+        create_mollie_client.perform_http_call("POST", "my-method")
+      end
+    end
+
+    it "raises request exceptions" do
+      WebMock.stub(:post, "https://api.mollie.com/v2/no-method")
+        .with(body: "{}", headers: client_http_headers)
+        .to_return(status: 404, body: example_not_found_response)
+
+      expect_raises(Mollie::ResourceNotFoundException) do
+        create_mollie_client.perform_http_call("POST", "no-method")
+      end
     end
   end
 
