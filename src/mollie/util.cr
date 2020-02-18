@@ -14,33 +14,31 @@ struct Mollie
     def self.extract_id(links : Hash, type : String)
       href = extract_url(links, type)
       return if href.nil?
-      uri = URI.parse(href)
-      File.basename(uri.path)
+      File.basename(URI.parse(href).path)
     end
 
-    def self.camelize_keys(hash : Hash(Symbol | String, String))
-      hash.each_with_object(Hash(String, String).new) do |(key, value), camel|
-        camel[Wordsmith::Inflector.camelize(key, false)] = value
-      end
+    def self.camelize_keys(hash : Hash)
+      hash.transform_keys { |key| Wordsmith::Inflector.camelize(key, false) }
     end
 
-    def self.nested_underscore_keys(hash : Hash)
-      hash.each_with_object(Hash(String, String).new) do |(key, value), underscored|
-        underscored_key = Wordsmith::Inflector.underscore(key)
-        underscored[underscored_key] = self.nested_underscore_keys(value)
-      end
+    def self.nested_underscored_keys(json : JSON::Any)
+      hash.transform_keys { |key| Wordsmith::Inflector.underscore(key) }
     end
 
-    def self.nested_underscore_keys(array : Array)
-      array.map { |item| self.nested_underscore_keys(item) }
+    def self.nested_underscored_keys(hash : Hash)
+      hash.transform_keys { |key| Wordsmith::Inflector.underscore(key) }
     end
 
-    def self.nested_underscore_keys(value : Number | Bool | String?)
+    def self.nested_underscored_keys(array : Array)
+      array.map { |item| self.nested_underscored_keys(item) }
+    end
+
+    def self.nested_underscored_keys(value : Number | Bool | String?)
       value
     end
 
     def self.build_nested_query(
-      value : Hash(Symbol | String, String),
+      value : Hash(Symbol | String, String | Array(String)),
       prefix : String? = nil
     )
       value.map do |k, v|
@@ -50,9 +48,7 @@ struct Mollie
     end
 
     def self.build_nested_query(value : Array(String), prefix : String? = nil)
-      value.map do |v|
-        self.build_nested_query(v, "#{prefix}[]")
-      end.join("&")
+      value.map { |v| self.build_nested_query(v, "#{prefix}[]") }.join("&")
     end
 
     def self.build_nested_query(value : String, prefix : String)

@@ -8,6 +8,7 @@ struct Mollie
 
     METHODS = %w[GET POST PATCH DELETE]
 
+    class_property instance : Mollie::Client?
     property :api_key
     getter :api_endpoint
 
@@ -80,34 +81,39 @@ struct Mollie
       headers = http_headers(api_key: api_key)
 
       begin
-        case http_method
-        when "GET"
+        if http_method == "GET"
           response = client.get(path, headers: headers)
-        when "POST", "PATCH", "DELETE"
+        else
           http_body.delete_if { |_k, v| v.nil? }
           body = Util.camelize_keys(http_body).to_json
           response = client.exec(http_method, path, headers: headers, body: body)
         end
+        render(response)
       rescue e : IO::Timeout
         raise Mollie::RequestTimeoutException.new(e.message)
       rescue e : Exception
         raise Mollie::Exception.new(e.message)
       end
+    end
 
-      case response.code.to_i
-      when 200, 201
-        Util.nested_underscore_keys(JSON.parse(response.body))
-      when 204
-        Hash.new # No Content
-      when 404
-        # json = JSON.parse(response.body)
-        # exception = ResourceNotFoundError.new(json)
-        # raise exception
-      else
-        # json = JSON.parse(response.body)
-        # exception = Mollie::RequestError.new(json)
-        # raise exception
-      end
+    private def render(response)
+      # case response.status.code
+      # when 200, 201
+      #   # Util.nested_underscored_keys(JSON.parse(response.body))
+
+      # when 204
+      #   Hash.new # No Content
+      # when 404
+      #   json = JSON.parse(response.body)
+      #   raise ResourceNotFoundError.new(json)
+      # else
+      #   json = JSON.parse(response.body)
+      #   raise Mollie::RequestError.new(json)
+      # end
+    end
+
+    def self.instance
+      @@instance ||= new(Mollie::Config.api_key)
     end
   end
 end

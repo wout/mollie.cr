@@ -51,9 +51,9 @@ describe "Mollie::Util" do
     end
   end
 
-  describe ".nested_underscore_keys" do
+  describe ".nested_underscored_keys" do
     pending "converts hash keys to underscore recruisively" do
-      nested = Mollie::Util.nested_underscore_keys({
+      nested = Mollie::Util.nested_underscored_keys({
         "someKey"     => "mastaba",
         "nestedItems" => {
           "nestedValue" => 1,
@@ -65,22 +65,22 @@ describe "Mollie::Util" do
     end
 
     it "converts an array of hashes recruisively" do
-      nested = Mollie::Util.nested_underscore_keys([
+      nested = Mollie::Util.nested_underscored_keys([
         {"abSolUteLy" => "fab"},
       ])
       nested[0]["ab_sol_ute_ly"].should eq("fab")
     end
 
     it "does nothing for anything other than a hash or array" do
-      nested = Mollie::Util.nested_underscore_keys(32)
+      nested = Mollie::Util.nested_underscored_keys(32)
       nested.should eq(32)
-      nested = Mollie::Util.nested_underscore_keys(3.2)
+      nested = Mollie::Util.nested_underscored_keys(3.2)
       nested.should eq(3.2)
-      nested = Mollie::Util.nested_underscore_keys("Renincarnation")
+      nested = Mollie::Util.nested_underscored_keys("Renincarnation")
       nested.should eq("Renincarnation")
-      nested = Mollie::Util.nested_underscore_keys(true)
+      nested = Mollie::Util.nested_underscored_keys(true)
       nested.should be_true
-      nested = Mollie::Util.nested_underscore_keys(nil)
+      nested = Mollie::Util.nested_underscored_keys(nil)
       nested.should be_nil
     end
   end
@@ -101,6 +101,14 @@ describe "Mollie::Util" do
           :email => "noot@mies.wim",
         }, "zus")
         query.should eq("zus[name]=Aap&zus[email]=noot%40mies.wim")
+      end
+
+      it "accepts arrays as values" do
+        query = Mollie::Util.build_nested_query({
+          :name => "Aap",
+          :list => %w[noot mies],
+        }, "wim")
+        query.should eq("wim[name]=Aap&wim[list][]=noot&wim[list][]=mies")
       end
     end
 

@@ -109,7 +109,7 @@ describe "Mollie::Client" do
         .perform_http_call("GET", "my-method", nil, empty_string_hash, query)
     end
 
-    it "includes error data in request exceptions" do
+    pending "includes error data in request exceptions" do
       response = <<-JSON
         {
           "status": 401,
@@ -125,12 +125,22 @@ describe "Mollie::Client" do
         }
       JSON
 
-      json = JSON.parse(response)
       WebMock.stub(:get, "https://api.mollie.com/v2/my-method")
         .with(headers: client_http_headers)
         .to_return(status: 401, body: response)
 
       create_mollie_client.perform_http_call("POST", "my-method")
+    end
+  end
+
+  describe ".instance" do
+    it "returns a new instance" do
+      Mollie::Client.instance.should be_a(Mollie::Client)
+    end
+
+    it "never initializes another new instance" do
+      instance = Mollie::Client.instance
+      Mollie::Client.instance.should be(instance)
     end
   end
 end
