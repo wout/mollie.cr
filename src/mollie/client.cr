@@ -98,19 +98,18 @@ struct Mollie
     end
 
     private def render(response)
-      # case response.status.code
-      # when 200, 201
-      #   # Util.nested_underscored_keys(JSON.parse(response.body))
-
-      # when 204
-      #   Hash.new # No Content
-      # when 404
-      #   json = JSON.parse(response.body)
-      #   raise ResourceNotFoundError.new(json)
-      # else
-      #   json = JSON.parse(response.body)
-      #   raise Mollie::RequestError.new(json)
-      # end
+      case response.status.code
+      when 200, 201
+        response.body
+      when 204
+        "" # No Content
+      when 404
+        # json = JSON.parse(response.body)
+        # raise ResourceNotFoundError.new(json)
+      else
+        # json = JSON.parse(response.body)
+        # raise Mollie::RequestError.new(json)
+      end
     end
 
     def self.instance

@@ -1,6 +1,6 @@
 require "../spec_helper.cr"
 
-describe "Mollie::Config" do
+describe Mollie::Config do
   describe ".api_key" do
     it "has no default api key" do
       Mollie::Config.api_key.should be_nil

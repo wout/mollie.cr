@@ -1,6 +1,6 @@
 require "../spec_helper.cr"
 
-describe "Mollie::Util" do
+describe Mollie::Util do
   describe ".version_string" do
     it "returns a string with mollie shard, crystal and openssl versions" do
       mollie = Mollie::VERSION

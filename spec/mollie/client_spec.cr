@@ -1,7 +1,7 @@
 require "../spec_helper.cr"
 require "../spec_helpers/client_helper.cr"
 
-describe "Mollie::Client" do
+describe Mollie::Client do
   describe "#initialize" do
     it "stores the api key" do
       create_mollie_client.api_key

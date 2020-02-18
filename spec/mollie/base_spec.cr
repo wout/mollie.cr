@@ -1,6 +1,6 @@
 require "../spec_helper.cr"
 
-describe "Mollie::TestObject" do
+describe Mollie::TestObject do
   describe "#resource_name" do
     it "returns the name of a resource" do
       Mollie::TestObject.resource_name

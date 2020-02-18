@@ -2,9 +2,16 @@ struct Mollie
   class Exception < Exception; end
 
   class RequestException < Mollie::Exception
-    property status : Int32?
+    JSON.mapping({
+      status: Int32?,
+      title:  String?,
+      detail: String?,
+      field:  String?,
+      _links: Hash(String, Hash(String, String)),
+    })
 
-    def initialize(@error : JSON::Any)
+    def to_s
+      "#{status} #{title}: #{detail}"
     end
   end
 
