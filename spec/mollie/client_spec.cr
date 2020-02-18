@@ -143,4 +143,18 @@ describe "Mollie::Client" do
       Mollie::Client.instance.should be(instance)
     end
   end
+
+  describe ".with_api_key" do
+    it "returns the instance for a given api key" do
+      client_1 = Mollie::Client.new("key_1")
+      client_2 = Mollie::Client.new("key_2")
+      Mollie::Client.with_api_key("key_1").should be(client_1)
+      Mollie::Client.with_api_key("key_2").should be(client_2)
+    end
+
+    it "never initializes another instance for the given api key" do
+      client = Mollie::Client.with_api_key("mastaba")
+      Mollie::Client.with_api_key("mastaba").should be(client)
+    end
+  end
 end

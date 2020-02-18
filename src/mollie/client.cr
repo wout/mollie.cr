@@ -8,13 +8,14 @@ struct Mollie
 
     METHODS = %w[GET POST PATCH DELETE]
 
-    class_property instance : Mollie::Client?
+    class_property instances = Hash(String, Mollie::Client).new
     property :api_key
     getter :api_endpoint
 
     def initialize(api_key : String? = nil)
       @api_endpoint = API_ENDPOINT
       @api_key = api_key || Mollie::Config.api_key
+      @@instances[@api_key.to_s] = self unless @api_key.nil?
     end
 
     def api_endpoint=(api_endpoint : String)
@@ -113,7 +114,11 @@ struct Mollie
     end
 
     def self.instance
-      @@instance ||= new(Mollie::Config.api_key)
+      self.with_api_key(Mollie::Config.api_key.to_s)
+    end
+
+    def self.with_api_key(api_key : String)
+      @@instances[api_key]? || new(api_key)
     end
   end
 end

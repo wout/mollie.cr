@@ -26,6 +26,19 @@ describe Mollie::Amount do
     end
   end
 
+  describe "#value=" do
+    it "allows to set a value" do
+      amount = Mollie::Amount.new(0, "EUR")
+      amount.value = Math::PI
+      amount.value.should eq(Math::PI)
+    end
+
+    it "stores value as a big decimal" do
+      amount = Mollie::Amount.new(Math::PI, "EUR")
+      amount.value.should be_a(BigDecimal)
+    end
+  end
+
   describe "#currency" do
     it "returns the given value" do
       amount = Mollie::Amount.new(0, "EUR")

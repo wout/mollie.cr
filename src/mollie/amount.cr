@@ -5,6 +5,10 @@ struct Mollie
     getter :value, :currency
 
     def initialize(value : Float64 | Int32 | String, @currency : String)
+      self.value = value
+    end
+
+    def value=(value)
       @value = BigDecimal.new(value.to_s)
     end
 
