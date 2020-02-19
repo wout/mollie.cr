@@ -1,3 +1,5 @@
+require "./exception_helper.cr"
+
 def mollie_api_token
   "test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
 end

@@ -132,7 +132,7 @@ describe Mollie::Client do
     it "raises request exceptions" do
       WebMock.stub(:post, "https://api.mollie.com/v2/my-method")
         .with(headers: client_http_headers)
-        .to_return(status: 401, body: example_error_response)
+        .to_return(status: 401, body: example_error_response_json)
 
       expect_raises(Mollie::RequestException) do
         create_mollie_client.perform_http_call("POST", "my-method")
@@ -142,7 +142,7 @@ describe Mollie::Client do
     it "raises request exceptions" do
       WebMock.stub(:post, "https://api.mollie.com/v2/no-method")
         .with(body: "{}", headers: client_http_headers)
-        .to_return(status: 404, body: example_not_found_response)
+        .to_return(status: 404, body: example_not_found_response_json)
 
       expect_raises(Mollie::ResourceNotFoundException) do
         create_mollie_client.perform_http_call("POST", "no-method")
