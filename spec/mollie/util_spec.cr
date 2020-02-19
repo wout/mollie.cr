@@ -51,40 +51,6 @@ describe Mollie::Util do
     end
   end
 
-  describe ".nested_underscored_keys" do
-    pending "converts hash keys to underscore recruisively" do
-      nested = Mollie::Util.nested_underscored_keys({
-        "someKey"     => "mastaba",
-        "nestedItems" => {
-          "nestedValue" => 1,
-        },
-      })
-      nested["some_key"].should eq("mastaba")
-      nested["nested_items"].should be_a(Hash)
-      nested["nested_items"]["nested_value"].should eq(1)
-    end
-
-    it "converts an array of hashes recruisively" do
-      nested = Mollie::Util.nested_underscored_keys([
-        {"abSolUteLy" => "fab"},
-      ])
-      nested[0]["ab_sol_ute_ly"].should eq("fab")
-    end
-
-    it "does nothing for anything other than a hash or array" do
-      nested = Mollie::Util.nested_underscored_keys(32)
-      nested.should eq(32)
-      nested = Mollie::Util.nested_underscored_keys(3.2)
-      nested.should eq(3.2)
-      nested = Mollie::Util.nested_underscored_keys("Renincarnation")
-      nested.should eq("Renincarnation")
-      nested = Mollie::Util.nested_underscored_keys(true)
-      nested.should be_true
-      nested = Mollie::Util.nested_underscored_keys(nil)
-      nested.should be_nil
-    end
-  end
-
   describe ".build_nested_query" do
     context "given a hash" do
       it "returns a query param string" do

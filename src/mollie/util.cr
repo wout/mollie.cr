@@ -21,22 +21,6 @@ struct Mollie
       hash.transform_keys { |key| Wordsmith::Inflector.camelize(key, false) }
     end
 
-    def self.nested_underscored_keys(json : JSON::Any)
-      hash.transform_keys { |key| Wordsmith::Inflector.underscore(key) }
-    end
-
-    def self.nested_underscored_keys(hash : Hash)
-      hash.transform_keys { |key| Wordsmith::Inflector.underscore(key) }
-    end
-
-    def self.nested_underscored_keys(array : Array)
-      array.map { |item| self.nested_underscored_keys(item) }
-    end
-
-    def self.nested_underscored_keys(value : Number | Bool | String?)
-      value
-    end
-
     def self.build_nested_query(
       value : Hash(Symbol | String, String | Array(String)),
       prefix : String? = nil
