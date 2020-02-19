@@ -109,6 +109,26 @@ describe Mollie::Client do
         .perform_http_call("GET", "my-method", nil, empty_string_hash, query)
     end
 
+    it "returns a raw json string for successful requests" do
+      body = {aap: "noot"}.to_json
+      WebMock.stub(:get, "https://api.mollie.com/v2/good")
+        .to_return(status: 200, body: body, headers: empty_string_hash)
+
+      response = create_mollie_client
+        .perform_http_call("GET", "good", nil, empty_string_hash)
+      json = JSON.parse(response.to_s)
+      json["aap"].should eq("noot")
+    end
+
+    it "returns an empty string for a response without content" do
+      WebMock.stub(:get, "https://api.mollie.com/v2/empty")
+        .to_return(status: 204, headers: empty_string_hash)
+
+      response = create_mollie_client
+        .perform_http_call("GET", "empty", nil, empty_string_hash)
+      response.should eq("")
+    end
+
     it "raises request exceptions" do
       WebMock.stub(:post, "https://api.mollie.com/v2/my-method")
         .with(headers: client_http_headers)

@@ -92,6 +92,8 @@ struct Mollie
         render(response)
       rescue e : IO::Timeout
         raise Mollie::RequestTimeoutException.new(e.message)
+      rescue e : IO::EOFError | Errno
+        raise Mollie::Exception.new(e.message)
       end
     end
 
