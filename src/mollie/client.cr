@@ -35,25 +35,6 @@ struct Mollie
       end
     end
 
-    def http_headers(api_key : String)
-      HTTP::Headers{
-        "Accept"        => "application/json",
-        "Content-Type"  => "application/json",
-        "Authorization" => "Bearer #{api_key}",
-        "User-Agent"    => Util.version_string,
-      }
-    end
-
-    def http_client(uri : URI)
-      ca_cert = File.expand_path("../cacert.pem", File.dirname(__FILE__))
-      tls_context = OpenSSL::SSL::Context::Client.new
-      tls_context.ca_certificates = ca_cert
-      client = HTTP::Client.new(uri, tls: tls_context)
-      client.read_timeout = Mollie::Config.read_timeout
-      client.connect_timeout = Mollie::Config.open_timeout
-      client
-    end
-
     def perform_http_call(
       http_method : String,
       api_method : String,
@@ -89,6 +70,25 @@ struct Mollie
       rescue e : IO::EOFError | Errno
         raise Mollie::Exception.new(e.message)
       end
+    end
+
+    private def http_headers(api_key : String)
+      HTTP::Headers{
+        "Accept"        => "application/json",
+        "Content-Type"  => "application/json",
+        "Authorization" => "Bearer #{api_key}",
+        "User-Agent"    => Util.version_string,
+      }
+    end
+
+    private def http_client(uri : URI)
+      ca_cert = File.expand_path("../cacert.pem", File.dirname(__FILE__))
+      tls_context = OpenSSL::SSL::Context::Client.new
+      tls_context.ca_certificates = ca_cert
+      client = HTTP::Client.new(uri, tls: tls_context)
+      client.read_timeout = Mollie::Config.read_timeout
+      client.connect_timeout = Mollie::Config.open_timeout
+      client
     end
 
     private def render(response : HTTP::Client::Response)

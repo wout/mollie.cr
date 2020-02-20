@@ -40,7 +40,7 @@ describe Mollie::TestObject do
   end
 
   describe "#update" do
-    it "updates an instance and returns a new instance" do
+    it "updates a resource and returns a new instance" do
       configure_test_api_key
       WebMock.stub(:patch, "https://api.mollie.com/v2/testobjects/my-id")
         .with(body: %({"amount":1.95}), headers: client_http_headers)

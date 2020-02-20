@@ -12,13 +12,13 @@ struct Mollie
       end
     end
 
-    def self.create(data : Hash = HS.new, options : Hash = HS.new)
+    def self.create(data : Hash, options : Hash = HS.new)
       request(method: "POST", data: data, options: options) do |response|
         from_json(response)
       end
     end
 
-    def self.update(id : String, data : Hash = HS.new)
+    def self.update(id : String, data : Hash)
       request(method: "PATCH", id: id, data: data) do |response|
         from_json(response)
       end

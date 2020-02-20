@@ -50,24 +50,6 @@ describe Mollie::Client do
     end
   end
 
-  describe "#http_headers" do
-    it "contains mime type headers, bearer with token and version string" do
-      headers = create_mollie_client.http_headers("Superpowers")
-      headers["Accept"].should eq("application/json")
-      headers["Content-Type"].should eq("application/json")
-      headers["Authorization"].should eq("Bearer Superpowers")
-      headers["User-Agent"].should eq(Mollie::Util.version_string)
-    end
-  end
-
-  describe "#http_client" do
-    it "returns a http client configured with certificate verification" do
-      endpoint = URI.parse("https://example.com")
-      client = create_mollie_client.http_client(endpoint)
-      client.tls.should be_a(OpenSSL::SSL::Context::Client)
-    end
-  end
-
   describe "#perform_http_call" do
     it "fails with an invalid http method" do
       expect_raises(Mollie::MethodNotSupportedException) do
