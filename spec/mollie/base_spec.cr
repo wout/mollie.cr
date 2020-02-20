@@ -6,7 +6,7 @@ describe Mollie::TestObject do
     it "fetches a resource" do
       configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/testobjects/mastaba")
-        .to_return(body: test_object_json)
+        .to_return(status: 200, body: test_object_json)
 
       resource = Mollie::TestObject.get("mastaba")
       resource.id.should eq("mastaba")
@@ -18,7 +18,7 @@ describe Mollie::TestObject do
       configure_test_api_key
       WebMock.stub(:post, "https://api.mollie.com/v2/testobjects")
         .with(body: %({"amount":1.95}), headers: client_http_headers)
-        .to_return(body: %({"id":"my-id", "amount":1.0}))
+        .to_return(status: 201, body: %({"id":"my-id", "amount":1.0}))
 
       resource = Mollie::TestObject.create({:amount => 1.95})
       resource.id.should eq("my-id")
@@ -27,8 +27,31 @@ describe Mollie::TestObject do
   end
 
   describe ".update" do
-    it "upadtes a resource" do
+    it "updates a resource by id" do
+      configure_test_api_key
+      WebMock.stub(:patch, "https://api.mollie.com/v2/testobjects/my-id")
+        .with(body: %({"amount":1.95}), headers: client_http_headers)
+        .to_return(status: 201, body: %({"id":"my-id", "amount":1.0}))
+
       resource = Mollie::TestObject.update("my-id", {:amount => 1.95})
+      resource.id.should eq("my-id")
+      resource.amount.should eq(1.0)
+    end
+  end
+
+  describe "#update" do
+    it "updates an instance and returns a new instance" do
+      configure_test_api_key
+      WebMock.stub(:patch, "https://api.mollie.com/v2/testobjects/my-id")
+        .with(body: %({"amount":1.95}), headers: client_http_headers)
+        .to_return(status: 201, body: %({"id":"my-id", "amount":1.0}))
+
+      old_resource = Mollie::TestObject.from_json(%({"id": "my-id"}))
+      new_resource = old_resource.update({:amount => 1.95})
+
+      new_resource.should_not eq(old_resource)
+      new_resource.id.should eq("my-id")
+      new_resource.amount.should eq(1.0)
     end
   end
 
@@ -66,7 +89,7 @@ describe Mollie::TestObject::NestedObject do
     it "fetches a resource" do
       configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/testobjects/mastaba/nestedobjects/nested")
-        .to_return(body: nested_test_object_json)
+        .to_return(status: 200, body: nested_test_object_json)
 
       resource = Mollie::TestObject::NestedObject.get("nested", {
         :testobject_id => "mastaba",
@@ -83,7 +106,7 @@ describe Mollie::TestObject::NestedObject do
         .with(
           body: %({"foo":"1.95"}),
           headers: client_http_headers)
-        .to_return(body: %({"id":"my-id", "testobjectId":"p-id", "foo":"1.0"}))
+        .to_return(status: 201, body: %({"id":"my-id", "testobjectId":"p-id", "foo":"1.0"}))
 
       resource = Mollie::TestObject::NestedObject.create({
         :foo           => "1.95",
@@ -92,6 +115,12 @@ describe Mollie::TestObject::NestedObject do
       resource.id.should eq("my-id")
       resource.testobject_id.should eq("p-id")
       resource.foo.should eq("1.0")
+    end
+  end
+
+  describe ".update" do
+    it "updates a nested resource" do
+      # resource = Mollie::TestObject::NestedObject.update("my-id", {:foo => "1.95"})
     end
   end
 
@@ -126,14 +155,14 @@ describe Mollie::TestObject::NestedObject do
 end
 
 struct Mollie
-  class TestObject < Base
+  struct TestObject < Base
     getter id : String?
     getter foo : String?
     getter amount : Float64?
     @[JSON::Field(key: "myField")]
     getter my_field : String?
 
-    class NestedObject < Base
+    struct NestedObject < Base
       getter id : String?
       getter foo : String?
       @[JSON::Field(key: "testobjectId")]

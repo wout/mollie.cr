@@ -1,5 +1,5 @@
 struct Mollie
-  class Client
+  struct Client
     API_ENDPOINT = "https://api.mollie.com"
     API_VERSION  = "v2"
 
@@ -10,18 +10,21 @@ struct Mollie
 
     alias HS = Hash(String, String)
 
-    class_property instances = Hash(String, Mollie::Client).new
-    property :api_key
-    getter :api_endpoint
+    getter api_key : String?
+    getter api_endpoint : String
 
-    def initialize(api_key : String? = nil)
-      @api_endpoint = API_ENDPOINT
-      @api_key = api_key || Mollie::Config.api_key
-      @@instances[@api_key.to_s] = self unless @api_key.nil?
-    end
-
-    def api_endpoint=(api_endpoint : String)
+    def initialize(
+      @api_key : String? = Mollie::Config.api_key,
+      api_endpoint : String = API_ENDPOINT
+    )
       @api_endpoint = api_endpoint.chomp("/")
+
+      if @api_key
+        Mollie::State.instances[@api_key.to_s] = self unless @api_key.nil?
+      else
+        raise Mollie::MissingApiKeyException.new(
+          "Expected API key but none was provided")
+      end
     end
 
     def api_path(api_method : String, id : String? = nil)
@@ -61,17 +64,6 @@ struct Mollie
       unless METHODS.includes?(http_method)
         raise Mollie::MethodNotSupportedException.new(
           "Invalid HTTP Method #{http_method}")
-      end
-
-      api_key = http_body.delete(:api_key) || query.delete(:api_key) ||
-                @api_key || Mollie::Config.api_key
-      api_endpoint = http_body.delete(:api_endpoint) ||
-                     query.delete(:api_endpoint) ||
-                     @api_endpoint
-
-      unless api_key
-        raise Mollie::MissingApiKeyException.new(
-          "Expected API key but none was provided")
       end
 
       path = api_path(api_method, id)
@@ -117,7 +109,7 @@ struct Mollie
     end
 
     def self.with_api_key(api_key : String)
-      @@instances[api_key]? || new(api_key)
+      Mollie::State.instances[api_key]? || new(api_key)
     end
   end
 end

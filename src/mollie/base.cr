@@ -1,5 +1,5 @@
 struct Mollie
-  abstract class Base
+  abstract struct Base
     include JSON::Serializable
 
     alias HS = Hash(String, String)
@@ -16,6 +16,16 @@ struct Mollie
       request(method: "POST", data: data, options: options) do |response|
         from_json(response)
       end
+    end
+
+    def self.update(id : String, data : Hash = HS.new)
+      request(method: "PATCH", id: id, data: data) do |response|
+        from_json(response)
+      end
+    end
+
+    def update(data : Hash)
+      self.class.update(id.to_s, data)
     end
 
     def self.id_param

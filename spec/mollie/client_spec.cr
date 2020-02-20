@@ -8,21 +8,21 @@ describe Mollie::Client do
         .should be("test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM")
     end
 
+    it "stores the api endpoint without trailing slash" do
+      Mollie::Config.api_key = "my_key"
+      client = Mollie::Client.new(api_endpoint: "http://my.endpoint/")
+      client.api_endpoint.should eq("http://my.endpoint")
+    end
+
     it "falls back to the globally configured api key" do
       Mollie::Config.api_key = "my_key"
       Mollie::Client.new.api_key.should eq("my_key")
     end
 
-    it "can be initialized without an api key" do
-      Mollie::Client.new.api_key.should be_nil
-    end
-  end
-
-  describe "#api_endpoint=" do
-    it "ensures the api endpoint is stored without trailing slash" do
-      client = create_mollie_client
-      client.api_endpoint = "http://my.endpoint/"
-      client.api_endpoint.should eq("http://my.endpoint")
+    it "fails if no api key is provided" do
+      expect_raises(Mollie::MissingApiKeyException) do
+        Mollie::Client.new
+      end
     end
   end
 
@@ -69,12 +69,6 @@ describe Mollie::Client do
   end
 
   describe "#perform_http_call" do
-    it "fails if no api key is provided" do
-      expect_raises(Mollie::MissingApiKeyException) do
-        Mollie::Client.new.perform_http_call("GET", "my-method")
-      end
-    end
-
     it "fails with an invalid http method" do
       expect_raises(Mollie::MethodNotSupportedException) do
         create_mollie_client.perform_http_call("PUT", "my-method")
@@ -86,18 +80,6 @@ describe Mollie::Client do
         .with(headers: client_http_headers)
         .to_return(status: 200, body: "{}", headers: empty_string_hash)
       create_mollie_client.perform_http_call("GET", "my-method")
-    end
-
-    it "overrides defaults with given values" do
-      query = {:api_key => "my_key", :api_endpoint => "https://some-host.com"}
-      headers = client_http_headers({"Authorization" => "Bearer my_key"})
-      WebMock.stub(:get, "https://some-host.com/v2/my-method")
-        .with(headers: headers)
-        .to_return(status: 200, body: "{}", headers: empty_string_hash)
-      create_mollie_client
-        .perform_http_call("GET", "my-method", nil, query)
-      create_mollie_client
-        .perform_http_call("GET", "my-method", nil, empty_string_hash, query)
     end
 
     it "converts query params to camel case" do
@@ -157,7 +139,7 @@ describe Mollie::Client do
 
     it "never initializes another new instance" do
       instance = Mollie::Client.instance
-      Mollie::Client.instance.should be(instance)
+      Mollie::Client.instance.should eq(instance)
     end
   end
 
@@ -165,13 +147,13 @@ describe Mollie::Client do
     it "returns the instance for a given api key" do
       client_1 = Mollie::Client.new("key_1")
       client_2 = Mollie::Client.new("key_2")
-      Mollie::Client.with_api_key("key_1").should be(client_1)
-      Mollie::Client.with_api_key("key_2").should be(client_2)
+      Mollie::Client.with_api_key("key_1").should eq(client_1)
+      Mollie::Client.with_api_key("key_2").should eq(client_2)
     end
 
     it "never initializes another instance for the given api key" do
       client = Mollie::Client.with_api_key("mastaba")
-      Mollie::Client.with_api_key("mastaba").should be(client)
+      Mollie::Client.with_api_key("mastaba").should eq(client)
     end
   end
 end

@@ -1,5 +1,5 @@
 struct Mollie
-  class Method < Base
+  struct Method < Base
     include JSON::Serializable
 
     enum Type
