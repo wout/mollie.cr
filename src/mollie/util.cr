@@ -43,6 +43,10 @@ struct Mollie
       prefix
     end
 
+    def self.stringify_keys(hash : Hash)
+      hash.transform_keys { |key| key.to_s }
+    end
+
     private def self.escape(value : Symbol | String)
       URI.encode_www_form(value.to_s)
     end

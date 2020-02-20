@@ -8,6 +8,8 @@ struct Mollie
 
     METHODS = %w[GET POST PATCH DELETE]
 
+    alias HS = Hash(String, String)
+
     class_property instances = Hash(String, Mollie::Client).new
     property :api_key
     getter :api_endpoint
@@ -53,8 +55,8 @@ struct Mollie
       http_method : String,
       api_method : String,
       id : String? = nil,
-      http_body : Hash(Symbol | String, String) = Hash(String, String).new,
-      query : Hash(Symbol | String, String) = Hash(String, String).new
+      http_body : Hash = HS.new,
+      query : Hash = HS.new
     )
       unless METHODS.includes?(http_method)
         raise Mollie::MethodNotSupportedException.new(
@@ -78,8 +80,8 @@ struct Mollie
         path += "?#{nested_query}"
       end
 
-      client = http_client(URI.parse(api_endpoint))
-      headers = http_headers(api_key: api_key)
+      client = http_client(URI.parse(api_endpoint.to_s))
+      headers = http_headers(api_key: api_key.to_s)
 
       begin
         if http_method == "GET"

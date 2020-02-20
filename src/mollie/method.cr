@@ -15,12 +15,12 @@ struct Mollie
       Ideal
       IngHomePay
       Kbc
+      KlarnaPayLater
+      KlarnaSliceIt
       PayPal
       Paysafecard
       Przelewy24
       Sofort
-      KlarnaSliceIt
-      KlarnaPayLater
 
       def to_s
         super.downcase

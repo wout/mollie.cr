@@ -1,11 +1,19 @@
 struct Mollie
   abstract class Base
-    alias H = Hash(String, String)
+    include JSON::Serializable
+
+    alias HS = Hash(String, String)
 
     @@name_parts : Array(String)?
 
-    def self.get(id : String, options : Hash = H.new)
-      request("GET", id, H.new, options) do |response|
+    def self.get(id : String, options : Hash = HS.new)
+      request(method: "GET", id: id, options: options) do |response|
+        from_json(response)
+      end
+    end
+
+    def self.create(data : Hash = HS.new, options : Hash = HS.new)
+      request(method: "POST", data: data, options: options) do |response|
         from_json(response)
       end
     end
@@ -14,7 +22,7 @@ struct Mollie
       "#{name_parts[-1]}_id"
     end
 
-    def self.parent_id_param
+    def self.parent_param
       "#{name_parts[-2]}_id" unless name_parts[-2] == "mollie"
     end
 
@@ -30,20 +38,22 @@ struct Mollie
 
     private def self.request(
       method : String,
-      id : String?,
-      data : Hash = H.new,
-      options : Hash = H.new
+      id : String? = nil,
+      data : Hash = HS.new,
+      options : Hash = HS.new
     )
-      parent_id = options.delete(parent_id_param) || data.delete(parent_id_param)
+      data = Util.stringify_keys(data)
+      options = Util.stringify_keys(options)
+      parent_id = options.delete(parent_param) || data.delete(parent_param)
       response = Mollie::Client.instance.perform_http_call(
-        method, resource_name(parent_id), id, data, options)
+        method, resource_name(parent_id.to_s), id, data, options)
     end
 
     private def self.request(
       method : String,
-      id : String?,
-      data : Hash = H.new,
-      options : Hash = H.new
+      id : String? = nil,
+      data : Hash = HS.new,
+      options : Hash = HS.new
     )
       yield(request(method, id, data, options))
     end

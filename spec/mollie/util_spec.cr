@@ -109,4 +109,13 @@ describe Mollie::Util do
       end
     end
   end
+
+  describe ".stringify_keys" do
+    it "converts has keys to strings" do
+      original = {:symbol => "Symbol", "string" => "String"}
+      stringified = Mollie::Util.stringify_keys(original)
+      stringified["symbol"].should eq("Symbol")
+      stringified["string"].should eq("String")
+    end
+  end
 end
