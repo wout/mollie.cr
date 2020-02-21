@@ -25,12 +25,15 @@ struct Mollie
     end
 
     def update(data : Hash | NamedTuple)
-      if param = parent_id
-        parent = HS.new
-        parent[self.class.parent_param.to_s] = param.to_s
-        data = data.to_h.merge(parent)
-      end
-      self.class.update(id.to_s, data)
+      self.class.update(id.to_s, data_with_parent_id(data))
+    end
+
+    def self.delete(id : String, options : Hash | NamedTuple = HS.new)
+      request("DELETE", id, options)
+    end
+
+    def delete(data : Hash | NamedTuple = HS.new)
+      self.class.delete(id.to_s, data_with_parent_id(data))
     end
 
     def self.id_param
@@ -56,6 +59,15 @@ struct Mollie
       if param && (value = JSON.parse(to_json)[param]?)
         value.to_s
       end
+    end
+
+    private def data_with_parent_id(data : Hash | NamedTuple)
+      if id = parent_id
+        parent = HS.new
+        parent[self.class.parent_param.to_s] = id.to_s
+        data = data.to_h.merge(parent)
+      end
+      data
     end
 
     private def self.request(

@@ -66,6 +66,30 @@ describe Mollie::TestObject do
     end
   end
 
+  describe ".delete" do
+    it "deletes a resource" do
+      configure_test_api_key
+      WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/my-id")
+        .with(body: "{}", headers: client_http_headers)
+        .to_return(status: 204, body: "")
+
+      response = Mollie::TestObject.delete("my-id")
+      response.should eq("")
+    end
+  end
+
+  describe "#delete" do
+    it "deletes a resource" do
+      configure_test_api_key
+      WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/my-id")
+        .with(body: "{}", headers: client_http_headers)
+        .to_return(status: 204, body: "")
+
+      resource = Mollie::TestObject.from_json(%({"id": "my-id"}))
+      resource.delete.should eq("")
+    end
+  end
+
   describe ".resource_name" do
     it "returns the name of a resource" do
       Mollie::TestObject.resource_name.should eq("testobjects")
@@ -97,7 +121,7 @@ end
 
 describe Mollie::TestObject::NestedObject do
   describe ".get" do
-    it "fetches a resource" do
+    it "fetches a nested resource" do
       configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/testobjects/mastaba/nestedobjects/nested")
         .to_return(status: 200, body: nested_test_object_json)
@@ -111,7 +135,7 @@ describe Mollie::TestObject::NestedObject do
   end
 
   describe ".create" do
-    it "creates a resource" do
+    it "creates a nested resource" do
       configure_test_api_key
       WebMock.stub(:post, "https://api.mollie.com/v2/testobjects/mastaba/nestedobjects")
         .with(
@@ -132,7 +156,7 @@ describe Mollie::TestObject::NestedObject do
   end
 
   describe ".update" do
-    it "updates a resource by id" do
+    it "updates a nested resource by id" do
       configure_test_api_key
       WebMock.stub(:patch, "https://api.mollie.com/v2/testobjects/object-id/nestedobjects/my-id")
         .with(body: %({"foo":"1.95"}), headers: client_http_headers)
@@ -148,7 +172,7 @@ describe Mollie::TestObject::NestedObject do
   end
 
   describe "#update" do
-    it "updates a resource and returns a new instance" do
+    it "updates a nested resource and returns a new instance" do
       configure_test_api_key
       WebMock.stub(:patch, "https://api.mollie.com/v2/testobjects/object-id/nestedobjects/my-id")
         .with(body: %({"foo":"1.95"}), headers: client_http_headers)
@@ -161,6 +185,33 @@ describe Mollie::TestObject::NestedObject do
       new_resource.should_not eq(old_resource)
       new_resource.id.should eq("my-id")
       new_resource.foo.should eq("1.0")
+    end
+  end
+
+  describe ".delete" do
+    it "deletes a nested resource" do
+      configure_test_api_key
+      WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/object-id/nestedobjects/my-id")
+        .with(body: "{}", headers: client_http_headers)
+        .to_return(status: 204, body: "")
+
+      response = Mollie::TestObject::NestedObject.delete("my-id", {
+        testobject_id: "object-id",
+      })
+      response.should eq("")
+    end
+  end
+
+  describe "#delete" do
+    it "deletes a nested resource" do
+      configure_test_api_key
+      WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/object-id/nestedobjects/my-id")
+        .with(body: "{}", headers: client_http_headers)
+        .to_return(status: 204, body: "")
+
+      resource = Mollie::TestObject::NestedObject.from_json(
+        %({"id": "my-id", "testobject_id": "object-id"}))
+      resource.delete.should eq("")
     end
   end
 
