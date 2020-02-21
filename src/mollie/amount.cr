@@ -8,7 +8,7 @@ struct Mollie
       self.value = value
     end
 
-    def value=(value)
+    def value=(value : Float64 | Int32 | String)
       @value = BigDecimal.new(value.to_s)
     end
 

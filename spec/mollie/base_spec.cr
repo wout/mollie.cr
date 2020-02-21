@@ -24,6 +24,17 @@ describe Mollie::TestObject do
       resource.id.should eq("my-id")
       resource.amount.should eq(1.0)
     end
+
+    it "accepts named tuples" do
+      configure_test_api_key
+      WebMock.stub(:post, "https://api.mollie.com/v2/testobjects?aap=noot")
+        .with(body: %({"amount":1.95}), headers: client_http_headers)
+        .to_return(status: 201, body: %({"id":"my-id", "amount":1.0}))
+
+      resource = Mollie::TestObject.create({amount: 1.95}, {aap: "noot"})
+      resource.id.should eq("my-id")
+      resource.amount.should eq(1.0)
+    end
   end
 
   describe ".update" do

@@ -78,6 +78,32 @@ describe Mollie::Util do
       end
     end
 
+    context "given a named tuple" do
+      it "returns a query param string" do
+        query = Mollie::Util.build_nested_query({
+          name:  "Aap",
+          email: "noot@mies.wim",
+        })
+        query.should eq("name=Aap&email=noot%40mies.wim")
+      end
+
+      it "returns prefixed query param string" do
+        query = Mollie::Util.build_nested_query({
+          name:  "Aap",
+          email: "noot@mies.wim",
+        }, "zus")
+        query.should eq("zus[name]=Aap&zus[email]=noot%40mies.wim")
+      end
+
+      it "accepts arrays as values" do
+        query = Mollie::Util.build_nested_query({
+          name: "Aap",
+          list: %w[noot mies],
+        }, "wim")
+        query.should eq("wim[name]=Aap&wim[list][]=noot&wim[list][]=mies")
+      end
+    end
+
     context "given an array" do
       it "returns a query param string" do
         query = Mollie::Util.build_nested_query(%w[aap noot mies])
@@ -111,8 +137,15 @@ describe Mollie::Util do
   end
 
   describe ".stringify_keys" do
-    it "converts has keys to strings" do
+    it "converts hash keys to strings" do
       original = {:symbol => "Symbol", "string" => "String"}
+      stringified = Mollie::Util.stringify_keys(original)
+      stringified["symbol"].should eq("Symbol")
+      stringified["string"].should eq("String")
+    end
+
+    it "accepts named tuples" do
+      original = {symbol: "Symbol", "string": "String"}
       stringified = Mollie::Util.stringify_keys(original)
       stringified["symbol"].should eq("Symbol")
       stringified["string"].should eq("String")

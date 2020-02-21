@@ -22,7 +22,7 @@ struct Mollie
     end
 
     def self.build_nested_query(
-      value : Hash(Symbol | String, String | Array(String)),
+      value : Hash(Symbol | String, String | Array(String)) | NamedTuple,
       prefix : String? = nil
     )
       value.map do |k, v|
@@ -43,8 +43,8 @@ struct Mollie
       prefix
     end
 
-    def self.stringify_keys(hash : Hash)
-      hash.transform_keys { |key| key.to_s }
+    def self.stringify_keys(value : Hash | NamedTuple)
+      value.to_h.transform_keys { |key| key.to_s }
     end
 
     private def self.escape(value : Symbol | String)

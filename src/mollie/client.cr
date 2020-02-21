@@ -39,8 +39,8 @@ struct Mollie
       http_method : String,
       api_method : String,
       id : String? = nil,
-      http_body : Hash = HS.new,
-      query : Hash = HS.new
+      http_body : Hash | NamedTuple = HS.new,
+      query : Hash | NamedTuple = HS.new
     )
       unless METHODS.includes?(http_method)
         raise Mollie::MethodNotSupportedException.new(
