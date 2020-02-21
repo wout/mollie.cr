@@ -117,7 +117,9 @@ describe Mollie::TestObject::NestedObject do
         .with(
           body: %({"foo":"1.95"}),
           headers: client_http_headers)
-        .to_return(status: 201, body: %({"id":"my-id", "testobjectId":"p-id", "foo":"1.0"}))
+        .to_return(
+          status: 201,
+          body: %({"id":"my-id", "testobject_id":"p-id", "foo":"1.0"}))
 
       resource = Mollie::TestObject::NestedObject.create({
         :foo           => "1.95",
@@ -130,8 +132,35 @@ describe Mollie::TestObject::NestedObject do
   end
 
   describe ".update" do
-    it "updates a nested resource" do
-      # resource = Mollie::TestObject::NestedObject.update("my-id", {:foo => "1.95"})
+    it "updates a resource by id" do
+      configure_test_api_key
+      WebMock.stub(:patch, "https://api.mollie.com/v2/testobjects/object-id/nestedobjects/my-id")
+        .with(body: %({"foo":"1.95"}), headers: client_http_headers)
+        .to_return(status: 201, body: %({"id":"my-id", "foo":"1.0"}))
+
+      resource = Mollie::TestObject::NestedObject.update("my-id", {
+        foo:           "1.95",
+        testobject_id: "object-id",
+      })
+      resource.id.should eq("my-id")
+      resource.foo.should eq("1.0")
+    end
+  end
+
+  describe "#update" do
+    it "updates a resource and returns a new instance" do
+      configure_test_api_key
+      WebMock.stub(:patch, "https://api.mollie.com/v2/testobjects/object-id/nestedobjects/my-id")
+        .with(body: %({"foo":"1.95"}), headers: client_http_headers)
+        .to_return(status: 201, body: %({"id":"my-id", "foo":"1.0"}))
+
+      old_resource = Mollie::TestObject::NestedObject.from_json(
+        %({"id": "my-id", "testobject_id": "object-id"}))
+      new_resource = old_resource.update({foo: "1.95"})
+
+      new_resource.should_not eq(old_resource)
+      new_resource.id.should eq("my-id")
+      new_resource.foo.should eq("1.0")
     end
   end
 
@@ -160,7 +189,7 @@ describe Mollie::TestObject::NestedObject do
       object = Mollie::TestObject::NestedObject.from_json(nested_test_object_json)
       object.id.should eq(json["id"])
       object.foo.should eq(json["foo"])
-      object.testobject_id.should eq(json["testobjectId"])
+      object.testobject_id.should eq(json["testobject_id"])
     end
   end
 end
@@ -176,7 +205,6 @@ struct Mollie
     struct NestedObject < Base
       getter id : String?
       getter foo : String?
-      @[JSON::Field(key: "testobjectId")]
       getter testobject_id : String?
     end
   end

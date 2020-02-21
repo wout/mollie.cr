@@ -25,6 +25,11 @@ struct Mollie
     end
 
     def update(data : Hash | NamedTuple)
+      if param = parent_id
+        parent = HS.new
+        parent[self.class.parent_param.to_s] = param.to_s
+        data = data.to_h.merge(parent)
+      end
       self.class.update(id.to_s, data)
     end
 
@@ -43,6 +48,13 @@ struct Mollie
         path.join("/#{parent_id}/")
       else
         path.last
+      end
+    end
+
+    private def parent_id
+      param = self.class.parent_param
+      if param && (value = JSON.parse(to_json)[param]?)
+        value.to_s
       end
     end
 
