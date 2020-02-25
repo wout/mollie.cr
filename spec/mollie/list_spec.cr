@@ -12,35 +12,11 @@ describe Mollie::List do
     end
   end
 
-  describe ".each" do
-    it "yields every item" do
+  describe "enumerable methods" do
+    it "forwards all missing methods items" do
       list = Mollie::List(Mollie::Mastaba).from_json(mastaba_list_json)
-      count = 0
-      list.each do |item|
-        item.should be_a(Mollie::Mastaba)
-        count += 1
-      end
-      count.should eq(2)
-    end
-  end
-
-  describe ".size" do
-    it "returns the number of items in the collection" do
-      list = Mollie::List(Mollie::Mastaba).from_json(mastaba_list_json)
-      list.size.should eq(2)
-    end
-  end
-
-  describe ".[]" do
-    it "returns an item at the given index" do
-      list = Mollie::List(Mollie::Mastaba).from_json(mastaba_list_json)
+      list.size.should be_a(Int32)
       list[0].should be_a(Mollie::Mastaba)
-    end
-  end
-
-  describe ".[]?" do
-    it "returns for nothing if the index is out of range" do
-      list = Mollie::List(Mollie::Mastaba).from_json(mastaba_list_json)
       list[100]?.should be_nil
     end
   end
