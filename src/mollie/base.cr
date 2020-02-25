@@ -94,7 +94,8 @@ struct Mollie
       method : String,
       id : String? = nil,
       data : Hash | NamedTuple = HS.new,
-      options : Hash | NamedTuple = HS.new
+      options : Hash | NamedTuple = HS.new,
+      &block
     )
       yield(request(method, id, data, options))
     end

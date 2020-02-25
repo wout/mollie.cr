@@ -8,7 +8,7 @@ Accepting [iDEAL](https://www.mollie.com/en/payments/ideal), [Bancontact](https:
 **This shard is under heavy development and nowhere near production ready.**
 
 This is the unofficial Crystal shard for Mollie. It is directly ported from the
-Ruby version ([mollie-ruby-api](https://github.com/mollie/mollie-api-ruby))but
+Ruby version ([mollie-ruby-api](https://github.com/mollie/mollie-api-ruby)) but
 not an exact copy. Usage might vary from the Ruby version due to language
 differences and to make the most of Crystal's type system.
 
