@@ -1,5 +1,3 @@
-require "big"
-
 struct Mollie
   struct Amount
     getter :value, :currency

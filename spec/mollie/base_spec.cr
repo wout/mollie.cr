@@ -76,6 +76,16 @@ describe Mollie::TestObject do
       response = Mollie::TestObject.delete("my-id")
       response.should eq("")
     end
+
+    it "is also called .cancel" do
+      configure_test_api_key
+      WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/my-id")
+        .with(body: "{}", headers: client_http_headers)
+        .to_return(status: 204, body: "")
+
+      response = Mollie::TestObject.delete("my-id")
+      response.should eq("")
+    end
   end
 
   describe "#delete" do
@@ -87,6 +97,16 @@ describe Mollie::TestObject do
 
       resource = Mollie::TestObject.from_json(%({"id": "my-id"}))
       resource.delete.should eq("")
+    end
+
+    it "is also called #cancel" do
+      configure_test_api_key
+      WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/my-id")
+        .with(body: "{}", headers: client_http_headers)
+        .to_return(status: 204, body: "")
+
+      resource = Mollie::TestObject.from_json(%({"id": "my-id"}))
+      resource.cancel.should eq("")
     end
   end
 

@@ -1,3 +1,4 @@
+require "big"
 require "json"
 require "http/client"
 require "wordsmith"
