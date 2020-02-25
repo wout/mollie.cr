@@ -1,20 +1,19 @@
 struct Mollie
   struct Json
-    class ListConverter(T)
+    struct ListConverter(T)
       def self.from_json(pull : JSON::PullParser)
-        return items = Array(Mollie::Mastaba).new
-        pull.read_object do |key|
-          if key == "products"
-            pull.read_array do
-              items.push(Mollie::Mastaba.from_json(pull.read_raw))
-            end
-          end
+        items = Array(T).new
+        # pull.read_object do |key|
+        #   if key == "products"
+        #   pull.read_array do
+        #     items.push(Item.from_json(pull.read_raw))
+        #   end
+        #   end
+        # end
+        pull.read_array do
+          items.push(Mollie::Mastaba.from_json(pull.read_raw))
         end
         items
-      end
-
-      def self.to_json(value : self, json : JSON::Builder)
-        json.object({:name_here => json.array(value)})
       end
     end
   end
