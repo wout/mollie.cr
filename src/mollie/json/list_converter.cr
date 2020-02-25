@@ -3,56 +3,20 @@ struct Mollie
     struct ListConverter(T)
       def self.from_json(pull : JSON::PullParser)
         items = Array(T).new
-        # pull.read_object do |key|
-        #   if key == "products"
-        #   pull.read_array do
-        #     items.push(Item.from_json(pull.read_raw))
-        #   end
-        #   end
-        # end
-        pull.read_array do
-          items.push(Mollie::Mastaba.from_json(pull.read_raw))
+        pull.read_object do |key|
+          if key == collection_key
+            pull.read_array do
+              items.push(T.from_json(pull.read_raw))
+            end
+          end
         end
         items
+      end
+
+      def self.collection_key
+        name = {{ T.id }}.name.split("::").last.downcase
+        Wordsmith::Inflector.pluralize(name)
       end
     end
   end
 end
-
-# class ListConverter
-#   def self.from_json(pull : JSON::PullParser)
-#     items = Array(Item).new
-#     pull.read_object do |key|
-#       if key == "products"
-#       pull.read_array do
-#         items.push(Item.from_json(pull.read_raw))
-#       end
-#       end
-#     end
-#     items
-#   end
-#   def self.to_json(value : self, json : JSON::Builder)
-#   end
-# end
-
-# struct Item
-#   include JSON::Serializable
-#   getter id : String?
-
-#   @[JSON::Field(key: "_embedded", converter: ListConverter)]
-#   getter items : Array(Item)?
-
-# end
-
-# item_json = %({
-#   "id":"tr_21",
-#   "_embedded": {
-#     "products": [
-#       {"id":"tr_22"}
-#     ]
-#   }
-# })
-
-# item = Item.from_json(item_json)
-# puts item.id
-# puts item.items
