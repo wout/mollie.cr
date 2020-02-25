@@ -7,6 +7,9 @@ struct Mollie
     @[JSON::Field(key: "_embedded", converter: list_converter)]
     getter items : Array(T)
 
+    @[JSON::Field(key: "_links")]
+    getter links : Hash(String, Hash(String, String))?
+
     forward_missing_to @items
   end
 end
