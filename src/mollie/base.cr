@@ -6,6 +6,12 @@ struct Mollie
 
     @@name_parts : Array(String)?
 
+    def self.all(options : Hash | NamedTuple = HS.new)
+      request(method: "GET", options: options) do |response|
+        Mollie::List(self).from_json(response)
+      end
+    end
+
     def self.get(id : String, options : Hash | NamedTuple = HS.new)
       request(method: "GET", id: id, options: options) do |response|
         from_json(response)
@@ -29,7 +35,7 @@ struct Mollie
     end
 
     def self.delete(id : String, options : Hash | NamedTuple = HS.new)
-      request("DELETE", id, options)
+      request(method: "DELETE", id: id, options: options)
     end
 
     def self.cancel(id : String, options : Hash | NamedTuple = HS.new)
@@ -87,7 +93,7 @@ struct Mollie
       options = Util.stringify_keys(options)
       parent_id = options.delete(parent_param) || data.delete(parent_param)
       response = Mollie::Client.instance.perform_http_call(
-        method, resource_name(parent_id.to_s), id, data, options)
+        method, resource_name(parent_id.as(String?)), id, data, options)
     end
 
     private def self.request(

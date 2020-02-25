@@ -1,5 +1,5 @@
 struct Mollie
-  abstract struct List(T) < Base
+  struct List(T) < Base
     include Enumerable(T)
 
     macro list_converter
@@ -10,6 +10,15 @@ struct Mollie
     getter items : Array(T)
 
     def each(&block : T -> _)
+      @items.each { |e| yield e }
+    end
+
+    def size
+      @items.size
+    end
+
+    def [](index : Int)
+      @items[index]?
     end
   end
 end

@@ -2,6 +2,20 @@ require "../spec_helper.cr"
 require "../spec_helpers/base_helper.cr"
 
 describe Mollie::TestObject do
+  describe ".all" do
+    it "fetches a list of resources" do
+      configure_test_api_key
+      WebMock.stub(:get, "https://api.mollie.com/v2/testobjects")
+        .to_return(status: 200, body: test_collection_json)
+
+      resource = Mollie::TestObject.all
+      resource.should be_a(Mollie::List(Mollie::TestObject))
+      resource.size.should eq(1)
+      resource[0].should be_a(Mollie::TestObject)
+      resource.first.id.should eq("my-id")
+    end
+  end
+
   describe ".get" do
     it "fetches a resource" do
       configure_test_api_key
@@ -140,6 +154,32 @@ describe Mollie::TestObject do
 end
 
 describe Mollie::TestObject::NestedObject do
+  describe ".all" do
+    it "fetches a list of resources" do
+      configure_test_api_key
+      WebMock.stub(:get, "https://api.mollie.com/v2/nestedobjects")
+        .to_return(status: 200, body: nested_test_collection_json)
+
+      resource = Mollie::TestObject::NestedObject.all
+      resource.should be_a(Mollie::List(Mollie::TestObject::NestedObject))
+      resource.size.should eq(1)
+      resource[0].should be_a(Mollie::TestObject::NestedObject)
+      resource.first.id.should eq("my-id")
+    end
+
+    it "fetches a list of scoped resources" do
+      configure_test_api_key
+      WebMock.stub(:get, "https://api.mollie.com/v2/testobjects/object-id/nestedobjects")
+        .to_return(status: 200, body: nested_test_collection_json)
+
+      resource = Mollie::TestObject::NestedObject.all({testobject_id: "object-id"})
+      resource.should be_a(Mollie::List(Mollie::TestObject::NestedObject))
+      resource.size.should eq(1)
+      resource[0].should be_a(Mollie::TestObject::NestedObject)
+      resource.first.id.should eq("my-id")
+    end
+  end
+
   describe ".get" do
     it "fetches a nested resource" do
       configure_test_api_key
