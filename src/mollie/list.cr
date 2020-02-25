@@ -1,10 +1,11 @@
 struct Mollie
   struct List(T) < Base
-    macro list_converter
-      Mollie::Json::ListConverter({{ T.id }})
+    macro list_root
+      name = {{ T.id }}.name.split("::").last.downcase
+      Wordsmith::Inflector.pluralize(name)
     end
 
-    @[JSON::Field(key: "_embedded", converter: list_converter)]
+    @[JSON::Field(key: "_embedded", root: list_root)]
     getter items : Array(T)
 
     @[JSON::Field(key: "_links")]
