@@ -36,10 +36,12 @@ describe Mollie::List do
       list = Mollie::List(Mollie::Mastaba).from_json(mastaba_list_json)
       list[0].should be_a(Mollie::Mastaba)
     end
+  end
 
+  describe ".[]?" do
     it "returns for nothing if the index is out of range" do
       list = Mollie::List(Mollie::Mastaba).from_json(mastaba_list_json)
-      list[100].should be_nil
+      list[100]?.should be_nil
     end
   end
 end
