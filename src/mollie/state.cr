@@ -1,7 +1,5 @@
 struct Mollie
   module State
-    alias ClientHash = Hash(String, Mollie::Client)
-
-    class_property instances : ClientHash = ClientHash.new
+    class_property instances = Hash(String, Mollie::Client).new
   end
 end

@@ -4,9 +4,6 @@ require "../spec_helpers/list_helper.cr"
 alias HSHS2 = Hash(String, Hash(String, String))
 
 describe Mollie::List do
-  describe "#previous" do
-  end
-
   describe "#next" do
     it "returns the next page" do
       configure_test_api_key

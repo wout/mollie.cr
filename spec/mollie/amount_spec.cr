@@ -26,19 +26,6 @@ describe Mollie::Amount do
     end
   end
 
-  describe "#value=" do
-    it "allows to set a value" do
-      amount = Mollie::Amount.new(0, "EUR")
-      amount.value = Math::PI
-      amount.value.should eq(Math::PI)
-    end
-
-    it "stores value as a big decimal" do
-      amount = Mollie::Amount.new(Math::PI, "EUR")
-      amount.value.should be_a(BigDecimal)
-    end
-  end
-
   describe "#currency" do
     it "returns the given value" do
       amount = Mollie::Amount.new(0, "EUR")
@@ -46,10 +33,24 @@ describe Mollie::Amount do
     end
   end
 
-  describe "#as_tuple" do
-    it "returns the value/currency pair as a tuple" do
+  describe "#to_tuple" do
+    it "returns the value/currency pair as a named tuple" do
       tuple = Mollie::Amount.new(60.0, "EUR").to_tuple
       tuple.should eq({value: "60.00", currency: "EUR"})
+    end
+  end
+
+  describe "#to_h" do
+    it "returns the value/currency pair as a hash" do
+      hash = Mollie::Amount.new(60.0, "EUR").to_h
+      hash.should eq({:value => "60.00", :currency => "EUR"})
+    end
+  end
+
+  describe "#to_json" do
+    it "returns the value/currency pair as json" do
+      json = Mollie::Amount.new(1.1189, "EUR").to_json
+      json.should eq(%({"value":"1.12","currency":"EUR"}))
     end
   end
 end

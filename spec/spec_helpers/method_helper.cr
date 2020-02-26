@@ -1,4 +1,4 @@
-def get_method_with_pricing_json
+def method_with_pricing_json
   %({
     "id": "creditcard",
     "description": "Credit card",
