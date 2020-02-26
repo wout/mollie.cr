@@ -1,5 +1,7 @@
 struct Mollie
   struct Method < Base
+    include Mollie::Mixins::Linkable
+
     enum Type
       ApplePay
       Bancontact

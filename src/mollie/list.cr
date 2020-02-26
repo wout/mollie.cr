@@ -1,5 +1,7 @@
 struct Mollie
   struct List(T) < Base
+    include Mollie::Mixins::Linkable
+
     alias HS2 = Hash(String, String)
     alias HSHS2 = Hash(String, HS2)
 
@@ -24,8 +26,5 @@ struct Mollie
 
     @[JSON::Field(key: "_embedded", root: list_root)]
     getter items : Array(T)
-
-    @[JSON::Field(key: "_links")]
-    getter links : HSHS2?
   end
 end
