@@ -1,5 +1,7 @@
 require "../spec_helper.cr"
 
+alias HS2 = Hash(String, String)
+
 describe Mollie::Util do
   describe ".version_string" do
     it "returns a string with mollie shard, crystal and openssl versions" do
@@ -149,6 +151,22 @@ describe Mollie::Util do
       stringified = Mollie::Util.stringify_keys(original)
       stringified["symbol"].should eq("Symbol")
       stringified["string"].should eq("String")
+    end
+  end
+
+  describe ".query_from_href" do
+    it "extracts a query hash from a given href" do
+      href = "https://api.mollie.com/v2/mastabas?from=tr_1&limit=1"
+      query = Mollie::Util.query_from_href(href)
+      query.should be_a(HS2)
+      query["from"].should eq("tr_1")
+      query["limit"].should eq("1")
+    end
+
+    it "returns an empty hash if no query params are present" do
+      href = "https://api.mollie.com/v2/mastabas"
+      query = Mollie::Util.query_from_href(href)
+      query.should eq(HS2.new)
     end
   end
 end

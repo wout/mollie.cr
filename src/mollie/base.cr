@@ -2,23 +2,23 @@ struct Mollie
   abstract struct Base
     include JSON::Serializable
 
-    alias HS = Hash(String, String)
+    alias HS2 = Hash(String, String)
 
     @@name_parts : Array(String)?
 
-    def self.all(options : Hash | NamedTuple = HS.new)
+    def self.all(options : Hash | NamedTuple = HS2.new)
       request(method: "GET", options: options) do |response|
         Mollie::List(self).from_json(response)
       end
     end
 
-    def self.get(id : String, options : Hash | NamedTuple = HS.new)
+    def self.get(id : String, options : Hash | NamedTuple = HS2.new)
       request(method: "GET", id: id, options: options) do |response|
         from_json(response)
       end
     end
 
-    def self.create(data : Hash | NamedTuple, options : Hash | NamedTuple = HS.new)
+    def self.create(data : Hash | NamedTuple, options : Hash | NamedTuple = HS2.new)
       request(method: "POST", data: data, options: options) do |response|
         from_json(response)
       end
@@ -34,19 +34,19 @@ struct Mollie
       self.class.update(id.to_s, options_with_parent_id(data))
     end
 
-    def self.delete(id : String, options : Hash | NamedTuple = HS.new)
+    def self.delete(id : String, options : Hash | NamedTuple = HS2.new)
       request(method: "DELETE", id: id, options: options)
     end
 
-    def self.cancel(id : String, options : Hash | NamedTuple = HS.new)
+    def self.cancel(id : String, options : Hash | NamedTuple = HS2.new)
       delete(id, options)
     end
 
-    def delete(options : Hash | NamedTuple = HS.new)
+    def delete(options : Hash | NamedTuple = HS2.new)
       self.class.delete(id.to_s, options_with_parent_id(options))
     end
 
-    def cancel(options : Hash | NamedTuple = HS.new)
+    def cancel(options : Hash | NamedTuple = HS2.new)
       delete(options)
     end
 
@@ -76,7 +76,7 @@ struct Mollie
 
     private def options_with_parent_id(data : Hash | NamedTuple)
       if parent_id
-        parent = HS.new
+        parent = HS2.new
         parent[self.class.parent_param.to_s] = parent_id.to_s
         data = data.to_h.merge(parent)
       end
@@ -86,8 +86,8 @@ struct Mollie
     private def self.request(
       method : String,
       id : String? = nil,
-      data : Hash | NamedTuple = HS.new,
-      options : Hash | NamedTuple = HS.new
+      data : Hash | NamedTuple = HS2.new,
+      options : Hash | NamedTuple = HS2.new
     )
       data = Util.stringify_keys(data)
       options = Util.stringify_keys(options)
@@ -99,8 +99,8 @@ struct Mollie
     private def self.request(
       method : String,
       id : String? = nil,
-      data : Hash | NamedTuple = HS.new,
-      options : Hash | NamedTuple = HS.new,
+      data : Hash | NamedTuple = HS2.new,
+      options : Hash | NamedTuple = HS2.new,
       &block
     )
       yield(request(method, id, data, options))

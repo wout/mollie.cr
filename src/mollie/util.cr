@@ -47,6 +47,10 @@ struct Mollie
       value.to_h.transform_keys { |key| key.to_s }
     end
 
+    def self.query_from_href(href : String)
+      URI.parse(href).query_params.to_h
+    end
+
     private def self.escape(value : Symbol | String)
       URI.encode_www_form(value.to_s)
     end

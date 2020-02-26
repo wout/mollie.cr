@@ -8,7 +8,7 @@ struct Mollie
 
     METHODS = %w[GET POST PATCH DELETE]
 
-    alias HS = Hash(String, String)
+    alias HS2 = Hash(String, String)
 
     getter api_key : String?
     getter api_endpoint : String
@@ -20,7 +20,7 @@ struct Mollie
       @api_endpoint = api_endpoint.chomp("/")
 
       if @api_key
-        Mollie::State.instances[@api_key.to_s] = self unless @api_key.nil?
+        Mollie::State.instances[@api_key.as(String)] = self unless @api_key.nil?
       else
         raise Mollie::MissingApiKeyException.new(
           "Expected API key but none was provided")
@@ -39,8 +39,8 @@ struct Mollie
       http_method : String,
       api_method : String,
       id : String? = nil,
-      http_body : Hash | NamedTuple = HS.new,
-      query : Hash | NamedTuple = HS.new
+      http_body : Hash | NamedTuple = HS2.new,
+      query : Hash | NamedTuple = HS2.new
     )
       unless METHODS.includes?(http_method)
         raise Mollie::MethodNotSupportedException.new(
@@ -105,10 +105,10 @@ struct Mollie
     end
 
     def self.instance
-      self.with_api_key(Mollie::Config.api_key.to_s)
+      self.with_api_key(Mollie::Config.api_key.as(String?))
     end
 
-    def self.with_api_key(api_key : String)
+    def self.with_api_key(api_key : String?)
       Mollie::State.instances[api_key]? || new(api_key)
     end
   end

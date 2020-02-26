@@ -116,10 +116,12 @@ describe Mollie::Client do
 
   describe ".instance" do
     it "returns a new instance" do
+      Mollie::Config.api_key = "my_key"
       Mollie::Client.instance.should be_a(Mollie::Client)
     end
 
     it "never initializes another new instance" do
+      Mollie::Config.api_key = "my_key"
       instance = Mollie::Client.instance
       Mollie::Client.instance.should eq(instance)
     end
