@@ -23,8 +23,26 @@ describe Mollie::Method do
       method.image["size1x"].should eq("https://www.mollie.com/external/icons/payment-methods/creditcard.png")
       method.image["size2x"].should eq("https://www.mollie.com/external/icons/payment-methods/creditcard%402x.png")
       method.image["svg"].should eq("https://www.mollie.com/external/icons/payment-methods/creditcard.svg")
+    end
+  end
+
+  describe "#normal_image" do
+    it "returns the @1x image size" do
+      method = Mollie::Method.from_json(method_with_pricing_json)
       method.normal_image.should eq(method.image["size1x"])
+    end
+  end
+
+  describe "#bigger_image" do
+    it "returns the @1x image size" do
+      method = Mollie::Method.from_json(method_with_pricing_json)
       method.bigger_image.should eq(method.image["size2x"])
+    end
+  end
+
+  describe "#vector_image" do
+    it "returns the @1x image size" do
+      method = Mollie::Method.from_json(method_with_pricing_json)
       method.vector_image.should eq(method.image["svg"])
     end
   end
