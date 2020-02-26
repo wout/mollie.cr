@@ -23,6 +23,15 @@ def client_http_headers(overrides : Hash(String, String)? = Hash(String, String)
   }.merge(overrides)
 end
 
+def read_fixture(file : String)
+  path = "#{__DIR__}/fixtures/#{file}"
+  if File.exists?(path)
+    File.read(path)
+  else
+    raise Exception.new("Fixture #{file} does not exist.")
+  end
+end
+
 Spec.after_each do
   Mollie::Config.api_key = nil
   Mollie::Config.open_timeout = 60
