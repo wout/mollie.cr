@@ -44,6 +44,18 @@ describe Mollie::Method do
         pricing.first.region.should eq("other")
       end
     end
+
+    context "without pricing" do
+      it "does not include fees" do
+        configure_test_api_key
+        json = read_fixture("methods/get.json")
+        WebMock.stub(:get, "https://api.mollie.com/v2/methods/creditcard")
+          .to_return(status: 200, body: json)
+
+        creditcard = Mollie::Method.get("creditcard")
+        pricing = creditcard.pricing.should be_nil
+      end
+    end
   end
 
   describe "#normal_image" do
