@@ -10,9 +10,16 @@ describe Mollie::Method do
     end
   end
 
+  describe "#links" do
+    it "is linkable" do
+      method = Mollie::Method.from_json(get_method_json)
+      method.links.should be_nil
+    end
+  end
+
   describe ".from_json" do
     it "pulls the required attributes" do
-      method = Mollie::Method.from_json(method_with_pricing_json)
+      method = Mollie::Method.from_json(get_method_json)
 
       method.id.should eq("creditcard")
       method.description.should eq("Credit card")
@@ -53,28 +60,28 @@ describe Mollie::Method do
           .to_return(status: 200, body: json)
 
         creditcard = Mollie::Method.get("creditcard")
-        pricing = creditcard.pricing.should be_nil
+        creditcard.pricing.should be_nil
       end
     end
   end
 
   describe "#normal_image" do
     it "returns the @1x image" do
-      method = Mollie::Method.from_json(method_with_pricing_json)
+      method = Mollie::Method.from_json(get_method_json)
       method.normal_image.should eq(method.image["size1x"])
     end
   end
 
   describe "#bigger_image" do
     it "returns the @2x image" do
-      method = Mollie::Method.from_json(method_with_pricing_json)
+      method = Mollie::Method.from_json(get_method_json)
       method.bigger_image.should eq(method.image["size2x"])
     end
   end
 
   describe "#vector_image" do
     it "returns the vector image" do
-      method = Mollie::Method.from_json(method_with_pricing_json)
+      method = Mollie::Method.from_json(get_method_json)
       method.vector_image.should eq(method.image["svg"])
     end
   end

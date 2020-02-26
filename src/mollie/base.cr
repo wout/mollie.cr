@@ -92,7 +92,7 @@ struct Mollie
       data = Util.stringify_keys(data)
       options = Util.stringify_keys(options)
       parent_id = options.delete(parent_param) || data.delete(parent_param)
-      response = Mollie::Client.instance.perform_http_call(
+      Mollie::Client.instance.perform_http_call(
         method, resource_name(parent_id.as(String?)), id, data, options)
     end
 
