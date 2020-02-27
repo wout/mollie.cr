@@ -25,6 +25,10 @@ struct Mollie
       def to_s
         super.downcase
       end
+
+      def ==(value)
+        to_s == value
+      end
     end
 
     getter id : String

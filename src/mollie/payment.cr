@@ -14,6 +14,10 @@ struct Mollie
       def to_s
         super.downcase
       end
+
+      def ==(value)
+        to_s == value
+      end
     end
 
     getter id : String
@@ -29,32 +33,11 @@ struct Mollie
     getter description : String
     getter method : String
 
-    def open?
-      status == Status::Open.to_s
-    end
-
-    def canceled?
-      status == Status::Canceled.to_s
-    end
-
-    def pending?
-      status == Status::Pending.to_s
-    end
-
-    def expired?
-      status == Status::Expired.to_s
-    end
-
-    def failed?
-      status == Status::Failed.to_s
-    end
-
-    def paid?
-      status == Status::Paid.to_s
-    end
-
-    def authorized?
-      status == Status::Authorized.to_s
-    end
+    {% for value in Status.constants %}
+      {% downcased = value.stringify.downcase %}
+      def {{ downcased.id }}?
+        {{ downcased }} == status
+      end
+    {% end %}
   end
 end

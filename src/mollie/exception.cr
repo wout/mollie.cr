@@ -7,7 +7,10 @@ struct Mollie
       title:  String?,
       detail: String?,
       field:  String?,
-      _links: Hash(String, Hash(String, String)),
+      links:  {
+        type: Hash(String, Hash(String, String)),
+        key:  "_links",
+      },
     })
 
     def to_s

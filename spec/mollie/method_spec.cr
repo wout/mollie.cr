@@ -8,6 +8,12 @@ describe Mollie::Method do
         Mollie::Method::Type::ApplePay.to_s.should eq("applepay")
       end
     end
+
+    describe "#==" do
+      it "tests against a lower case string" do
+        (Mollie::Method::Type::IngHomePay == "inghomepay").should be_true
+      end
+    end
   end
 
   describe "#links" do

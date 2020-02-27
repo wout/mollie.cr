@@ -69,8 +69,11 @@ struct Mollie
     end
 
     private def parent_id
-      {% if @type.name.downcase.split("::")[-2] != "mollie" %}
-        {{ (@type.name.downcase.split("::")[-2] + "_id").id }}
+      {% begin %}
+        {% downcased = @type.name.downcase.split("::")[-2] %}
+        {% if downcased != "mollie" %}
+          {{ (downcased + "_id").id }}
+        {% end %}
       {% end %}
     end
 

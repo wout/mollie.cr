@@ -9,7 +9,7 @@ describe Mollie::RequestException do
       exception.title.should eq("Unauthorized Request")
       exception.detail.should eq("Missing authentication, or failed to authenticate")
       exception.field.should eq("test-field")
-      exception._links.should be_a(Hash(String, Hash(String, String)))
+      exception.links.should be_a(Hash(String, Hash(String, String)))
     end
   end
 

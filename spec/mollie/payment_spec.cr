@@ -8,6 +8,12 @@ describe Mollie::Payment do
         Mollie::Payment::Status::Paid.to_s.should eq("paid")
       end
     end
+
+    describe "#==" do
+      it "tests against a lower case string" do
+        (Mollie::Payment::Status::Paid == "paid").should be_true
+      end
+    end
   end
 
   describe "#links" do
