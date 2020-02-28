@@ -7,8 +7,8 @@ struct Mollie
       "Mollie/#{mollie} Crystal/#{crystal} OpenSSL/#{openssl}"
     end
 
-    def self.extract_url(links : Hash, type : String)
-      links.dig?(type, "href")
+    def self.extract_url(links : Hash?, type : String)
+      links.as(HSHS2).dig?(type, "href") if links
     end
 
     def self.extract_id(links : Hash, type : String)

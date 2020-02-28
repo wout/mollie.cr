@@ -2,9 +2,6 @@ struct Mollie
   struct List(T) < Base
     include Mollie::Mixins::Linkable
 
-    alias HS2 = Hash(String, String)
-    alias HSHS2 = Hash(String, HS2)
-
     macro list_root
       name = {{ T.id }}.name.split("::").last.downcase
       Wordsmith::Inflector.pluralize(name)

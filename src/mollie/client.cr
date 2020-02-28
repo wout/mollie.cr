@@ -8,8 +8,6 @@ struct Mollie
 
     METHODS = %w[GET POST PATCH DELETE]
 
-    alias HS2 = Hash(String, String)
-
     getter api_key : String?
     getter api_endpoint : String
 

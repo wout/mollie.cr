@@ -2,8 +2,6 @@ struct Mollie
   abstract struct Base
     include JSON::Serializable
 
-    alias HS2 = Hash(String, String)
-
     @@name_parts : Array(String)?
 
     def self.all(options : Hash | NamedTuple = HS2.new)

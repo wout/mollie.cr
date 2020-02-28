@@ -1,7 +1,5 @@
 require "../spec_helper.cr"
 
-alias HS2 = Hash(String, String)
-
 describe Mollie::Util do
   describe ".version_string" do
     it "returns a string with mollie shard, crystal and openssl versions" do
@@ -32,6 +30,23 @@ describe Mollie::Util do
         },
       }
       Mollie::Util.extract_id(links, "unknown-resource").should be_nil
+    end
+  end
+
+  describe ".extract_url" do
+    it "extracts a url from a links hash" do
+      links = {
+        "customer" => {
+          "href" => "https://api.mollie.com/v2/customers/cst_4qqhO89gsT",
+          "type" => "application/hal+json",
+        },
+      }
+      Mollie::Util.extract_url(links, "customer")
+        .should eq(links.dig("customer", "href"))
+    end
+
+    it "allows links to be nil" do
+      Mollie::Util.extract_url(nil, "customer").should be_nil
     end
   end
 

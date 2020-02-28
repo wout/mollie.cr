@@ -1,8 +1,6 @@
 require "../spec_helper.cr"
 require "../spec_helpers/list_helper.cr"
 
-alias HSHS2 = Hash(String, Hash(String, String))
-
 describe Mollie::List do
   describe "#next" do
     it "returns the next page" do
