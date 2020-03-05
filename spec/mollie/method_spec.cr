@@ -54,7 +54,7 @@ describe Mollie::Method do
         pricing.first.description.should eq("Commercial & non-European cards")
         pricing.first.fixed.should be_a(Mollie::Amount)
         pricing.first.variable.should eq(BigDecimal.new("2.8"))
-        pricing.first.region.should eq("other")
+        pricing.first.fee_region.should eq("other")
       end
     end
 

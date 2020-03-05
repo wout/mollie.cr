@@ -3,6 +3,7 @@ require "json"
 require "http/client"
 require "wordsmith"
 require "./mollie/mixins/**"
+require "./mollie/json/**"
 require "./mollie/**"
 
 alias HS2 = Hash(String, String)

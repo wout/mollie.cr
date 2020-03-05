@@ -70,6 +70,7 @@ describe Mollie::Payment do
   describe "#refunded?" do
     it "tests positive with a refunded amount" do
       payment = Mollie::Payment.from_json(get_refunded_payment_json)
+      payment.amount_refunded.should be_a(Mollie::Amount)
       payment.refunded?.should be_true
     end
     it "tests negative with a refunded amount of zero" do

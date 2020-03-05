@@ -20,9 +20,10 @@ struct Mollie
       end
     end
 
-    getter amount : Mollie::Amount
+    json_field(:amount, Mollie::Amount)
     getter amount_captured : Mollie::Amount?
-    getter amount_refunded : Mollie::Amount?
+    json_field(:amount_refunded, Mollie::Amount?)
+    # getter amount_refunded : Mollie::Amount?
     getter amount_remaining : Mollie::Amount?
     @[JSON::Field(key: "applicationFee")]
     getter application_fee : Mollie::Payment::ApplicationFee?
@@ -74,10 +75,10 @@ struct Mollie
     end
 
     struct ApplicationFee
-      include JSON::Serializable
+      include Mollie::Json::Serializable
 
-      getter amount : Mollie::Amount
-      getter description : String
+      json_field(:amount, Mollie::Amount)
+      json_field(:description, String)
     end
   end
 end

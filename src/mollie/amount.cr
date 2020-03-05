@@ -1,10 +1,9 @@
 struct Mollie
   struct Amount
-    include JSON::Serializable
+    include Mollie::Json::Serializable
 
-    @[JSON::Field(nilable: false, converter: Mollie::Json::Decimalizer)]
-    getter value : BigDecimal
-    getter currency : String
+    json_field(:value, BigDecimal)
+    json_field(:currency, String)
 
     def initialize(value : Float64 | Int32 | String, currency : String)
       @value = BigDecimal.new(value.to_s)

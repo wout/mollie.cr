@@ -1,6 +1,6 @@
 struct Mollie
   abstract struct Base
-    include JSON::Serializable
+    include Mollie::Json::Serializable
 
     @@name_parts : Array(String)?
 
