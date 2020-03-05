@@ -18,7 +18,6 @@ struct Mollie
           @[JSON::Field(key: {{ camelized }})]
         {% end %}
         getter {{ name.id }} : {{ type }}
-        {{ debug }}
       end
     end
   end

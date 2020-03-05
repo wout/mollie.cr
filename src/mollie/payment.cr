@@ -21,21 +21,15 @@ struct Mollie
     end
 
     json_field(:amount, Mollie::Amount)
-    getter amount_captured : Mollie::Amount?
+    json_field(:amount_captured, Mollie::Amount?)
     json_field(:amount_refunded, Mollie::Amount?)
-    # getter amount_refunded : Mollie::Amount?
-    getter amount_remaining : Mollie::Amount?
-    @[JSON::Field(key: "applicationFee")]
-    getter application_fee : Mollie::Payment::ApplicationFee?
-    @[JSON::Field(key: "authorizedAt", converter: Mollie::Json::TimeFormatter)]
-    getter authorized_at : Time?
-    @[JSON::Field(key: "countryCode")]
-    getter country_code : String?
-    @[JSON::Field(key: "createdAt", converter: Mollie::Json::TimeFormatter)]
-    getter created_at : Time
-    @[JSON::Field(key: "customerId")]
-    getter customer_id : String?
-    getter description : String
+    json_field(:amount_remaining, Mollie::Amount?)
+    json_field(:application_fee, Mollie::Payment::ApplicationFee?)
+    json_field(:authorized_at, Time?)
+    json_field(:country_code, String?)
+    json_field(:created_at, Time)
+    json_field(:customer_id, String?)
+    json_field(:description, String)
     @[JSON::Field(converter: Mollie::Json::Underscorer)]
     getter details : HSBFIS?
     getter id : String

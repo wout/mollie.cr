@@ -52,6 +52,12 @@ describe Mollie::Payment do
       payment.webhook_url.should eq("https://webshop.example.org/payments/webhook")
       payment.application_fee.should be_a(Mollie::Payment::ApplicationFee?)
     end
+
+    it "allows nilable values" do
+      payment = Mollie::Payment.from_json(get_open_payment_json)
+
+      payment.authorized_at.should be_nil
+    end
   end
 
   describe "boolean status methods" do
