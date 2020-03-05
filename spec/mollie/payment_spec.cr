@@ -31,6 +31,11 @@ describe Mollie::Payment do
       payment.mode.should eq("test")
       payment.description.should eq("My first payment")
       payment.created_at.should eq(Time.parse_rfc3339("2018-03-20T09:13:37+00:00"))
+      payment.canceled_at.should be_a(Time?)
+      payment.expired_at.should be_a(Time?)
+      payment.expires_at.should be_a(Time?)
+      payment.failed_at.should be_a(Time?)
+      payment.is_cancelable.should be_a(Bool?)
       payment.status.should eq("paid")
       payment.authorized_at.should eq(Time.parse_rfc3339("2018-03-19T09:14:37+00:00"))
       payment.paid_at.should eq(Time.parse_rfc3339("2018-03-20T09:14:37+00:00"))
@@ -51,11 +56,16 @@ describe Mollie::Payment do
       payment.profile_id.should eq("pfl_QkEhN94Ba")
       payment.webhook_url.should eq("https://webshop.example.org/payments/webhook")
       payment.application_fee.should be_a(Mollie::Payment::ApplicationFee?)
+      payment.mandate_id.should be_a(String?)
+      payment.order_id.should be_a(String?)
+      payment.sequence_type.should be_a(String?)
+      payment.settlement_amount.should be_a(Mollie::Amount?)
+      payment.settlement_id.should be_a(String?)
+      payment.subscription_id.should be_a(String?)
     end
 
     it "allows nilable values" do
       payment = Mollie::Payment.from_json(get_open_payment_json)
-
       payment.authorized_at.should be_nil
     end
   end

@@ -19,10 +19,13 @@ struct Mollie
     end
 
     json_field(:amount, Mollie::Amount)
+    json_field(:created_at, Time)
     json_field(:description, String)
     json_field(:id, String)
+    json_field(:metadata, HSBFIS)
+    json_field(:order_id, String)
+    json_field(:payment_id, String)
     json_field(:settlement_amount, Mollie::Amount)
-    json_field(:settlement_id, String?)
     json_field(:status, String)
   end
 end

@@ -16,7 +16,7 @@ describe Mollie::Refund do
   end
 
   describe "#links" do
-    it "is linkable" do
+    it "contain links" do
       refund = Mollie::Refund.from_json(read_fixture("refunds/get.json"))
       links = refund.links.as(HSHS2)
       links["self"]["href"].should eq("https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT")
@@ -29,9 +29,12 @@ describe Mollie::Refund do
       refund.id.should eq("re_4qqhO89gsT")
       refund.description.should eq("Required quantity not in stock, refunding one photo book.")
       refund.amount.should be_a(Mollie::Amount)
+      refund.created_at.should eq(Time.parse_rfc3339("2018-09-25T17:40:23+00:00"))
       refund.status.should eq("pending")
-      refund.settlement_id.should be_a(String?)
       refund.settlement_amount.should be_a(Mollie::Amount)
+      refund.payment_id.should eq("tr_WDqYK6vllg")
+      refund.order_id.should eq("ord_stTC2WHAuS")
+      refund.metadata.should be_a(HSBFIS)
     end
   end
 end
