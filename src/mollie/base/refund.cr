@@ -1,5 +1,3 @@
-require "./resource.cr"
-
 struct Mollie
   struct Base
     abstract struct Refund < Mollie::Base::Resource

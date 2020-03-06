@@ -25,11 +25,28 @@ struct Mollie
     {% end %}
 
     json_field(:amount, Amount)
+    json_field(:created_at, Time)
     json_field(:id, String)
     json_field(:periods, Hash(String, Hash(String, Hash(String, Array(Item)))))
     json_field(:reference, String)
     json_field(:settled_at, Time)
     json_field(:status, String)
+
+    {% begin %}
+      {% for status in %w[open next] %}
+        def self.{{ status.id }}(options : Hash | NamedTuple = HS2.new)
+          get({{ status }}, options)
+        end
+      {% end %}
+    {% end %}
+
+    def payments(options : Hash | NamedTuple = HS2.new)
+      Payment.all(options.merge({:settlement_id => id}))
+    end
+
+    def refunds(options : Hash | NamedTuple = HS2.new)
+      Refund.all(options.merge({:settlement_id => id}))
+    end
 
     struct Item
       include Json::Serializable

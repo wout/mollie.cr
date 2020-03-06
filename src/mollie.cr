@@ -8,6 +8,7 @@ require "http/client"
 require "wordsmith"
 require "./mollie/mixins/**"
 require "./mollie/json/**"
+require "./mollie/base/resource"
 require "./mollie/base/**"
 require "./mollie/**"
 

@@ -2,6 +2,7 @@
   "id": "stl_jDk30akdN",
   "reference": "1234567.1511.03",
   "settledAt": "2015-11-06T06:00:02.0Z",
+  "createdAt": "2014-11-06T06:00:02.0Z",
   "status": "paidout",
   "amount": {
     "value": "39.75",
