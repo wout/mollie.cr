@@ -1,5 +1,5 @@
 struct Mollie
-  struct List(T) < Base
+  struct List(T) < Base::Resource
     include Mollie::Mixins::Linkable
 
     macro list_root

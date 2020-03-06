@@ -19,10 +19,10 @@ describe Mollie::Orderline do
       orderline.vat_amount.value.should eq(121.14)
       orderline.vat_rate.should eq("21.00")
       orderline.discount_amount.should be_a(Mollie::Amount)
-      orderline.discount_amount.value.should eq(100.0)
+      orderline.discount_amount.as(Mollie::Amount).value.should eq(100.0)
       orderline.total_amount.should be_a(Mollie::Amount)
       orderline.total_amount.value.should eq(698.0)
-      orderline.metadata.should be_a(HSBFIS)
+      orderline.metadata.should be_a(HSBFIS?)
       orderline.is_cancelable.should be_true
       orderline.quantity_shipped.should eq(0)
       orderline.quantity_refunded.should eq(0)

@@ -1,5 +1,5 @@
-require "../spec_helper.cr"
-require "../spec_helpers/base_helper.cr"
+require "../../spec_helper.cr"
+require "../../spec_helpers/base_helper.cr"
 
 describe Mollie::TestObject do
   describe ".all" do
@@ -203,7 +203,7 @@ describe Mollie::TestObject::NestedObject do
           headers: client_http_headers)
         .to_return(
           status: 201,
-          body: %({"id":"my-id", "testobject_id":"p-id", "foo":"1.0"}))
+          body: %({"id":"my-id", "testobjectId":"p-id", "foo":"1.0"}))
 
       resource = Mollie::TestObject::NestedObject.create({
         :foo           => "1.95",
@@ -239,7 +239,7 @@ describe Mollie::TestObject::NestedObject do
         .to_return(status: 201, body: %({"id":"my-id", "foo":"1.0"}))
 
       old_resource = Mollie::TestObject::NestedObject.from_json(
-        %({"id": "my-id", "testobject_id": "object-id"}))
+        %({"id": "my-id", "testobjectId": "object-id"}))
       new_resource = old_resource.update({foo: "1.95"})
 
       new_resource.should_not eq(old_resource)
@@ -270,7 +270,7 @@ describe Mollie::TestObject::NestedObject do
         .to_return(status: 204, body: "")
 
       resource = Mollie::TestObject::NestedObject.from_json(
-        %({"id": "my-id", "testobject_id": "object-id"}))
+        %({"id": "my-id", "testobjectId": "object-id"}))
       resource.delete.should eq("")
     end
   end
@@ -300,23 +300,22 @@ describe Mollie::TestObject::NestedObject do
       object = Mollie::TestObject::NestedObject.from_json(nested_test_object_json)
       object.id.should eq(json["id"])
       object.foo.should eq(json["foo"])
-      object.testobject_id.should eq(json["testobject_id"])
+      object.testobject_id.should eq(json["testobjectId"])
     end
   end
 end
 
 struct Mollie
-  struct TestObject < Base
-    getter id : String?
-    getter foo : String?
-    getter amount : Float64?
-    @[JSON::Field(key: "myField")]
-    getter my_field : String?
+  struct TestObject < Base::Resource
+    json_field(:amount, Float64?)
+    json_field(:foo, String?)
+    json_field(:id, String?)
+    json_field(:my_field, String?)
 
-    struct NestedObject < Base
-      getter id : String?
-      getter foo : String?
-      getter testobject_id : String?
+    struct NestedObject < Base::Resource
+      json_field(:foo, String?)
+      json_field(:id, String?)
+      json_field(:testobject_id, String?)
     end
   end
 end

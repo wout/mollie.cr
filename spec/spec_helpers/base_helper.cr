@@ -10,7 +10,7 @@ def nested_test_object_json
   %({
     "id": "nested",
     "foo": "Wim zus jet",
-    "testobject_id": "mastaba"
+    "testobjectId": "mastaba"
   })
 end
 

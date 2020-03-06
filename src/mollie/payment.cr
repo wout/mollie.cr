@@ -1,5 +1,5 @@
 struct Mollie
-  struct Payment < Base
+  struct Payment < Base::Resource
     include Mollie::Mixins::Linkable
 
     enum Status

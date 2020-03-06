@@ -74,7 +74,7 @@ describe Mollie::List do
 end
 
 struct Mollie
-  struct Mastaba < Base
+  struct Mastaba < Base::Resource
     getter id : String?
   end
 end

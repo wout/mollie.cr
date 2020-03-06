@@ -35,6 +35,21 @@ describe Mollie::Refund do
       refund.payment_id.should eq("tr_WDqYK6vllg")
       refund.order_id.should eq("ord_stTC2WHAuS")
       refund.metadata.should be_a(HSBFIS)
+      refund.lines.should be_a(Array(Mollie::Orderline))
+      refund.lines.size.should eq(2)
+    end
+  end
+
+  describe "#payment" do
+    it "fetches the linked payment" do
+      configure_test_api_key
+      WebMock.stub(:get, "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT")
+        .to_return(status: 200, body: read_fixture("refunds/get.json"))
+      WebMock.stub(:get, "https://api.mollie.com/v2/payments/tr_WDqYK6vllg")
+        .to_return(status: 200, body: read_fixture("payments/get.json"))
+
+      refund = Mollie::Payment::Refund.get("re_4qqhO89gsT", {payment_id: "tr_WDqYK6vllg"})
+      refund.payment.id.should eq("tr_WDqYK6vllg")
     end
   end
 end

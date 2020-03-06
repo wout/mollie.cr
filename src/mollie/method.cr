@@ -1,5 +1,5 @@
 struct Mollie
-  struct Method < Base
+  struct Method < Base::Resource
     include Mollie::Mixins::Linkable
 
     enum Type

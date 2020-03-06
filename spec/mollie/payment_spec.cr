@@ -109,10 +109,10 @@ describe Mollie::Payment do
   describe "#application_fee" do
     it "parses the application fee as an object" do
       configure_test_api_key
-      WebMock.stub(:get, "https://api.mollie.com/v2/payments/tr_WDqYK6vllg")
+      WebMock.stub(:get, "https://api.mollie.com/v2/payments/tr_WDqYK6vllf")
         .to_return(status: 200, body: get_complete_payment_json)
 
-      payment = Mollie::Payment.get("tr_WDqYK6vllg")
+      payment = Mollie::Payment.get("tr_WDqYK6vllf")
       fee = payment.application_fee.as(Mollie::Payment::ApplicationFee)
       fee.amount.value.should eq(42.1)
       fee.amount.currency.should eq("EUR")
