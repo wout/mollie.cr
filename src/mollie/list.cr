@@ -1,6 +1,6 @@
 struct Mollie
   struct List(T) < Base::Resource
-    include Mollie::Mixins::Linkable
+    include Mixins::Linkable
 
     macro list_root
       name = {{ T.id }}.name.split("::").last.downcase

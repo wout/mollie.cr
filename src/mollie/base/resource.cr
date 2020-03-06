@@ -1,13 +1,13 @@
 struct Mollie
   struct Base
     abstract struct Resource
-      include Mollie::Json::Serializable
+      include Json::Serializable
 
       @@name_parts : Array(String)?
 
       def self.all(options : Hash | NamedTuple = HS2.new)
         request(method: "GET", options: options) do |response|
-          Mollie::List(self).from_json(response)
+          List(self).from_json(response)
         end
       end
 
@@ -94,7 +94,7 @@ struct Mollie
         data = Util.stringify_keys(data)
         options = Util.stringify_keys(options)
         parent_id = options.delete(parent_param) || data.delete(parent_param)
-        Mollie::Client.instance.perform_http_call(
+        Client.instance.perform_http_call(
           method, resource_name(parent_id.as(String?)), id, data, options)
       end
 

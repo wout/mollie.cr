@@ -1,6 +1,6 @@
 struct Mollie
   struct Payment
-    struct Refund < Mollie::Base::Refund
+    struct Refund < Base::Refund
     end
   end
 end

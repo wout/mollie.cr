@@ -1,6 +1,6 @@
 struct Mollie
   struct Amount
-    include Mollie::Json::Serializable
+    include Json::Serializable
 
     json_field(:value, BigDecimal)
     json_field(:currency, String)

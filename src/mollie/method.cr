@@ -1,6 +1,6 @@
 struct Mollie
   struct Method < Base::Resource
-    include Mollie::Mixins::Linkable
+    include Mixins::Linkable
 
     enum Type
       ApplePay
@@ -34,9 +34,9 @@ struct Mollie
     json_field(:description, String)
     json_field(:id, String)
     json_field(:image, HS2)
-    json_field(:maximum_amount, Mollie::Amount)
-    json_field(:minimum_amount, Mollie::Amount)
-    json_field(:pricing, Array(Mollie::Method::Fee)?)
+    json_field(:maximum_amount, Amount)
+    json_field(:minimum_amount, Amount)
+    json_field(:pricing, Array(Method::Fee)?)
 
     def normal_image
       image["size1x"]
@@ -51,11 +51,11 @@ struct Mollie
     end
 
     struct Fee
-      include Mollie::Json::Serializable
+      include Json::Serializable
 
       json_field(:description, String)
       json_field(:fee_region, String)
-      json_field(:fixed, Mollie::Amount)
+      json_field(:fixed, Amount)
       json_field(:variable, BigDecimal)
     end
   end

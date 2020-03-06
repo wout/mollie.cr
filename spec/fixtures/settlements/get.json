@@ -1,0 +1,110 @@
+{
+  "id": "stl_jDk30akdN",
+  "reference": "1234567.1511.03",
+  "settledAt": "2015-11-06T06:00:02.0Z",
+  "status": "paidout",
+  "amount": {
+    "value": "39.75",
+    "currency": "EUR"
+  },
+  "periods": {
+    "2015": {
+      "11": {
+        "revenue": [
+          {
+            "description": "iDEAL",
+            "method": "ideal",
+            "count": 6,
+            "amountNet": {
+              "value": "86.1000",
+              "currency": "EUR"
+            },
+            "amountVat": null,
+            "amountGross": {
+              "value": "86.1000",
+              "currency": "EUR"
+            }
+          },
+          {
+            "description": "Refunds iDEAL",
+            "method": "refund",
+            "count": 2,
+            "amountNet": {
+              "value": "-43.2000",
+              "currency": "EUR"
+            },
+            "amountVat": null,
+            "amountGross": {
+              "value": "43.2000",
+              "currency": "EUR"
+            }
+          }
+        ],
+        "costs": [
+          {
+            "description": "iDEAL",
+            "method": "ideal",
+            "count": 6,
+            "rate": {
+              "fixed": {
+                "value": "0.3500",
+                "currency": "EUR"
+              },
+              "percentage": null
+            },
+            "amountNet": {
+              "value": "2.1000",
+              "currency": "EUR"
+            },
+            "amountVat": {
+              "value": "0.4410",
+              "currency": "EUR"
+            },
+            "amountGross": {
+              "value": "2.5410",
+              "currency": "EUR"
+            }
+          },
+          {
+            "description": "Refunds iDEAL",
+            "method": "refund",
+            "count": 2,
+            "rate": {
+              "fixed": {
+                "value": "0.3500",
+                "currency": "EUR"
+              },
+              "percentage": null
+            },
+            "amountNet": {
+              "value": "0.5000",
+              "currency": "EUR"
+            },
+            "amountVat": {
+              "value": "0.1050",
+              "currency": "EUR"
+            },
+            "amountGross": {
+              "value": "0.6050",
+              "currency": "EUR"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "_links": {
+    "payments": {
+      "href": "https://api.mollie.com/v2/settlements/stl_jDk30akdN/payments",
+      "type": "application/hal+json"
+    },
+    "refunds": {
+      "href": "https://api.mollie.com/v2/settlements/stl_jDk30akdN/refunds",
+      "type": "application/hal+json"
+    },
+    "chargebacks": {
+      "href": "https://api.mollie.com/v2/settlements/stl_jDk30akdN/chargebacks",
+      "type": "application/hal+json"
+    }
+  }
+}

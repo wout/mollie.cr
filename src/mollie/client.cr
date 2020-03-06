@@ -12,15 +12,15 @@ struct Mollie
     getter api_endpoint : String
 
     def initialize(
-      @api_key : String? = Mollie::Config.api_key,
+      @api_key : String? = Config.api_key,
       api_endpoint : String = API_ENDPOINT
     )
       @api_endpoint = api_endpoint.chomp("/")
 
       if @api_key
-        Mollie::State.instances[@api_key.as(String)] = self unless @api_key.nil?
+        State.instances[@api_key.as(String)] = self unless @api_key.nil?
       else
-        raise Mollie::MissingApiKeyException.new(
+        raise MissingApiKeyException.new(
           "Expected API key but none was provided")
       end
     end
@@ -41,7 +41,7 @@ struct Mollie
       query : Hash | NamedTuple = HS2.new
     )
       unless METHODS.includes?(http_method)
-        raise Mollie::MethodNotSupportedException.new(
+        raise MethodNotSupportedException.new(
           "Invalid HTTP Method #{http_method}")
       end
 
@@ -64,9 +64,9 @@ struct Mollie
         end
         render(response)
       rescue e : IO::Timeout
-        raise Mollie::RequestTimeoutException.new(e.message)
+        raise RequestTimeoutException.new(e.message)
       rescue e : IO::EOFError | Errno
-        raise Mollie::Exception.new(e.message)
+        raise Exception.new(e.message)
       end
     end
 
@@ -84,8 +84,8 @@ struct Mollie
       tls_context = OpenSSL::SSL::Context::Client.new
       tls_context.ca_certificates = ca_cert
       client = HTTP::Client.new(uri, tls: tls_context)
-      client.read_timeout = Mollie::Config.read_timeout
-      client.connect_timeout = Mollie::Config.open_timeout
+      client.read_timeout = Config.read_timeout
+      client.connect_timeout = Config.open_timeout
       client
     end
 
@@ -96,18 +96,18 @@ struct Mollie
       when 204
         ""
       when 404
-        raise Mollie::ResourceNotFoundException.from_json(response.body)
+        raise ResourceNotFoundException.from_json(response.body)
       else
-        raise Mollie::RequestException.from_json(response.body)
+        raise RequestException.from_json(response.body)
       end
     end
 
     def self.instance
-      self.with_api_key(Mollie::Config.api_key.as(String?))
+      self.with_api_key(Config.api_key.as(String?))
     end
 
     def self.with_api_key(api_key : String?)
-      Mollie::State.instances[api_key]? || new(api_key)
+      State.instances[api_key]? || new(api_key)
     end
   end
 end

@@ -1,7 +1,7 @@
 struct Mollie
   module Util
     def self.version_string
-      mollie = Mollie::VERSION
+      mollie = VERSION
       crystal = Crystal::VERSION
       openssl = LibSSL::OPENSSL_VERSION
       "Mollie/#{mollie} Crystal/#{crystal} OpenSSL/#{openssl}"

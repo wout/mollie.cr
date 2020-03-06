@@ -1,5 +1,5 @@
 struct Mollie
   module State
-    class_property instances = Hash(String, Mollie::Client).new
+    class_property instances = Hash(String, Client).new
   end
 end

@@ -1,6 +1,6 @@
 struct Mollie
   struct Payment < Base::Resource
-    include Mollie::Mixins::Linkable
+    include Mixins::Linkable
 
     enum Status
       Open
@@ -20,11 +20,11 @@ struct Mollie
       end
     end
 
-    json_field(:amount, Mollie::Amount)
-    json_field(:amount_captured, Mollie::Amount?)
-    json_field(:amount_refunded, Mollie::Amount?)
-    json_field(:amount_remaining, Mollie::Amount?)
-    json_field(:application_fee, Mollie::Payment::ApplicationFee?)
+    json_field(:amount, Amount)
+    json_field(:amount_captured, Amount?)
+    json_field(:amount_refunded, Amount?)
+    json_field(:amount_remaining, Amount?)
+    json_field(:application_fee, Payment::ApplicationFee?)
     json_field(:authorized_at, Time?)
     json_field(:canceled_at, Time?)
     json_field(:country_code, String?)
@@ -47,7 +47,7 @@ struct Mollie
     json_field(:redirect_url, String)
     json_field(:restrict_payment_methods_to_country, String?)
     json_field(:sequence_type, String?)
-    json_field(:settlement_amount, Mollie::Amount?)
+    json_field(:settlement_amount, Amount?)
     json_field(:settlement_id, String?)
     json_field(:status, String)
     json_field(:subscription_id, String?)
@@ -64,7 +64,7 @@ struct Mollie
 
     def refunded?
       if amount_refunded
-        amount_refunded.as(Mollie::Amount).value > 0
+        amount_refunded.as(Amount).value > 0
       else
         false
       end
@@ -75,9 +75,9 @@ struct Mollie
     end
 
     struct ApplicationFee
-      include Mollie::Json::Serializable
+      include Json::Serializable
 
-      json_field(:amount, Mollie::Amount)
+      json_field(:amount, Amount)
       json_field(:description, String)
     end
   end
