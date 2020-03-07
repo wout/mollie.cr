@@ -53,5 +53,10 @@ describe Mollie::Chargeback do
       settlement = chargeback.settlement.as(Mollie::Settlement)
       settlement.id.should eq("stl_jDk30akdN")
     end
+
+    it "is nilable" do
+      chargeback = Mollie::Chargeback.from_json(read_fixture("chargebacks/get.json"))
+      chargeback.settlement.should be_nil
+    end
   end
 end
