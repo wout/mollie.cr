@@ -42,4 +42,16 @@ describe Mollie::Chargeback do
       chargeback.payment.id.should eq("tr_WDqYK6vllg")
     end
   end
+
+  describe "#settlement" do
+    it "returns the related settlement" do
+      configure_test_api_key
+      WebMock.stub(:get, "https://api.mollie.com/v2/settlements/stl_jDk30akdN")
+        .to_return(status: 200, body: read_fixture("settlements/get.json"))
+
+      chargeback = Mollie::Chargeback.from_json(read_fixture("chargebacks/get-reversed.json"))
+      settlement = chargeback.settlement.as(Mollie::Settlement)
+      settlement.id.should eq("stl_jDk30akdN")
+    end
+  end
 end
