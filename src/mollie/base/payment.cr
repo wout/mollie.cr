@@ -21,6 +21,13 @@ struct Mollie
         end
       end
 
+      {% for value in Status.constants %}
+        {% downcased = value.stringify.downcase %}
+        def {{ downcased.id }}?
+          {{ downcased }} == status
+        end
+      {% end %}
+
       json_field(:amount, Amount)
       json_field(:amount_captured, Amount?)
       json_field(:amount_refunded, Amount?)
@@ -55,13 +62,6 @@ struct Mollie
       json_field(:webhook_url, String)
       @[JSON::Field(converter: Mollie::Json::Underscorer)]
       getter details : HSBFIS?
-
-      {% for value in Status.constants %}
-        {% downcased = value.stringify.downcase %}
-        def {{ downcased.id }}?
-          {{ downcased }} == status
-        end
-      {% end %}
 
       def refunded?
         if amount_refunded

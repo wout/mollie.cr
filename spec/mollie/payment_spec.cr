@@ -16,6 +16,19 @@ describe Mollie::Payment do
     end
   end
 
+  describe "boolean status methods" do
+    it "defines a boolean method per status" do
+      payment = Mollie::Payment.from_json(get_payment_json)
+      payment.open?.should be_false
+      payment.canceled?.should be_false
+      payment.pending?.should be_false
+      payment.expired?.should be_false
+      payment.failed?.should be_false
+      payment.paid?.should be_true
+      payment.authorized?.should be_false
+    end
+  end
+
   describe "#links" do
     it "is linkable" do
       payment = Mollie::Payment.from_json(get_payment_json)
@@ -67,19 +80,6 @@ describe Mollie::Payment do
     it "allows nilable values" do
       payment = Mollie::Payment.from_json(get_open_payment_json)
       payment.authorized_at.should be_nil
-    end
-  end
-
-  describe "boolean status methods" do
-    it "defines a boolean method per status" do
-      payment = Mollie::Payment.from_json(get_payment_json)
-      payment.open?.should be_false
-      payment.canceled?.should be_false
-      payment.pending?.should be_false
-      payment.expired?.should be_false
-      payment.failed?.should be_false
-      payment.paid?.should be_true
-      payment.authorized?.should be_false
     end
   end
 
