@@ -55,6 +55,12 @@ struct Mollie
       Order::Refund.all(options.to_h.merge({:order_id => id}))
     end
 
+    def refund!(options : Hash | NamedTuple = HS2.new)
+      options = options.to_h.merge({:order_id => id})
+      options[:lines] ||= [] of Array(Orderline)
+      Order::Refund.create(options)
+    end
+
     struct Address
       include Json::Serializable
 

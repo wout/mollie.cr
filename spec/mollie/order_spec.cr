@@ -97,4 +97,24 @@ describe Mollie::Order do
       order.refunds.size.should eq(0)
     end
   end
+
+  describe "#refund!" do
+    it "create refund" do
+      refund_body = {
+        :lines       => [] of Array(Mollie::Orderline),
+        :description => "Required quantity not in stock, refunding one photo book.",
+      }
+
+      configure_test_api_key
+      WebMock.stub(:post, "https://api.mollie.com/v2/orders/ord_kEn1PlbGa/refunds")
+        .with(body: refund_body.to_json, headers: empty_string_hash)
+        .to_return(status: 200, body: read_fixture("refunds/get.json"))
+
+      order = Mollie::Order.from_json(read_fixture("orders/get.json"))
+      refund = order.refund!(refund_body)
+      refund.should be_a(Mollie::Order::Refund)
+      refund.id.should eq("re_4qqhO89gsT")
+      refund.order_id.should eq("ord_stTC2WHAuS")
+    end
+  end
 end
