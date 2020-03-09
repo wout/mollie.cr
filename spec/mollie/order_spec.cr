@@ -47,8 +47,8 @@ describe Mollie::Order do
       order.status.should eq("created")
       order.is_cancelable.should be_true
       order.metadata.should be_a(HSBFIS?)
-      order.created_at.should eq(Time.parse_rfc3339("2018-08-02T09:29:56+00:00"))
-      order.expires_at.should eq(Time.parse_rfc3339("2018-08-30T09:29:56+00:00"))
+      order.created_at.should eq(Time.parse_iso8601("2018-08-02T09:29:56+00:00"))
+      order.expires_at.should eq(Time.parse_iso8601("2018-08-30T09:29:56+00:00"))
       order.mode.should eq("live")
       order.locale.should eq("nl_NL")
       address = order.billing_address

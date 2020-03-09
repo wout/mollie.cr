@@ -75,11 +75,7 @@ struct Mollie
         link_for("checkout")
       end
 
-      struct ApplicationFee
-        include Json::Serializable
-
-        json_field(:amount, Amount)
-        json_field(:description, String)
+      struct ApplicationFee < Mollie::Base::ApplicationFee
       end
     end
   end

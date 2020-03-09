@@ -46,7 +46,7 @@ describe Mollie::Customer::Mandate do
       reference.should be_a(String?)
       reference.as(String).should eq("YOUR-COMPANY-MD1380")
       mandate.signature_date.should eq("2018-05-07")
-      mandate.created_at.should eq(Time.parse_rfc3339("2018-05-07T10:49:08+00:00"))
+      mandate.created_at.should eq(Time.parse_iso8601("2018-05-07T10:49:08+00:00"))
     end
   end
 

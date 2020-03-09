@@ -14,7 +14,7 @@ describe Mollie::Chargeback do
       chargeback.id.should eq("chb_n9z0tp")
       chargeback.amount.should be_a(Mollie::Amount)
       chargeback.settlement_amount.should be_a(Mollie::Amount)
-      chargeback.created_at.should eq(Time.parse_rfc3339("2018-03-14T17:00:52.0Z"))
+      chargeback.created_at.should eq(Time.parse_iso8601("2018-03-14T17:00:52.0Z"))
       chargeback.reversed_at.should be_a(Time?)
       chargeback.payment_id.should eq("tr_WDqYK6vllg")
     end

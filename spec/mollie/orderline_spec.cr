@@ -5,7 +5,7 @@ describe Mollie::Orderline do
     it "pulls the required attributes" do
       orderline = Mollie::Orderline.from_json(read_fixture("orderlines/example.json"))
 
-      orderline.created_at.should eq(Time.parse_rfc3339("2018-08-02T09:29:56+00:00"))
+      orderline.created_at.should eq(Time.parse_iso8601("2018-08-02T09:29:56+00:00"))
       orderline.id.should eq("odl_dgtxyl")
       orderline.name.should eq("LEGO 42083 Bugatti Chiron")
       orderline.order_id.should eq("ord_kEn1PlbGa")

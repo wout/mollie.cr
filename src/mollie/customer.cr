@@ -13,5 +13,13 @@ struct Mollie
     def mandates(options : Hash | NamedTuple = HS2.new)
       Mandate.all(options.to_h.merge({:customer_id => id}))
     end
+
+    def payments(options : Hash | NamedTuple = HS2.new)
+      Payment.all(options.to_h.merge({:customer_id => id}))
+    end
+
+    def subscriptions(options : Hash | NamedTuple = HS2.new)
+      Subscription.all(options.to_h.merge({:customer_id => id}))
+    end
   end
 end

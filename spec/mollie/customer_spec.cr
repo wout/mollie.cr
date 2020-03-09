@@ -18,7 +18,7 @@ describe Mollie::Customer do
       customer.locale.should eq("nl_NL")
       customer.metadata.should be_a(HSBFIS?)
       customer.metadata.should be_nil
-      customer.created_at.should eq(Time.parse_rfc3339("2018-04-06T13:23:21.0Z"))
+      customer.created_at.should eq(Time.parse_iso8601("2018-04-06T13:23:21.0Z"))
     end
   end
 
@@ -34,12 +34,24 @@ describe Mollie::Customer do
   end
 
   describe "#payments" do
-    pending "fetches the payments" do
+    it "fetches the payments" do
+      configure_test_api_key
+      WebMock.stub(:get, "https://api.mollie.com/v2/customers/cst_kEn1PlbGa/payments")
+        .to_return(status: 200, body: read_fixture("payments/all.json"))
+
+      customer = Mollie::Customer.from_json(read_fixture("customers/get.json"))
+      customer.payments.first.id.should eq("tr_WDqYK6vllg")
     end
   end
 
   describe "#subscriptions" do
-    pending "fetches the subscriptions" do
+    it "fetches the subscriptions" do
+      configure_test_api_key
+      WebMock.stub(:get, "https://api.mollie.com/v2/customers/cst_kEn1PlbGa/subscriptions")
+        .to_return(status: 200, body: read_fixture("subscriptions/all.json"))
+
+      customer = Mollie::Customer.from_json(read_fixture("customers/get.json"))
+      customer.subscriptions.first.id.should eq("sub_rVKGtNd6s3")
     end
   end
 end

@@ -28,7 +28,7 @@ describe Mollie::Refund do
       refund.id.should eq("re_4qqhO89gsT")
       refund.description.should eq("Required quantity not in stock, refunding one photo book.")
       refund.amount.should be_a(Mollie::Amount)
-      refund.created_at.should eq(Time.parse_rfc3339("2018-09-25T17:40:23+00:00"))
+      refund.created_at.should eq(Time.parse_iso8601("2018-09-25T17:40:23+00:00"))
       refund.status.should eq("pending")
       refund.settlement_amount.should be_a(Mollie::Amount)
       refund.settlement_id.should be_a(Mollie::Settlement?)
