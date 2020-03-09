@@ -4,7 +4,7 @@ describe Mollie::Chargeback do
   describe "#links" do
     it "contain links" do
       chargeback = Mollie::Chargeback.from_json(read_fixture("chargebacks/get.json"))
-      links = chargeback.links.as(HSHS2)
+      chargeback.links.should be_a(Links)
     end
   end
 

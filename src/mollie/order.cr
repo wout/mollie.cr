@@ -48,7 +48,7 @@ struct Mollie
     json_field(:lines, Array(Orderline))
 
     def checkout_url
-      Util.extract_url(links, "checkout")
+      link_for("checkout")
     end
 
     def refunds(options : Hash | NamedTuple = HS2.new)

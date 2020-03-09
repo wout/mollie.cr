@@ -6,50 +6,46 @@
         "resource": "refund",
         "id": "re_4qqhO89gsT",
         "amount": {
-          "value": "1027.99",
-          "currency": "EUR"
+          "currency": "EUR",
+          "value": "698.00"
         },
-        "status": "pending",
-        "createdAt": "2018-09-25T17:40:23+00:00",
+        "status": "processing",
+        "createdAt": "2018-03-14T17:09:02.0Z",
         "description": "Required quantity not in stock, refunding one photo book.",
         "metadata": {
           "bookkeeping_id": 12345
         },
-        "orderId": "ord_stTC2WHAuS",
         "paymentId": "tr_WDqYK6vllg",
-        "settlementAmount": {
-          "value": "-1027.99",
-          "currency": "EUR"
-        },
+        "orderId": "ord_stTC2WHAuS",
         "lines": [
           {
             "resource": "orderline",
-            "id": "odl_d1ec55",
+            "id": "odl_dgtxyl",
             "orderId": "ord_stTC2WHAuS",
             "name": "LEGO 42083 Bugatti Chiron",
             "sku": "5702016116977",
             "type": "physical",
-            "status": "completed",
-            "isCancelable": false,
-            "quantity": 2,
+            "status": "paid",
+            "metadata": null,
+            "quantity": 1,
             "unitPrice": {
               "value": "399.00",
               "currency": "EUR"
             },
             "vatRate": "21.00",
             "vatAmount": {
-              "value": "121.14",
+              "value": "51.89",
               "currency": "EUR"
             },
-            "totalAmount": {
-              "value": "698.00",
-              "currency": "EUR"
-            },
-            "createdAt": "2018-09-23T17:23:13+00:00",
             "discountAmount": {
               "value": "100.00",
               "currency": "EUR"
             },
+            "totalAmount": {
+              "value": "299.00",
+              "currency": "EUR"
+            },
+            "createdAt": "2018-08-02T09:29:56+00:00",
             "_links": {
               "productUrl": {
                 "href": "https://shop.lego.com/nl-NL/Bugatti-Chiron-42083",
@@ -57,41 +53,6 @@
               },
               "imageUrl": {
                 "href": "https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?$main$",
-                "type": "text/html"
-              }
-            }
-          },
-          {
-            "resource": "orderline",
-            "id": "odl_j3eusr",
-            "orderId": "ord_stTC2WHAuS",
-            "name": "LEGO 42056 Porsche 911 GT3 RS",
-            "sku": "5702015594028",
-            "type": "physical",
-            "status": "completed",
-            "isCancelable": false,
-            "quantity": 1,
-            "unitPrice": {
-              "value": "329.99",
-              "currency": "EUR"
-            },
-            "vatRate": "21.00",
-            "vatAmount": {
-              "value": "57.27",
-              "currency": "EUR"
-            },
-            "totalAmount": {
-              "value": "329.99",
-              "currency": "EUR"
-            },
-            "createdAt": "2018-09-23T17:23:13+00:00",
-            "_links": {
-              "productUrl": {
-                "href": "https://shop.lego.com/nl-NL/Porsche-911-GT3-RS-42056",
-                "type": "text/html"
-              },
-              "imageUrl": {
-                "href": "https://sh-s7-live-s.legocdn.com/is/image/LEGO/42056?$PDPDefault$",
                 "type": "text/html"
               }
             }
@@ -118,5 +79,19 @@
       }
     ]
   },
-  "_links": {}
+  "_links": {
+    "self": {
+      "href": "https://api.mollie.com/v2/payments/tr_7UhSN1zuXS/refunds?limit=5",
+      "type": "application/hal+json"
+    },
+    "previous": null,
+    "next": {
+      "href": "https://api.mollie.com/v2/payments/tr_7UhSN1zuXS/refunds?from=re_APBiGPH2vV&limit=5",
+      "type": "application/hal+json"
+    },
+    "documentation": {
+      "href": "https://docs.mollie.com/reference/v2/orders-api/list-order-refunds",
+      "type": "text/html"
+    }
+  }
 }

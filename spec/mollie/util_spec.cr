@@ -13,40 +13,8 @@ describe Mollie::Util do
 
   describe ".extract_id" do
     it "extracts the id" do
-      links = {
-        "customer" => {
-          "href" => "https://api.mollie.com/v2/customers/cst_4qqhO89gsT",
-          "type" => "application/hal+json",
-        },
-      }
-      Mollie::Util.extract_id(links, "customer").should eq("cst_4qqhO89gsT")
-    end
-
-    it "does not extract the id with a missing link" do
-      links = {
-        "customer" => {
-          "href" => "https://api.mollie.com/v2/customers/cst_4qqhO89gsT",
-          "type" => "application/hal+json",
-        },
-      }
-      Mollie::Util.extract_id(links, "unknown-resource").should be_nil
-    end
-  end
-
-  describe ".extract_url" do
-    it "extracts a url from a links hash" do
-      links = {
-        "customer" => {
-          "href" => "https://api.mollie.com/v2/customers/cst_4qqhO89gsT",
-          "type" => "application/hal+json",
-        },
-      }
-      Mollie::Util.extract_url(links, "customer")
-        .should eq(links.dig("customer", "href"))
-    end
-
-    it "allows links to be nil" do
-      Mollie::Util.extract_url(nil, "customer").should be_nil
+      link = "https://api.mollie.com/v2/customers/cst_4qqhO89gsT"
+      Mollie::Util.extract_id(link).should eq("cst_4qqhO89gsT")
     end
   end
 

@@ -18,7 +18,7 @@ struct Mollie
     end
 
     def settlement(options : Hash | NamedTuple = HS2.new)
-      if links && (settlement_id = Util.extract_id(links.as(HSHS2), "settlement"))
+      if settlement_id = id_from_link?("settlement")
         Settlement.get(settlement_id, options)
       end
     end

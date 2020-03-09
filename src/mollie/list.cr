@@ -10,7 +10,7 @@ struct Mollie
     {% begin %}
       {% for name in %w[previous next] %}
         def {{name.id}}(options : Hash | NamedTuple = HS2.new)
-          return self unless href = links.as(HSHS2).dig?({{ name }}, "href")
+          return self unless href = link_for?({{ name }})
 
           query = Util.query_from_href(href)
           T.all(options: options.to_h.merge(query))

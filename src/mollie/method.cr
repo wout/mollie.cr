@@ -54,7 +54,7 @@ struct Mollie
       include Json::Serializable
 
       json_field(:description, String)
-      json_field(:fee_region, String)
+      json_field(:fee_region, String?)
       json_field(:fixed, Amount)
       json_field(:variable, BigDecimal)
     end

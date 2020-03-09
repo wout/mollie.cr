@@ -18,7 +18,7 @@ describe Mollie::Order do
   describe "#links" do
     it "is linkable" do
       payment = Mollie::Order.from_json(read_fixture("orders/get.json"))
-      payment.links.should be_a(HSHS2)
+      payment.links.should be_a(Links)
     end
   end
 
@@ -90,11 +90,11 @@ describe Mollie::Order do
     it "gets all related refunds" do
       configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/orders/ord_kEn1PlbGa/refunds")
-        .to_return(status: 200, body: %({"_embedded":{"refunds":[]}}))
+        .to_return(status: 200, body: read_fixture("refunds/all.json"))
 
       order = Mollie::Order.from_json(read_fixture("orders/get.json"))
       order.refunds.should be_a(Mollie::List(Mollie::Order::Refund))
-      order.refunds.size.should eq(0)
+      order.refunds.size.should eq(1)
     end
   end
 

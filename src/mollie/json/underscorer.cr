@@ -10,10 +10,10 @@ struct Mollie
         hash
       end
 
-      def self.to_json(value : Hash, json : JSON::Builder)
+      def self.to_json(hash : Hash, json : JSON::Builder)
         json.object do
-          Util.camelize_keys(hash).each do |key, value|
-            json.field key, value
+          Util.camelize_keys(hash).each_pair do |key, value|
+            json.field(key, value)
           end
         end
       end

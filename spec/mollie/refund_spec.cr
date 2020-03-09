@@ -18,8 +18,7 @@ describe Mollie::Refund do
   describe "#links" do
     it "contain links" do
       refund = Mollie::Refund.from_json(read_fixture("refunds/get.json"))
-      links = refund.links.as(HSHS2)
-      links["self"]["href"].should eq("https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT")
+      refund.link_for("self").should eq("https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT")
     end
   end
 

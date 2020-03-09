@@ -2,7 +2,8 @@ def test_object_json
   %({
     "id": "mastaba",
     "foo": "App noot mies",
-    "myField": "Magnificent"
+    "myField": "Magnificent",
+    "_links": {}
   })
 end
 
@@ -10,7 +11,8 @@ def nested_test_object_json
   %({
     "id": "nested",
     "foo": "Wim zus jet",
-    "testobjectId": "mastaba"
+    "testobjectId": "mastaba",
+    "_links": {}
   })
 end
 
@@ -20,7 +22,8 @@ def test_collection_json
       "testobjects": [
         {"id":"my-id"}
       ]
-    }
+    },
+    "_links": {}
   })
 end
 
@@ -30,6 +33,7 @@ def nested_test_collection_json
       "nestedobjects": [
         {"id":"my-id"}
       ]
-    }
+    },
+    "_links": {}
   })
 end

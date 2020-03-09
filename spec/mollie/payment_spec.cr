@@ -1,5 +1,4 @@
 require "../spec_helper.cr"
-require "../spec_helpers/payment_helper.cr"
 
 describe Mollie::Payment do
   describe "Status enum" do
@@ -18,28 +17,27 @@ describe Mollie::Payment do
 
   describe "boolean status methods" do
     it "defines a boolean method per status" do
-      payment = Mollie::Payment.from_json(get_payment_json)
-      payment.open?.should be_false
+      payment = Mollie::Payment.from_json(read_fixture("payments/get.json"))
+      payment.open?.should be_true
       payment.canceled?.should be_false
       payment.pending?.should be_false
       payment.expired?.should be_false
       payment.failed?.should be_false
-      payment.paid?.should be_true
+      payment.paid?.should be_false
       payment.authorized?.should be_false
     end
   end
 
   describe "#links" do
     it "is linkable" do
-      payment = Mollie::Payment.from_json(get_payment_json)
-      payment.links.should be_a(HSHS2)
+      payment = Mollie::Payment.from_json(read_fixture("payments/get.json"))
+      payment.links.should be_a(Links)
     end
   end
 
   describe ".from_json" do
     it "pulls the required attributes" do
-      payment = Mollie::Payment.from_json(get_payment_json)
-
+      payment = Mollie::Payment.from_json(read_fixture("payments/get-complete.json"))
       payment.id.should eq("tr_7UhSN1zuXS")
       payment.mode.should eq("test")
       payment.description.should eq("My first payment")
@@ -78,31 +76,31 @@ describe Mollie::Payment do
     end
 
     it "allows nilable values" do
-      payment = Mollie::Payment.from_json(get_open_payment_json)
+      payment = Mollie::Payment.from_json(read_fixture("payments/get-open.json"))
       payment.authorized_at.should be_nil
     end
   end
 
   describe "#refunded?" do
     it "tests positive with a refunded amount" do
-      payment = Mollie::Payment.from_json(get_refunded_payment_json)
+      payment = Mollie::Payment.from_json(read_fixture("payments/get-refunded.json"))
       payment.amount_refunded.should be_a(Mollie::Amount)
       payment.refunded?.should be_true
     end
     it "tests negative with a refunded amount of zero" do
-      payment = Mollie::Payment.from_json(get_zero_refunded_payment_json)
+      payment = Mollie::Payment.from_json(read_fixture("payments/get-zero-refunded.json"))
       payment.refunded?.should be_false
     end
     it "tests negative without a refunede amount" do
-      payment = Mollie::Payment.from_json(get_payment_json)
+      payment = Mollie::Payment.from_json(read_fixture("payments/get.json"))
       payment.refunded?.should be_false
     end
   end
 
   describe "#checkout_url" do
     it "fetches the checkout url from links" do
-      payment = Mollie::Payment.from_json(get_payment_json)
-      payment.checkout_url.should be(payment.links.as(HSHS2)["checkout"]["href"])
+      payment = Mollie::Payment.from_json(read_fixture("payments/get.json"))
+      payment.checkout_url.should be(payment.link_for("checkout"))
     end
   end
 
@@ -110,7 +108,7 @@ describe Mollie::Payment do
     it "parses the application fee as an object" do
       configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/payments/tr_WDqYK6vllf")
-        .to_return(status: 200, body: get_complete_payment_json)
+        .to_return(status: 200, body: read_fixture("payments/get-complete.json"))
 
       payment = Mollie::Payment.get("tr_WDqYK6vllf")
       fee = payment.application_fee.as(Mollie::Payment::ApplicationFee)

@@ -40,9 +40,8 @@ describe Mollie::Orderline do
   describe "#links" do
     it "contain links" do
       orderline = Mollie::Orderline.from_json(read_fixture("orderlines/example.json"))
-      links = orderline.links.as(HSHS2)
-      links["imageUrl"]["href"].should eq("https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?$main$")
-      links["productUrl"]["href"].should eq("https://shop.lego.com/nl-NL/Bugatti-Chiron-42083")
+      orderline.link_for("imageUrl").should eq("https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?$main$")
+      orderline.link_for("productUrl").should eq("https://shop.lego.com/nl-NL/Bugatti-Chiron-42083")
     end
   end
 end

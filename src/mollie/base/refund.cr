@@ -28,7 +28,7 @@ struct Mollie
       json_field(:order_id, String)
       json_field(:payment_id, String)
       json_field(:settlement_id, String?)
-      json_field(:settlement_amount, Amount)
+      json_field(:settlement_amount, Amount?)
       json_field(:status, String)
 
       def payment(options : Hash | NamedTuple = HS2.new)

@@ -72,7 +72,7 @@ struct Mollie
       end
 
       def checkout_url
-        Util.extract_url(links, "checkout")
+        link_for("checkout")
       end
 
       struct ApplicationFee

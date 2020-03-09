@@ -4,7 +4,7 @@ describe Mollie::Organization do
   describe "#links" do
     it "is linkable" do
       organization = Mollie::Organization.from_json(read_fixture("organizations/get.json"))
-      organization.links.should be_a(HSHS2)
+      organization.links.should be_a(Links)
     end
   end
 

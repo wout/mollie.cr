@@ -17,10 +17,20 @@ describe Mollie::Settlement do
     end
   end
 
+  describe "boolean status methods" do
+    it "defines a boolean method per status" do
+      settlement = Mollie::Settlement.from_json(read_fixture("settlements/get.json"))
+      settlement.open?.should be_false
+      settlement.pending?.should be_false
+      settlement.paidout?.should be_true
+      settlement.failed?.should be_false
+    end
+  end
+
   describe "#links" do
     it "contain links" do
       settlement = Mollie::Settlement.from_json(read_fixture("settlements/get.json"))
-      links = settlement.links.as(HSHS2)
+      settlement.links.should be_a(Links)
     end
   end
 
@@ -57,16 +67,6 @@ describe Mollie::Settlement do
       rate.fixed.should be_a(Mollie::Amount?)
       rate.percentage.should be_a(Mollie::Amount?)
       rate.variable.should be_a(String?)
-    end
-  end
-
-  describe "boolean status methods" do
-    it "defines a boolean method per status" do
-      settlement = Mollie::Settlement.from_json(read_fixture("settlements/get.json"))
-      settlement.open?.should be_false
-      settlement.pending?.should be_false
-      settlement.paidout?.should be_true
-      settlement.failed?.should be_false
     end
   end
 

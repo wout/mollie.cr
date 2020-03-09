@@ -1,5 +1,4 @@
 require "../spec_helper.cr"
-require "../spec_helpers/method_helper.cr"
 
 describe Mollie::Method do
   describe "Type enum" do
@@ -18,24 +17,24 @@ describe Mollie::Method do
 
   describe "#links" do
     it "is linkable" do
-      method = Mollie::Method.from_json(get_method_json)
-      method.links.should be_nil
+      method = Mollie::Method.from_json(read_fixture("methods/get.json"))
+      method.links.should be_a(Links)
     end
   end
 
   describe ".from_json" do
     it "pulls the required attributes" do
-      method = Mollie::Method.from_json(get_method_json)
+      method = Mollie::Method.from_json(read_fixture("methods/get.json"))
 
-      method.id.should eq("creditcard")
-      method.description.should eq("Credit card")
+      method.id.should eq("ideal")
+      method.description.should eq("iDEAL")
       method.minimum_amount.should be_a(Mollie::Amount)
       method.minimum_amount.to_tuple.should eq({value: "0.01", currency: "EUR"})
       method.maximum_amount.should be_a(Mollie::Amount)
-      method.maximum_amount.to_tuple.should eq({value: "2000.00", currency: "EUR"})
-      method.image["size1x"].should eq("https://www.mollie.com/external/icons/payment-methods/creditcard.png")
-      method.image["size2x"].should eq("https://www.mollie.com/external/icons/payment-methods/creditcard%402x.png")
-      method.image["svg"].should eq("https://www.mollie.com/external/icons/payment-methods/creditcard.svg")
+      method.maximum_amount.to_tuple.should eq({value: "50000.00", currency: "EUR"})
+      method.image["size1x"].should eq("https://www.mollie.com/external/icons/payment-methods/ideal.png")
+      method.image["size2x"].should eq("https://www.mollie.com/external/icons/payment-methods/ideal%402x.png")
+      method.image["svg"].should eq("https://www.mollie.com/external/icons/payment-methods/ideal.svg")
     end
   end
 
@@ -43,9 +42,8 @@ describe Mollie::Method do
     context "with pricing" do
       it "includes fees" do
         configure_test_api_key
-        json = read_fixture("methods/get-includes-pricing.json")
         WebMock.stub(:get, "https://api.mollie.com/v2/methods/creditcard?include=pricing")
-          .to_return(status: 200, body: json)
+          .to_return(status: 200, body: read_fixture("methods/get-includes-pricing.json"))
 
         creditcard = Mollie::Method.get("creditcard", {include: "pricing"})
         pricing = creditcard.pricing.as(Array(Mollie::Method::Fee))
@@ -61,9 +59,8 @@ describe Mollie::Method do
     context "without pricing" do
       it "does not include fees" do
         configure_test_api_key
-        json = read_fixture("methods/get.json")
         WebMock.stub(:get, "https://api.mollie.com/v2/methods/creditcard")
-          .to_return(status: 200, body: json)
+          .to_return(status: 200, body: read_fixture("methods/get.json"))
 
         creditcard = Mollie::Method.get("creditcard")
         creditcard.pricing.should be_nil
@@ -73,21 +70,21 @@ describe Mollie::Method do
 
   describe "#normal_image" do
     it "returns the @1x image" do
-      method = Mollie::Method.from_json(get_method_json)
+      method = Mollie::Method.from_json(read_fixture("methods/get.json"))
       method.normal_image.should eq(method.image["size1x"])
     end
   end
 
   describe "#bigger_image" do
     it "returns the @2x image" do
-      method = Mollie::Method.from_json(get_method_json)
+      method = Mollie::Method.from_json(read_fixture("methods/get.json"))
       method.bigger_image.should eq(method.image["size2x"])
     end
   end
 
   describe "#vector_image" do
     it "returns the vector image" do
-      method = Mollie::Method.from_json(get_method_json)
+      method = Mollie::Method.from_json(read_fixture("methods/get.json"))
       method.vector_image.should eq(method.image["svg"])
     end
   end
