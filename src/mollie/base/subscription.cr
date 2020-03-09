@@ -38,7 +38,7 @@ struct Mollie
       json_field(:metadata, HSBFIS?)
       json_field(:method, String?)
       json_field(:mode, String)
-      json_field(:next_payment_date, String)
+      json_field(:next_payment_date, String?)
       json_field(:start_date, String)
       json_field(:status, String)
       json_field(:times, Int32)
