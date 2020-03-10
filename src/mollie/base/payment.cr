@@ -1,6 +1,6 @@
 struct Mollie
   struct Base
-    abstract struct Payment < Mollie::Base::Resource
+    abstract struct Payment < Resource
       include Mixins::Linkable
 
       enum Status
@@ -72,7 +72,7 @@ struct Mollie
       end
 
       def checkout_url
-        link_for("checkout")
+        link_for(:checkout)
       end
 
       struct ApplicationFee < Mollie::Base::ApplicationFee

@@ -45,10 +45,10 @@ struct Mollie
     json_field(:order_number, String)
     json_field(:shipping_address, Address)
     json_field(:redirect_url, String)
-    json_field(:lines, Array(Orderline))
+    json_field(:lines, Array(Mollie::Order::Line))
 
     def checkout_url
-      link_for("checkout")
+      link_for(:checkout)
     end
 
     def refunds(options : Hash | NamedTuple = HS2.new)
@@ -57,7 +57,7 @@ struct Mollie
 
     def refund!(options : Hash | NamedTuple = HS2.new)
       options = options.to_h.merge({:order_id => id})
-      options[:lines] ||= [] of Array(Orderline)
+      options[:lines] ||= [] of Array(Mollie::Order::Line)
       Order::Refund.create(options)
     end
 

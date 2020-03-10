@@ -20,6 +20,9 @@
       "metadata" : null,
       "isCancelable" : true,
       "quantity" : 1,
+      "quantityShipped": 0,
+      "quantityCanceled": 0,
+      "quantityRefunded": 0,
       "unitPrice" : {
         "value" : "399.00",
         "currency" : "EUR"
@@ -37,6 +40,9 @@
         "value" : "299.00",
         "currency" : "EUR"
       },
+      "shippableQuantity": 0,
+      "refundableQuantity": 0,
+      "cancelableQuantity": 2,
       "createdAt" : "2018-08-02T09:29:56+00:00",
       "_links" : {
         "productUrl" : {
@@ -60,6 +66,9 @@
       "metadata" : null,
       "isCancelable" : false,
       "quantity" : 1,
+      "quantityShipped": 0,
+      "quantityCanceled": 0,
+      "quantityRefunded": 0,
       "unitPrice" : {
         "value" : "329.99",
         "currency" : "EUR"
@@ -73,6 +82,9 @@
         "value" : "329.99",
         "currency" : "EUR"
       },
+      "shippableQuantity": 0,
+      "refundableQuantity": 0,
+      "cancelableQuantity": 2,
       "createdAt" : "2018-08-02T09:29:56+00:00",
       "_links" : {
         "productUrl" : {

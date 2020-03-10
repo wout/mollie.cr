@@ -13,6 +13,7 @@
   "isCancelable": true,
   "quantity": 2,
   "quantityShipped": 0,
+  "quantityCanceled": 0,
   "amountShipped": {
     "value": "0.00",
     "currency": "EUR"

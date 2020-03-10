@@ -1,9 +1,9 @@
 require "../spec_helper.cr"
 
-describe Mollie::Orderline do
+describe Mollie::Line do
   describe ".from_json" do
     it "pulls the required attributes" do
-      orderline = Mollie::Orderline.from_json(read_fixture("orderlines/example.json"))
+      orderline = Mollie::Line.from_json(read_fixture("orderlines/example.json"))
 
       orderline.created_at.should eq(Time.parse_iso8601("2018-08-02T09:29:56+00:00"))
       orderline.id.should eq("odl_dgtxyl")
@@ -31,6 +31,8 @@ describe Mollie::Orderline do
       orderline.amount_shipped.as(Mollie::Amount).value.should eq(0.0)
       orderline.amount_refunded.should be_a(Mollie::Amount)
       orderline.amount_refunded.as(Mollie::Amount).value.should eq(0.0)
+      orderline.amount_canceled.should be_a(Mollie::Amount)
+      orderline.amount_canceled.as(Mollie::Amount).value.should eq(0.0)
       orderline.shippable_quantity.should eq(0)
       orderline.refundable_quantity.should eq(0)
       orderline.cancelable_quantity.should eq(2)
@@ -39,9 +41,51 @@ describe Mollie::Orderline do
 
   describe "#links" do
     it "contain links" do
-      orderline = Mollie::Orderline.from_json(read_fixture("orderlines/example.json"))
+      orderline = Mollie::Line.from_json(read_fixture("orderlines/example.json"))
       orderline.link_for("imageUrl").should eq("https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?$main$")
       orderline.link_for("productUrl").should eq("https://shop.lego.com/nl-NL/Bugatti-Chiron-42083")
+    end
+  end
+
+  describe "#cancelable?" do
+    it "tests cancelability" do
+      orderline = Mollie::Line.from_json(read_fixture("orderlines/example.json"))
+      orderline.cancelable?.should be_true
+    end
+  end
+
+  describe "#discounted?" do
+    it "tests descountability" do
+      orderline = Mollie::Line.from_json(read_fixture("orderlines/example.json"))
+      orderline.discounted?.should be_true
+    end
+  end
+
+  describe "#shippable?" do
+    it "tests shippability" do
+      orderline = Mollie::Line.from_json(read_fixture("orderlines/example.json"))
+      orderline.shippable?.should be_false
+    end
+  end
+
+  describe "#refundable?" do
+    it "tests refunablility" do
+      orderline = Mollie::Line.from_json(read_fixture("orderlines/example.json"))
+      orderline.refundable?.should be_false
+    end
+  end
+
+  describe "#product_url" do
+    it "returns the product utl" do
+      orderline = Mollie::Line.from_json(read_fixture("orderlines/example.json"))
+      orderline.product_url.should eq("https://shop.lego.com/nl-NL/Bugatti-Chiron-42083")
+    end
+  end
+
+  describe "#image_url" do
+    it "returns the product's image url" do
+      orderline = Mollie::Line.from_json(read_fixture("orderlines/example.json"))
+      orderline.image_url.should eq("https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?$main$")
     end
   end
 end

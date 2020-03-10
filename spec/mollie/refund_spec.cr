@@ -35,7 +35,7 @@ describe Mollie::Refund do
       refund.payment_id.should eq("tr_WDqYK6vllg")
       refund.order_id.should eq("ord_stTC2WHAuS")
       refund.metadata.should be_a(HSBFIS)
-      refund.lines.should be_a(Array(Mollie::Orderline))
+      refund.lines.should be_a(Array(Mollie::Line))
       refund.lines.size.should eq(2)
     end
   end

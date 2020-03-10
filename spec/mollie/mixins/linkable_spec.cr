@@ -18,6 +18,11 @@ describe Mollie::Mixins::Linkable do
       object.link_for("self").should eq("https://api.mollie.com/v2/linkableobjects/lob_d5E44r2gq")
     end
 
+    it "allows a symbol key" do
+      object = Mollie::LinkableObject.from_json(read_fixture("linkable/example.json"))
+      object.link_for(:self).should eq(object.link_for("self"))
+    end
+
     it "fails when the link does not exist" do
       expect_raises(Exception) do
         object = Mollie::LinkableObject.from_json(read_fixture("linkable/example.json"))
@@ -32,6 +37,11 @@ describe Mollie::Mixins::Linkable do
       object.link_for?("self").should eq("https://api.mollie.com/v2/linkableobjects/lob_d5E44r2gq")
     end
 
+    it "allows a symbol key" do
+      object = Mollie::LinkableObject.from_json(read_fixture("linkable/example-with-null.json"))
+      object.link_for?(:self).should eq(object.link_for?("self"))
+    end
+
     it "allows the link to be nil" do
       object = Mollie::LinkableObject.from_json(read_fixture("linkable/example-with-null.json"))
       object.link_for?("nothing").should be_nil
@@ -42,6 +52,11 @@ describe Mollie::Mixins::Linkable do
     it "returns the id from a link for a given key" do
       object = Mollie::LinkableObject.from_json(read_fixture("linkable/example.json"))
       object.id_from_link("self").should eq("lob_d5E44r2gq")
+    end
+
+    it "accepts a symbol key" do
+      object = Mollie::LinkableObject.from_json(read_fixture("linkable/example.json"))
+      object.id_from_link(:self).should eq(object.id_from_link("self"))
     end
 
     it "fails when the link does not exist" do
@@ -56,6 +71,11 @@ describe Mollie::Mixins::Linkable do
     it "returns the id from a link for a given key" do
       object = Mollie::LinkableObject.from_json(read_fixture("linkable/example.json"))
       object.id_from_link?("self").should eq("lob_d5E44r2gq")
+    end
+
+    it "accepts a symbol key" do
+      object = Mollie::LinkableObject.from_json(read_fixture("linkable/example.json"))
+      object.id_from_link?(:self).should eq(object.id_from_link?("self"))
     end
 
     it "allows the link to be nil" do

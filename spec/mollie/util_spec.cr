@@ -36,6 +36,16 @@ describe Mollie::Util do
     end
   end
 
+  describe ".camelize_key" do
+    it "camelizes a string" do
+      Mollie::Util.camelize_key("fab_u_lous").should eq("fabULous")
+    end
+
+    it "camelizes a symbol" do
+      Mollie::Util.camelize_key(:symbols_are_cool).should eq("symbolsAreCool")
+    end
+  end
+
   describe ".build_nested_query" do
     context "given a hash" do
       it "returns a query param string" do

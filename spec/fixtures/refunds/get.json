@@ -28,6 +28,12 @@
       "status": "completed",
       "isCancelable": false,
       "quantity": 2,
+      "quantityShipped": 0,
+      "quantityCanceled": 0,
+      "quantityRefunded": 0,
+      "shippableQuantity": 0,
+      "refundableQuantity": 0,
+      "cancelableQuantity": 2,
       "unitPrice": {
         "value": "399.00",
         "currency": "EUR"
@@ -67,6 +73,12 @@
       "status": "completed",
       "isCancelable": false,
       "quantity": 1,
+      "quantityShipped": 0,
+      "quantityCanceled": 0,
+      "quantityRefunded": 0,
+      "shippableQuantity": 0,
+      "refundableQuantity": 0,
+      "cancelableQuantity": 2,
       "unitPrice": {
         "value": "329.99",
         "currency": "EUR"

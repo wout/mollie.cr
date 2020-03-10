@@ -50,24 +50,24 @@
       "metadata" : null,
       "isCancelable" : false,
       "quantity" : 2,
-      "quantityShipped" : 0,
+      "quantityShipped": 0,
+      "quantityCanceled": 0,
+      "quantityRefunded": 0,
+      "shippableQuantity": 0,
+      "refundableQuantity": 0,
+      "cancelableQuantity": 2,
       "amountShipped" : {
         "value" : "0.00",
         "currency" : "EUR"
       },
-      "quantityRefunded" : 0,
       "amountRefunded" : {
         "value" : "0.00",
         "currency" : "EUR"
       },
-      "quantityCanceled" : 0,
       "amountCanceled" : {
         "value" : "0.00",
         "currency" : "EUR"
       },
-      "shippableQuantity" : 0,
-      "refundableQuantity" : 0,
-      "cancelableQuantity" : 0,
       "unitPrice" : {
         "value" : "399.00",
         "currency" : "EUR"
@@ -108,24 +108,24 @@
       "metadata" : null,
       "isCancelable" : false,
       "quantity" : 1,
-      "quantityShipped" : 0,
+      "quantityShipped": 0,
+      "quantityCanceled": 0,
+      "quantityRefunded": 0,
+      "shippableQuantity": 0,
+      "refundableQuantity": 0,
+      "cancelableQuantity": 2,
       "amountShipped" : {
         "value" : "0.00",
         "currency" : "EUR"
       },
-      "quantityRefunded" : 0,
       "amountRefunded" : {
         "value" : "0.00",
         "currency" : "EUR"
       },
-      "quantityCanceled" : 0,
       "amountCanceled" : {
         "value" : "0.00",
         "currency" : "EUR"
       },
-      "shippableQuantity" : 0,
-      "refundableQuantity" : 0,
-      "cancelableQuantity" : 0,
       "unitPrice" : {
         "value" : "329.99",
         "currency" : "EUR"

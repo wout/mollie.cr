@@ -5,7 +5,7 @@ struct Mollie
 
       json_field(:created_at, Time)
       json_field(:id, String)
-      json_field(:lines, Array(Orderline))
+      json_field(:lines, Array(Mollie::Line))
       json_field(:order_id, String)
       json_field(:tracking, Tracking?)
 

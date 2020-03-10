@@ -75,7 +75,7 @@ describe Mollie::Order do
       address.family_name.should eq("Skywalker")
       address.email.should eq("luke@skywalker.com")
       order.redirect_url.should eq("https://example.org/redirect")
-      order.lines.should be_a(Array(Mollie::Orderline))
+      order.lines.should be_a(Array(Mollie::Order::Line))
     end
   end
 
@@ -101,7 +101,7 @@ describe Mollie::Order do
   describe "#refund!" do
     it "create refund" do
       refund_body = {
-        :lines       => [] of Array(Mollie::Orderline),
+        :lines       => [] of Array(Mollie::Order::Line),
         :description => "Required quantity not in stock, refunding one photo book.",
       }
 

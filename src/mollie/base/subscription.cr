@@ -1,6 +1,6 @@
 struct Mollie
   struct Base
-    abstract struct Subscription < Mollie::Base::Resource
+    abstract struct Subscription < Resource
       include Mixins::Linkable
 
       enum Status
@@ -50,9 +50,11 @@ struct Mollie
       end
 
       def payments(options : Hash | NamedTuple = HS2.new)
-        if resource_url = link_for?("payments")
-          response = Mollie::Client.instance
-            .perform_http_call("GET", resource_url, nil, HS2.new, options)
+        if resource_url = link_for?(:payments)
+          response = Mollie::Client.instance.perform_http_call(
+            http_method: "GET",
+            api_method: resource_url,
+            query: options)
           List(Mollie::Customer::Payment).from_json(response)
         end
       end

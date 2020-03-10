@@ -1,6 +1,6 @@
 struct Mollie
   struct Base
-    abstract struct Refund < Mollie::Base::Resource
+    abstract struct Refund < Resource
       include Mixins::Linkable
 
       enum Status
@@ -23,8 +23,8 @@ struct Mollie
       json_field(:created_at, Time)
       json_field(:description, String)
       json_field(:id, String)
-      json_field(:lines, Array(Orderline))
-      json_field(:metadata, HSBFIS)
+      json_field(:lines, Array(Mollie::Line))
+      json_field(:metadata, HSBFIS?)
       json_field(:order_id, String)
       json_field(:payment_id, String)
       json_field(:settlement_id, String?)

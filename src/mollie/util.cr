@@ -12,7 +12,11 @@ struct Mollie
     end
 
     def self.camelize_keys(hash : Hash)
-      hash.transform_keys { |key| Wordsmith::Inflector.camelize(key, false) }
+      hash.transform_keys { |name| camelize_key(name) }
+    end
+
+    def self.camelize_key(name : Symbol | String)
+      Wordsmith::Inflector.camelize(name.to_s, false)
     end
 
     def self.build_nested_query(

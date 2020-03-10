@@ -22,7 +22,7 @@ describe Mollie::Order::Shipment do
       tracking.code.should eq("3SKABA000000000")
       tracking.url.should eq(
         "http://postnl.nl/tracktrace/?B=3SKABA000000000&P=1016EE&D=NL&T=C")
-      shipment.lines.should be_a(Array(Mollie::Orderline))
+      shipment.lines.should be_a(Array(Mollie::Line))
     end
   end
 
