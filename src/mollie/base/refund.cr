@@ -9,15 +9,9 @@ struct Mollie
         Processing
         Refunded
         Failed
-
-        def to_s
-          super.downcase
-        end
-
-        def ==(value)
-          to_s == value
-        end
       end
+
+      status_enum_methods
 
       json_field(:amount, Amount)
       json_field(:created_at, Time)

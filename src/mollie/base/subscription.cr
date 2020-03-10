@@ -9,22 +9,9 @@ struct Mollie
         Canceled
         Suspended # Active, but mandate became invalid.
         Completed
-
-        def to_s
-          super.downcase
-        end
-
-        def ==(value)
-          to_s == value
-        end
       end
 
-      {% for value in Status.constants %}
-        {% downcased = value.stringify.downcase %}
-        def {{ downcased.id }}?
-          {{ downcased }} == status
-        end
-      {% end %}
+      status_enum_methods
 
       json_field(:amount, Amount)
       json_field(:application_fee, ApplicationFee?)

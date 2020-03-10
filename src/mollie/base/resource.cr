@@ -67,6 +67,15 @@ struct Mollie
         end
       end
 
+      macro status_enum_methods
+        {% for value in Status.constants %}
+          {% downcased = value.stringify.downcase %}
+          def {{ downcased.id }}?
+            {{ downcased }} == status
+          end
+        {% end %}
+      end
+
       private def parent_id
         {% begin %}
           {% downcased = @type.name.downcase.split("::")[-2] %}

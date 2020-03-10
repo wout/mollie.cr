@@ -1,20 +1,6 @@
 require "../../spec_helper.cr"
 
 describe Mollie::Customer::Mandate do
-  describe "Status enum" do
-    describe "#to_s" do
-      it "converts to lower case" do
-        Mollie::Customer::Mandate::Status::Valid.to_s.should eq("valid")
-      end
-    end
-
-    describe "#==" do
-      it "tests against a lower case string" do
-        (Mollie::Customer::Mandate::Status::Pending == "pending").should be_true
-      end
-    end
-  end
-
   describe "boolean status methods" do
     it "defines a boolean method per status" do
       mandate = Mollie::Customer::Mandate.from_json(read_fixture("mandates/get.json"))

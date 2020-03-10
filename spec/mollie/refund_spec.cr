@@ -1,20 +1,6 @@
 require "../spec_helper.cr"
 
 describe Mollie::Refund do
-  describe "Status enum" do
-    describe "#to_s" do
-      it "converts to lower case" do
-        Mollie::Refund::Status::Queued.to_s.should eq("queued")
-      end
-    end
-
-    describe "#==" do
-      it "tests against a lower case string" do
-        (Mollie::Refund::Status::Refunded == "refunded").should be_true
-      end
-    end
-  end
-
   describe "#links" do
     it "contain links" do
       refund = Mollie::Refund.from_json(read_fixture("refunds/get.json"))

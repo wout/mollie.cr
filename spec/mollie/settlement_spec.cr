@@ -3,20 +3,6 @@ require "../spec_helper.cr"
 alias AI = Array(Mollie::Settlement::Item)
 
 describe Mollie::Settlement do
-  describe "Status enum" do
-    describe "#to_s" do
-      it "converts to lower case" do
-        Mollie::Settlement::Status::Open.to_s.should eq("open")
-      end
-    end
-
-    describe "#==" do
-      it "tests against a lower case string" do
-        (Mollie::Settlement::Status::Paidout == "paidout").should be_true
-      end
-    end
-  end
-
   describe "boolean status methods" do
     it "defines a boolean method per status" do
       settlement = Mollie::Settlement.from_json(read_fixture("settlements/get.json"))

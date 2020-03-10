@@ -1,20 +1,6 @@
 require "../spec_helper.cr"
 
 describe Mollie::Payment do
-  describe "Status enum" do
-    describe "#to_s" do
-      it "converts to lower case" do
-        Mollie::Payment::Status::Paid.to_s.should eq("paid")
-      end
-    end
-
-    describe "#==" do
-      it "tests against a lower case string" do
-        (Mollie::Payment::Status::Paid == "paid").should be_true
-      end
-    end
-  end
-
   describe "boolean status methods" do
     it "defines a boolean method per status" do
       payment = Mollie::Payment.from_json(read_fixture("payments/get.json"))

@@ -1,20 +1,6 @@
 require "../spec_helper.cr"
 
 describe Mollie::Subscription do
-  describe "Status enum" do
-    describe "#to_s" do
-      it "converts to lower case" do
-        Mollie::Subscription::Status::Suspended.to_s.should eq("suspended")
-      end
-    end
-
-    describe "#==" do
-      it "tests against a lower case string" do
-        (Mollie::Subscription::Status::Active == "active").should be_true
-      end
-    end
-  end
-
   describe "boolean status methods" do
     it "defines a boolean method per status" do
       settlement = Mollie::Subscription.from_json(read_fixture("subscriptions/get.json"))

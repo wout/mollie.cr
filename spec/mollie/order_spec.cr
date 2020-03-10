@@ -1,20 +1,6 @@
 require "../spec_helper.cr"
 
 describe Mollie::Order do
-  describe "Status enum" do
-    describe "#to_s" do
-      it "converts to lower case" do
-        Mollie::Order::Status::Paid.to_s.should eq("paid")
-      end
-    end
-
-    describe "#==" do
-      it "tests against a lower case string" do
-        (Mollie::Order::Status::Expired == "expired").should be_true
-      end
-    end
-  end
-
   describe "#links" do
     it "is linkable" do
       payment = Mollie::Order.from_json(read_fixture("orders/get.json"))
