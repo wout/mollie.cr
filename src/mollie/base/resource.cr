@@ -33,20 +33,20 @@ struct Mollie
         self.class.update(id.to_s, options_with_parent_id(data))
       end
 
-      def self.delete(id : String, options : Hash | NamedTuple = HS2.new)
-        request(method: "DELETE", id: id, options: options)
+      def self.delete(id : String, data : Hash | NamedTuple = HS2.new)
+        request(method: "DELETE", id: id, data: data)
       end
 
-      def self.cancel(id : String, options : Hash | NamedTuple = HS2.new)
-        delete(id, options)
+      def self.cancel(id : String, data : Hash | NamedTuple = HS2.new)
+        delete(id, data)
       end
 
-      def delete(options : Hash | NamedTuple = HS2.new)
-        self.class.delete(id.to_s, options_with_parent_id(options))
+      def delete(data : Hash | NamedTuple = HS2.new)
+        self.class.delete(id.to_s, options_with_parent_id(data))
       end
 
-      def cancel(options : Hash | NamedTuple = HS2.new)
-        delete(options)
+      def cancel(data : Hash | NamedTuple = HS2.new)
+        delete(data)
       end
 
       def self.id_param

@@ -71,6 +71,14 @@ describe Mollie::Util do
         }, "wim")
         query.should eq("wim[name]=Aap&wim[list][]=noot&wim[list][]=mies")
       end
+
+      it "accepts arrays with hashes" do
+        query = Mollie::Util.build_nested_query({
+          :name => "Aap",
+          :list => [{:noot => "mies", :wim => 205}],
+        }, "jet")
+        query.should eq("jet[name]=Aap&jet[list][][noot]=mies&jet[list][][wim]=205")
+      end
     end
 
     context "given a named tuple" do

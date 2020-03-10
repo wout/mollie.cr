@@ -15,12 +15,12 @@ struct Mollie
       hash.transform_keys { |name| camelize_key(name) }
     end
 
-    def self.camelize_key(name : Symbol | String)
+    def self.camelize_key(name : String | Symbol)
       Wordsmith::Inflector.camelize(name.to_s, false)
     end
 
     def self.build_nested_query(
-      value : Hash(Symbol | String, String | Array(String)) | NamedTuple,
+      value : Hash(String | Symbol, Array(String) | Array(Hash) | Int32 | String) | NamedTuple,
       prefix : String? = nil
     )
       value.map do |k, v|
@@ -29,12 +29,15 @@ struct Mollie
       end.reject(&.empty?).join("&")
     end
 
-    def self.build_nested_query(value : Array(String), prefix : String? = nil)
+    def self.build_nested_query(
+      value : Array(String) | Array(Hash),
+      prefix : String? = nil
+    )
       value.map { |v| self.build_nested_query(v, "#{prefix}[]") }.join("&")
     end
 
-    def self.build_nested_query(value : String, prefix : String)
-      "#{prefix}=#{self.escape(value)}"
+    def self.build_nested_query(value : Int32 | String, prefix : String)
+      "#{prefix}=#{self.escape(value.to_s)}"
     end
 
     def self.build_nested_query(value : Nil, prefix : String? = nil)
@@ -49,7 +52,7 @@ struct Mollie
       URI.parse(href).query_params.to_h
     end
 
-    private def self.escape(value : Symbol | String)
+    private def self.escape(value : String | Symbol)
       URI.encode_www_form(value.to_s)
     end
   end
