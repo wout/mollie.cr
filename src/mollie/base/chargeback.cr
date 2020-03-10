@@ -8,7 +8,7 @@ struct Mollie
       json_field(:id, String)
       json_field(:payment_id, String)
       json_field(:reversed_at, Time?)
-      json_field(:settlement_amount, Amount)
+      json_field(:settlement_amount, Amount?)
 
       def reversed?
         !!reversed_at

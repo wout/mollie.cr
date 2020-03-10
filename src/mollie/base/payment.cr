@@ -39,7 +39,7 @@ struct Mollie
       json_field(:order_id, String?)
       json_field(:paid_at, Time?)
       json_field(:profile_id, String)
-      json_field(:redirect_url, String)
+      json_field(:redirect_url, String?)
       json_field(:restrict_payment_methods_to_country, String?)
       json_field(:sequence_type, String?)
       json_field(:settlement_amount, Amount?)
