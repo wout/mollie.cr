@@ -58,7 +58,7 @@ struct Mollie
         if http_method == "GET"
           response = client.get(path, headers: headers)
         else
-          http_body.delete_if { |_k, v| v.nil? }
+          http_body = http_body.to_h.delete_if { |_k, v| v.nil? }
           body = Util.camelize_keys(http_body).to_json
           response = client.exec(http_method, path, headers: headers, body: body)
         end
