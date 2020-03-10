@@ -27,7 +27,7 @@ Add mollie as a depencency to your application's `shard.yml`:
 
 ```yaml
 dependencies:
-  money:
+  mollie:
     github: tilishop/mollie
 ```
 
