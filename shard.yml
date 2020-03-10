@@ -19,4 +19,4 @@ development_dependencies:
     github: manastech/webmock.cr
     branch: master
 
-license: MIT
+license: BSD
