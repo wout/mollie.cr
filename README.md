@@ -31,7 +31,7 @@ Add mollie as a depencency to your application's `shard.yml`:
 ```yaml
 dependencies:
   mollie:
-    github: tilishop/mollie
+    github: tilishop/mollie.cr
 ```
 
 Then run `shards install`.
