@@ -31,9 +31,9 @@ struct Mollie
       json_field(:failed_at, Time?)
       json_field(:id, String)
       json_field(:is_cancelable, Bool?)
-      json_field(:locale, String)
+      json_field(:locale, String?)
       json_field(:mandate_id, String?)
-      json_field(:metadata, HSBFIS)
+      json_field(:metadata, HSBFIS?)
       json_field(:method, String?)
       json_field(:mode, String)
       json_field(:order_id, String?)
@@ -46,7 +46,7 @@ struct Mollie
       json_field(:settlement_id, String?)
       json_field(:status, String)
       json_field(:subscription_id, String?)
-      json_field(:webhook_url, String)
+      json_field(:webhook_url, String?)
       @[JSON::Field(converter: Mollie::Json::Underscorer)]
       getter details : HSBFIS?
 

@@ -27,8 +27,8 @@ describe Mollie::Refund do
       test_refund.payment_id.should eq("tr_WDqYK6vllg")
       test_refund.order_id.should eq("ord_stTC2WHAuS")
       test_refund.metadata.should be_a(HSBFIS)
-      test_refund.lines.should be_a(Array(Mollie::Line))
-      test_refund.lines.size.should eq(2)
+      lines = test_refund.lines.as(Array(Mollie::Line))
+      lines.size.should eq(2)
     end
   end
 
