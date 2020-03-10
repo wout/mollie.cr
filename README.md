@@ -43,6 +43,8 @@ Configure your API key:
 ```crystal
 Mollie.configure do |config|
   config.api_key = "test_O5GwT48772F3f3Cr0211c83341Q83F"
+  # config.open_timeout = 60
+  # config.read_timeout = 60
 end
 ```
 
