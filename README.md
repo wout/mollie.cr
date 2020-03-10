@@ -9,6 +9,8 @@ Accepting [iDEAL](https://www.mollie.com/en/payments/ideal), [Bancontact](https:
 
 [![Build Status](https://travis-ci.org/tilishop/mollie.cr.svg?branch=master)](https://travis-ci.org/tilishop/mollie.cr)
 
+[![GitHub version](https://badge.fury.io/gh/tilishop%2Fmollie.cr.svg)](https://badge.fury.io/gh/tilishop%2Fmollie.cr)
+
 ## Disclaimer
 This is the unofficial Crystal shard for Mollie. It is directly ported from the
 Ruby version ([mollie-ruby-api](https://github.com/mollie/mollie-api-ruby)) but
