@@ -20,12 +20,39 @@ To use the Mollie API client, the following things are required:
 
 ## Installation
 
-Add this to your application's `shard.yml`:
+Add mollie as a depencency to your application's `shard.yml`:
 
 ```yaml
 dependencies:
   money:
     github: tilishop/mollie
+```
+
+Then run `shards install`.
+
+## Usage
+
+Configure your API key:
+
+```crystal
+Mollie.configure do |config|
+  config.api_key = "test_O5GwT48772F3f3Cr0211c83341Q83F"
+end
+```
+
+Create a payment:
+
+```crystal
+payment = Mollie::Payment.create({
+  amount: {
+    value: "10.00",
+    currency: "EUR",
+  },
+  method:       "creditcard",
+  description:  "My first API payment",
+  redirect_url: "https://shop.org/order/12345",
+  webhook_url:  "https://shop.org/mollie-webhook",    
+})
 ```
 
 ## Contributing
