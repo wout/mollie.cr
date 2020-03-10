@@ -58,6 +58,11 @@ payment = Mollie::Payment.create({
 })
 ```
 
+## Documentation
+
+- [Shard API Docs](https://tilishop.github.io/mollie.cr/)
+- [Official Mollie API Reference](https://docs.mollie.com/reference/v2/payments-api/create-payment)
+
 ## Contributing
 
 1. Fork it (<https://github.com/your-github-user/mollie/fork>)
