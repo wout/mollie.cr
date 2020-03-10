@@ -1,34 +1,39 @@
 require "../spec_helper.cr"
 
+def test_refund
+  Mollie::Refund.from_json(read_fixture("refunds/get.json"))
+end
+
 describe Mollie::Refund do
+  before_each do
+    configure_test_api_key
+  end
+
   describe "#links" do
     it "contain links" do
-      refund = Mollie::Refund.from_json(read_fixture("refunds/get.json"))
-      refund.link_for("self").should eq("https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT")
+      test_refund.link_for("self").should eq("https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT")
     end
   end
 
   describe ".from_json" do
     it "pulls the required attributes" do
-      refund = Mollie::Refund.from_json(read_fixture("refunds/get.json"))
-      refund.id.should eq("re_4qqhO89gsT")
-      refund.description.should eq("Required quantity not in stock, refunding one photo book.")
-      refund.amount.should be_a(Mollie::Amount)
-      refund.created_at.should eq(Time.parse_iso8601("2018-09-25T17:40:23+00:00"))
-      refund.status.should eq("pending")
-      refund.settlement_amount.should be_a(Mollie::Amount)
-      refund.settlement_id.should be_a(Mollie::Settlement?)
-      refund.payment_id.should eq("tr_WDqYK6vllg")
-      refund.order_id.should eq("ord_stTC2WHAuS")
-      refund.metadata.should be_a(HSBFIS)
-      refund.lines.should be_a(Array(Mollie::Line))
-      refund.lines.size.should eq(2)
+      test_refund.id.should eq("re_4qqhO89gsT")
+      test_refund.description.should eq("Required quantity not in stock, refunding one photo book.")
+      test_refund.amount.should be_a(Mollie::Amount)
+      test_refund.created_at.should eq(Time.parse_iso8601("2018-09-25T17:40:23+00:00"))
+      test_refund.status.should eq("pending")
+      test_refund.settlement_amount.should be_a(Mollie::Amount)
+      test_refund.settlement_id.should be_a(Mollie::Settlement?)
+      test_refund.payment_id.should eq("tr_WDqYK6vllg")
+      test_refund.order_id.should eq("ord_stTC2WHAuS")
+      test_refund.metadata.should be_a(HSBFIS)
+      test_refund.lines.should be_a(Array(Mollie::Line))
+      test_refund.lines.size.should eq(2)
     end
   end
 
   describe "#payment" do
     it "fetches the related payment" do
-      configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT")
         .to_return(status: 200, body: read_fixture("refunds/get.json"))
       WebMock.stub(:get, "https://api.mollie.com/v2/payments/tr_WDqYK6vllg")
@@ -41,7 +46,6 @@ describe Mollie::Refund do
 
   describe "#settlement" do
     it "fetches the related settlement" do
-      configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsE")
         .to_return(status: 200, body: read_fixture("refunds/get-with-settlement.json"))
       WebMock.stub(:get, "https://api.mollie.com/v2/settlements/stl_jDk30akdN")
@@ -52,7 +56,6 @@ describe Mollie::Refund do
     end
 
     it "is nilable" do
-      configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds/re_4qqhO89gsT")
         .to_return(status: 200, body: read_fixture("refunds/get.json"))
 

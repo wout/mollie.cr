@@ -1,23 +1,29 @@
 require "../spec_helper.cr"
 
+def test_payment
+  Mollie::Payment.from_json(read_fixture("payments/get.json"))
+end
+
 describe Mollie::Payment do
+  before_each do
+    configure_test_api_key
+  end
+
   describe "boolean status methods" do
     it "defines a boolean method per status" do
-      payment = Mollie::Payment.from_json(read_fixture("payments/get.json"))
-      payment.open?.should be_true
-      payment.canceled?.should be_false
-      payment.pending?.should be_false
-      payment.expired?.should be_false
-      payment.failed?.should be_false
-      payment.paid?.should be_false
-      payment.authorized?.should be_false
+      test_payment.open?.should be_true
+      test_payment.canceled?.should be_false
+      test_payment.pending?.should be_false
+      test_payment.expired?.should be_false
+      test_payment.failed?.should be_false
+      test_payment.paid?.should be_false
+      test_payment.authorized?.should be_false
     end
   end
 
   describe "#links" do
     it "is linkable" do
-      payment = Mollie::Payment.from_json(read_fixture("payments/get.json"))
-      payment.links.should be_a(Links)
+      test_payment.links.should be_a(Links)
     end
   end
 
@@ -78,21 +84,18 @@ describe Mollie::Payment do
       payment.refunded?.should be_false
     end
     it "tests negative without a refunede amount" do
-      payment = Mollie::Payment.from_json(read_fixture("payments/get.json"))
-      payment.refunded?.should be_false
+      test_payment.refunded?.should be_false
     end
   end
 
   describe "#checkout_url" do
     it "fetches the checkout url from links" do
-      payment = Mollie::Payment.from_json(read_fixture("payments/get.json"))
-      payment.checkout_url.should be(payment.link_for("checkout"))
+      test_payment.checkout_url.should eq(test_payment.link_for("checkout"))
     end
   end
 
   describe "#application_fee" do
     it "parses the application fee as an object" do
-      configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/payments/tr_WDqYK6vllf")
         .to_return(status: 200, body: read_fixture("payments/get-complete.json"))
 
@@ -106,7 +109,6 @@ describe Mollie::Payment do
 
   describe "#restrict_payment_methods_to_country" do
     it "restricts a payment to a country" do
-      configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/payments/tr_WDqYK6vlle")
         .to_return(status: 200, body: read_fixture("payments/get.json"))
 
@@ -117,7 +119,6 @@ describe Mollie::Payment do
 
   describe ".create" do
     it "creates a payments" do
-      configure_test_api_key
       body = %({"customerId":"cst_8wmqcHMN4U","amount":{"value":1.95,"currency":"EUR"}})
       WebMock.stub(:post, "https://api.mollie.com/v2/payments")
         .with(body: body)

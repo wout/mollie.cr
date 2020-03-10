@@ -2,9 +2,12 @@ require "../../spec_helper.cr"
 require "../../spec_helpers/base_helper.cr"
 
 describe Mollie::TestObject do
+  before_each do
+    configure_test_api_key
+  end
+
   describe ".all" do
     it "fetches a list of resources" do
-      configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/testobjects")
         .to_return(status: 200, body: test_collection_json)
 
@@ -18,7 +21,6 @@ describe Mollie::TestObject do
 
   describe ".get" do
     it "fetches a resource" do
-      configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/testobjects/mastaba")
         .to_return(status: 200, body: test_object_json)
 
@@ -29,7 +31,6 @@ describe Mollie::TestObject do
 
   describe ".create" do
     it "creates a resource" do
-      configure_test_api_key
       WebMock.stub(:post, "https://api.mollie.com/v2/testobjects")
         .with(body: %({"amount":1.95}), headers: client_http_headers)
         .to_return(status: 201, body: %({"id":"my-id", "amount":1.0}))
@@ -40,7 +41,6 @@ describe Mollie::TestObject do
     end
 
     it "accepts named tuples" do
-      configure_test_api_key
       WebMock.stub(:post, "https://api.mollie.com/v2/testobjects?aap=noot")
         .with(body: %({"amount":1.95}), headers: client_http_headers)
         .to_return(status: 201, body: %({"id":"my-id", "amount":1.0}))
@@ -53,7 +53,6 @@ describe Mollie::TestObject do
 
   describe ".update" do
     it "updates a resource by id" do
-      configure_test_api_key
       WebMock.stub(:patch, "https://api.mollie.com/v2/testobjects/my-id")
         .with(body: %({"amount":1.95}), headers: client_http_headers)
         .to_return(status: 201, body: %({"id":"my-id", "amount":1.0}))
@@ -66,7 +65,6 @@ describe Mollie::TestObject do
 
   describe "#update" do
     it "updates a resource and returns a new instance" do
-      configure_test_api_key
       WebMock.stub(:patch, "https://api.mollie.com/v2/testobjects/my-id")
         .with(body: %({"amount":1.95}), headers: client_http_headers)
         .to_return(status: 201, body: %({"id":"my-id", "amount":1.0}))
@@ -82,7 +80,6 @@ describe Mollie::TestObject do
 
   describe ".delete" do
     it "deletes a resource" do
-      configure_test_api_key
       WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/my-id")
         .with(body: "{}", headers: client_http_headers)
         .to_return(status: 204, body: "")
@@ -92,7 +89,6 @@ describe Mollie::TestObject do
     end
 
     it "is also called .cancel" do
-      configure_test_api_key
       WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/my-id")
         .with(body: "{}", headers: client_http_headers)
         .to_return(status: 204, body: "")
@@ -104,7 +100,6 @@ describe Mollie::TestObject do
 
   describe "#delete" do
     it "deletes a resource" do
-      configure_test_api_key
       WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/my-id")
         .with(body: "{}", headers: client_http_headers)
         .to_return(status: 204, body: "")
@@ -114,7 +109,6 @@ describe Mollie::TestObject do
     end
 
     it "is also called #cancel" do
-      configure_test_api_key
       WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/my-id")
         .with(body: "{}", headers: client_http_headers)
         .to_return(status: 204, body: "")
@@ -154,9 +148,12 @@ describe Mollie::TestObject do
 end
 
 describe Mollie::TestObject::NestedObject do
+  before_each do
+    configure_test_api_key
+  end
+
   describe ".all" do
     it "fetches a list of resources" do
-      configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/nestedobjects")
         .to_return(status: 200, body: nested_test_collection_json)
 
@@ -168,7 +165,6 @@ describe Mollie::TestObject::NestedObject do
     end
 
     it "fetches a list of scoped resources" do
-      configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/testobjects/object-id/nestedobjects")
         .to_return(status: 200, body: nested_test_collection_json)
 
@@ -182,7 +178,6 @@ describe Mollie::TestObject::NestedObject do
 
   describe ".get" do
     it "fetches a nested resource" do
-      configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/testobjects/mastaba/nestedobjects/nested")
         .to_return(status: 200, body: nested_test_object_json)
 
@@ -196,7 +191,6 @@ describe Mollie::TestObject::NestedObject do
 
   describe ".create" do
     it "creates a nested resource" do
-      configure_test_api_key
       WebMock.stub(:post, "https://api.mollie.com/v2/testobjects/mastaba/nestedobjects")
         .with(
           body: %({"foo":"1.95"}),
@@ -217,7 +211,6 @@ describe Mollie::TestObject::NestedObject do
 
   describe ".update" do
     it "updates a nested resource by id" do
-      configure_test_api_key
       WebMock.stub(:patch, "https://api.mollie.com/v2/testobjects/object-id/nestedobjects/my-id")
         .with(body: %({"foo":"1.95"}), headers: client_http_headers)
         .to_return(status: 201, body: %({"id":"my-id", "foo":"1.0"}))
@@ -233,7 +226,6 @@ describe Mollie::TestObject::NestedObject do
 
   describe "#update" do
     it "updates a nested resource and returns a new instance" do
-      configure_test_api_key
       WebMock.stub(:patch, "https://api.mollie.com/v2/testobjects/object-id/nestedobjects/my-id")
         .with(body: %({"foo":"1.95"}), headers: client_http_headers)
         .to_return(status: 201, body: %({"id":"my-id", "foo":"1.0"}))
@@ -250,7 +242,6 @@ describe Mollie::TestObject::NestedObject do
 
   describe ".delete" do
     it "deletes a nested resource" do
-      configure_test_api_key
       WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/object-id/nestedobjects/my-id")
         .with(body: "{}", headers: client_http_headers)
         .to_return(status: 204, body: "")
@@ -264,7 +255,6 @@ describe Mollie::TestObject::NestedObject do
 
   describe "#delete" do
     it "deletes a nested resource" do
-      configure_test_api_key
       WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/object-id/nestedobjects/my-id")
         .with(body: "{}", headers: client_http_headers)
         .to_return(status: 204, body: "")

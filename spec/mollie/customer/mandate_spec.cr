@@ -1,6 +1,6 @@
 require "../../spec_helper.cr"
 
-def subject
+def test_mandate
   Mollie::Customer::Mandate.from_json(read_fixture("mandates/get.json"))
 end
 
@@ -11,33 +11,33 @@ describe Mollie::Customer::Mandate do
 
   describe "boolean status methods" do
     it "defines a boolean method per status" do
-      subject.valid?.should be_true
-      subject.invalid?.should be_false
-      subject.pending?.should be_false
+      test_mandate.valid?.should be_true
+      test_mandate.invalid?.should be_false
+      test_mandate.pending?.should be_false
     end
   end
 
   describe "#links" do
     it "contain links" do
-      subject.links.should be_a(Links)
+      test_mandate.links.should be_a(Links)
     end
   end
 
   describe ".from_json" do
     it "pulls the required attributes" do
-      subject.id.should eq("mdt_h3gAaD5zP")
-      subject.mode.should eq("test")
-      subject.status.should eq("valid")
-      subject.method.should eq("directdebit")
-      details = subject.details.as(HSBFIS)
+      test_mandate.id.should eq("mdt_h3gAaD5zP")
+      test_mandate.mode.should eq("test")
+      test_mandate.status.should eq("valid")
+      test_mandate.method.should eq("directdebit")
+      details = test_mandate.details.as(HSBFIS)
       details["consumer_name"].should eq("John Doe")
       details["consumer_account"].should eq("NL55INGB0000000000")
       details["consumer_bic"].should eq("INGBNL2A")
-      reference = subject.mandate_reference
+      reference = test_mandate.mandate_reference
       reference.should be_a(String?)
       reference.as(String).should eq("YOUR-COMPANY-MD1380")
-      subject.signature_date.should eq("2018-05-07")
-      subject.created_at.should eq(Time.parse_iso8601("2018-05-07T10:49:08+00:00"))
+      test_mandate.signature_date.should eq("2018-05-07")
+      test_mandate.created_at.should eq(Time.parse_iso8601("2018-05-07T10:49:08+00:00"))
     end
   end
 

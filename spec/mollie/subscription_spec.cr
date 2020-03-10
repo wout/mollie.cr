@@ -1,44 +1,49 @@
 require "../spec_helper.cr"
 
+def test_subscription
+  Mollie::Subscription.from_json(read_fixture("subscriptions/get.json"))
+end
+
 describe Mollie::Subscription do
+  before_each do
+    configure_test_api_key
+  end
+
   describe "boolean status methods" do
     it "defines a boolean method per status" do
-      settlement = Mollie::Subscription.from_json(read_fixture("subscriptions/get.json"))
-      settlement.active?.should be_true
-      settlement.pending?.should be_false
-      settlement.canceled?.should be_false
-      settlement.suspended?.should be_false
-      settlement.completed?.should be_false
+      test_subscription.active?.should be_true
+      test_subscription.pending?.should be_false
+      test_subscription.canceled?.should be_false
+      test_subscription.suspended?.should be_false
+      test_subscription.completed?.should be_false
     end
   end
 
   describe "#links" do
     it "contain links" do
-      subscription = Mollie::Subscription.from_json(read_fixture("subscriptions/get.json"))
-      subscription.links.should be_a(Links)
+      test_subscription.links.should be_a(Links)
     end
   end
 
   describe ".from_json" do
     it "pulls the required attributes" do
-      subscription = Mollie::Subscription.from_json(read_fixture("subscriptions/get.json"))
-      subscription.id.should eq("sub_rVKGtNd6s3")
-      subscription.mode.should eq("live")
-      subscription.created_at.should eq(Time.parse_iso8601("2016-06-01T12:23:34+00:00"))
-      subscription.canceled_at.should be_a(Time?)
-      subscription.status.should eq("active")
-      subscription.amount.should be_a(Mollie::Amount)
-      subscription.times.should eq(4)
-      subscription.times_remaining.should eq(4)
-      subscription.start_date.should eq("2016-06-01")
-      subscription.next_payment_date.should eq("2016-09-01")
-      subscription.description.should eq("Quarterly payment")
-      subscription.method.should be_nil
-      subscription.mandate_id.should eq("mdt_38HS4fsS")
-      subscription.webhook_url.should eq("https://webshop.example.org/payments/webhook")
-      subscription.metadata.should be_a(HSBFIS)
-      subscription.application_fee.should be_a(Mollie::Subscription::ApplicationFee?)
-      subscription.interval.should eq("3 months")
+      test_subscription.id.should eq("sub_rVKGtNd6s3")
+      test_subscription.mode.should eq("live")
+      test_subscription.created_at.should eq(Time.parse_iso8601("2016-06-01T12:23:34+00:00"))
+      test_subscription.canceled_at.should be_a(Time?)
+      test_subscription.status.should eq("active")
+      test_subscription.amount.should be_a(Mollie::Amount)
+      test_subscription.times.should eq(4)
+      test_subscription.times_remaining.should eq(4)
+      test_subscription.start_date.should eq("2016-06-01")
+      test_subscription.next_payment_date.should eq("2016-09-01")
+      test_subscription.description.should eq("Quarterly payment")
+      test_subscription.method.should be_nil
+      test_subscription.mandate_id.should eq("mdt_38HS4fsS")
+      test_subscription.webhook_url.should eq("https://webshop.example.org/payments/webhook")
+      test_subscription.metadata.should be_a(HSBFIS)
+      test_subscription.application_fee.should be_a(Mollie::Subscription::ApplicationFee?)
+      test_subscription.interval.should eq("3 months")
     end
 
     it "optionally pulls the application fee" do
@@ -50,7 +55,6 @@ describe Mollie::Subscription do
 
   describe "#customer" do
     it "gets the linked customer" do
-      configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/customers/cst_kEn1PlbGa/subscriptions/sub_rVKGtNd6s3")
         .to_return(status: 200, body: read_fixture("subscriptions/get-with-customer-id.json"))
       WebMock.stub(:get, "https://api.mollie.com/v2/customers/cst_kEn1PlbGa")
@@ -61,7 +65,6 @@ describe Mollie::Subscription do
     end
 
     it "is nilable" do
-      configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/subscriptions/sub_rVKGtNd6s3")
         .to_return(status: 200, body: read_fixture("subscriptions/get.json"))
 
@@ -72,7 +75,6 @@ describe Mollie::Subscription do
 
   describe "#payments" do
     it "fetches all payments related to this subscription" do
-      configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/customers/cst_kEn1PlbGa/subscriptions/sub_rVKGtNd6s3")
         .to_return(status: 200, body: read_fixture("subscriptions/get.json"))
       WebMock.stub(:get, "https://api.mollie.com/v2/customers/cst_stTC2WHAuS/subscriptions/sub_rVKGtNd6s3/payments")
@@ -83,7 +85,6 @@ describe Mollie::Subscription do
     end
 
     it "is nilable" do
-      configure_test_api_key
       WebMock.stub(:get, "https://api.mollie.com/v2/customers/cst_kEn1PlbGa/subscriptions/sub_rVKGtNd6s5")
         .to_return(status: 200, body: read_fixture("subscriptions/get-without-payments-link.json"))
 
