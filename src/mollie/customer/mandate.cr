@@ -22,7 +22,7 @@ struct Mollie
       getter details : HSBFIS?
 
       def customer(options : Hash | NamedTuple = HS2.new)
-        Customer.get(id_from_link("customer"), options)
+        Customer.get(id_from_link(:customer), options)
       end
     end
   end
