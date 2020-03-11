@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.32.1">
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/doc.js"></script>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+
+  <meta id="repository-name" content="github.com/tilishop/mollie.cr">
+  <title>Mollie::Sandbox::Order - github.com/tilishop/mollie.cr</title>
+  <script type="text/javascript">
+    CrystalDoc.base_path = "../../";
+  </script>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="../../index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="github.com/tilishop/mollie.cr/Mollie" data-name="mollie">
+      <a href="../../Mollie.html">Mollie</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Amount" data-name="mollie::amount">
+      <a href="../../Mollie/Amount.html">Amount</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Base" data-name="mollie::base">
+      <a href="../../Mollie/Base.html">Base</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Base/ApplicationFee" data-name="mollie::base::applicationfee">
+      <a href="../../Mollie/Base/ApplicationFee.html">ApplicationFee</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Base/Chargeback" data-name="mollie::base::chargeback">
+      <a href="../../Mollie/Base/Chargeback.html">Chargeback</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Base/Line" data-name="mollie::base::line">
+      <a href="../../Mollie/Base/Line.html">Line</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Base/Payment" data-name="mollie::base::payment">
+      <a href="../../Mollie/Base/Payment.html">Payment</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Base/Payment/ApplicationFee" data-name="mollie::base::payment::applicationfee">
+      <a href="../../Mollie/Base/Payment/ApplicationFee.html">ApplicationFee</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Base/Payment/Status" data-name="mollie::base::payment::status">
+      <a href="../../Mollie/Base/Payment/Status.html">Status</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Base/Refund" data-name="mollie::base::refund">
+      <a href="../../Mollie/Base/Refund.html">Refund</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Base/Refund/Status" data-name="mollie::base::refund::status">
+      <a href="../../Mollie/Base/Refund/Status.html">Status</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Base/Resource" data-name="mollie::base::resource">
+      <a href="../../Mollie/Base/Resource.html">Resource</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Base/Subscription" data-name="mollie::base::subscription">
+      <a href="../../Mollie/Base/Subscription.html">Subscription</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Base/Subscription/ApplicationFee" data-name="mollie::base::subscription::applicationfee">
+      <a href="../../Mollie/Base/Subscription/ApplicationFee.html">ApplicationFee</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Base/Subscription/Status" data-name="mollie::base::subscription::status">
+      <a href="../../Mollie/Base/Subscription/Status.html">Status</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Chargeback" data-name="mollie::chargeback">
+      <a href="../../Mollie/Chargeback.html">Chargeback</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Client" data-name="mollie::client">
+      <a href="../../Mollie/Client.html">Client</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Config" data-name="mollie::config">
+      <a href="../../Mollie/Config.html">Config</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Customer" data-name="mollie::customer">
+      <a href="../../Mollie/Customer.html">Customer</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Customer/Mandate" data-name="mollie::customer::mandate">
+      <a href="../../Mollie/Customer/Mandate.html">Mandate</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Customer/Mandate/Status" data-name="mollie::customer::mandate::status">
+      <a href="../../Mollie/Customer/Mandate/Status.html">Status</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Customer/Payment" data-name="mollie::customer::payment">
+      <a href="../../Mollie/Customer/Payment.html">Payment</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Customer/Subscription" data-name="mollie::customer::subscription">
+      <a href="../../Mollie/Customer/Subscription.html">Subscription</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Exception" data-name="mollie::exception">
+      <a href="../../Mollie/Exception.html">Exception</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/HS2" data-name="mollie::hs2">
+      <a href="../../Mollie/HS2.html">HS2</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/HSBFIS" data-name="mollie::hsbfis">
+      <a href="../../Mollie/HSBFIS.html">HSBFIS</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/HSHS2" data-name="mollie::hshs2">
+      <a href="../../Mollie/HSHS2.html">HSHS2</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Invoice" data-name="mollie::invoice">
+      <a href="../../Mollie/Invoice.html">Invoice</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Invoice/Line" data-name="mollie::invoice::line">
+      <a href="../../Mollie/Invoice/Line.html">Line</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Invoice/Status" data-name="mollie::invoice::status">
+      <a href="../../Mollie/Invoice/Status.html">Status</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Json" data-name="mollie::json">
+      <a href="../../Mollie/Json.html">Json</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Json/Decimalizer" data-name="mollie::json::decimalizer">
+      <a href="../../Mollie/Json/Decimalizer.html">Decimalizer</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Json/Serializable" data-name="mollie::json::serializable">
+      <a href="../../Mollie/Json/Serializable.html">Serializable</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Json/TimeFormatter" data-name="mollie::json::timeformatter">
+      <a href="../../Mollie/Json/TimeFormatter.html">TimeFormatter</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Json/Underscorer" data-name="mollie::json::underscorer">
+      <a href="../../Mollie/Json/Underscorer.html">Underscorer</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Line" data-name="mollie::line">
+      <a href="../../Mollie/Line.html">Line</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Links" data-name="mollie::links">
+      <a href="../../Mollie/Links.html">Links</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/List" data-name="mollie::list(t)">
+      <a href="../../Mollie/List.html">List</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Method" data-name="mollie::method">
+      <a href="../../Mollie/Method.html">Method</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Method/Fee" data-name="mollie::method::fee">
+      <a href="../../Mollie/Method/Fee.html">Fee</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Method/Type" data-name="mollie::method::type">
+      <a href="../../Mollie/Method/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/MethodNotSupportedException" data-name="mollie::methodnotsupportedexception">
+      <a href="../../Mollie/MethodNotSupportedException.html">MethodNotSupportedException</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/MissingApiKeyException" data-name="mollie::missingapikeyexception">
+      <a href="../../Mollie/MissingApiKeyException.html">MissingApiKeyException</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Mixins" data-name="mollie::mixins">
+      <a href="../../Mollie/Mixins.html">Mixins</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Mixins/Linkable" data-name="mollie::mixins::linkable">
+      <a href="../../Mollie/Mixins/Linkable.html">Linkable</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Onboarding" data-name="mollie::onboarding">
+      <a href="../../Mollie/Onboarding.html">Onboarding</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Order" data-name="mollie::order">
+      <a href="../../Mollie/Order.html">Order</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Order/Address" data-name="mollie::order::address">
+      <a href="../../Mollie/Order/Address.html">Address</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Order/Line" data-name="mollie::order::line">
+      <a href="../../Mollie/Order/Line.html">Line</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Order/Refund" data-name="mollie::order::refund">
+      <a href="../../Mollie/Order/Refund.html">Refund</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Order/Shipment" data-name="mollie::order::shipment">
+      <a href="../../Mollie/Order/Shipment.html">Shipment</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Order/Shipment/Tracking" data-name="mollie::order::shipment::tracking">
+      <a href="../../Mollie/Order/Shipment/Tracking.html">Tracking</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Order/Status" data-name="mollie::order::status">
+      <a href="../../Mollie/Order/Status.html">Status</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Organization" data-name="mollie::organization">
+      <a href="../../Mollie/Organization.html">Organization</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Organization/Address" data-name="mollie::organization::address">
+      <a href="../../Mollie/Organization/Address.html">Address</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Payment" data-name="mollie::payment">
+      <a href="../../Mollie/Payment.html">Payment</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Payment/Capture" data-name="mollie::payment::capture">
+      <a href="../../Mollie/Payment/Capture.html">Capture</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Payment/Chargeback" data-name="mollie::payment::chargeback">
+      <a href="../../Mollie/Payment/Chargeback.html">Chargeback</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Payment/Refund" data-name="mollie::payment::refund">
+      <a href="../../Mollie/Payment/Refund.html">Refund</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Permission" data-name="mollie::permission">
+      <a href="../../Mollie/Permission.html">Permission</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Profile" data-name="mollie::profile">
+      <a href="../../Mollie/Profile.html">Profile</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Profile/CategoryCode" data-name="mollie::profile::categorycode">
+      <a href="../../Mollie/Profile/CategoryCode.html">CategoryCode</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Profile/Review" data-name="mollie::profile::review">
+      <a href="../../Mollie/Profile/Review.html">Review</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Profile/Review/Status" data-name="mollie::profile::review::status">
+      <a href="../../Mollie/Profile/Review/Status.html">Status</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Profile/Status" data-name="mollie::profile::status">
+      <a href="../../Mollie/Profile/Status.html">Status</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Refund" data-name="mollie::refund">
+      <a href="../../Mollie/Refund.html">Refund</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/RequestException" data-name="mollie::requestexception">
+      <a href="../../Mollie/RequestException.html">RequestException</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/RequestTimeoutException" data-name="mollie::requesttimeoutexception">
+      <a href="../../Mollie/RequestTimeoutException.html">RequestTimeoutException</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/ResourceNotFoundException" data-name="mollie::resourcenotfoundexception">
+      <a href="../../Mollie/ResourceNotFoundException.html">ResourceNotFoundException</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox" data-name="mollie::sandbox">
+      <a href="../../Mollie/Sandbox.html">Sandbox</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Chargeback" data-name="mollie::sandbox::chargeback">
+      <a href="../../Mollie/Sandbox/Chargeback.html">Chargeback</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Customer" data-name="mollie::sandbox::customer">
+      <a href="../../Mollie/Sandbox/Customer.html">Customer</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Customer/Mandate" data-name="mollie::sandbox::customer::mandate">
+      <a href="../../Mollie/Sandbox/Customer/Mandate.html">Mandate</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Customer/Payment" data-name="mollie::sandbox::customer::payment">
+      <a href="../../Mollie/Sandbox/Customer/Payment.html">Payment</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Customer/Subscription" data-name="mollie::sandbox::customer::subscription">
+      <a href="../../Mollie/Sandbox/Customer/Subscription.html">Subscription</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Invoice" data-name="mollie::sandbox::invoice">
+      <a href="../../Mollie/Sandbox/Invoice.html">Invoice</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Method" data-name="mollie::sandbox::method">
+      <a href="../../Mollie/Sandbox/Method.html">Method</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Onboarding" data-name="mollie::sandbox::onboarding">
+      <a href="../../Mollie/Sandbox/Onboarding.html">Onboarding</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Order" data-name="mollie::sandbox::order">
+      <a href="../../Mollie/Sandbox/Order.html">Order</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Order/Line" data-name="mollie::sandbox::order::line">
+      <a href="../../Mollie/Sandbox/Order/Line.html">Line</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Order/Refund" data-name="mollie::sandbox::order::refund">
+      <a href="../../Mollie/Sandbox/Order/Refund.html">Refund</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Order/Shipment" data-name="mollie::sandbox::order::shipment">
+      <a href="../../Mollie/Sandbox/Order/Shipment.html">Shipment</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Organization" data-name="mollie::sandbox::organization">
+      <a href="../../Mollie/Sandbox/Organization.html">Organization</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Payment" data-name="mollie::sandbox::payment">
+      <a href="../../Mollie/Sandbox/Payment.html">Payment</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Payment/Capture" data-name="mollie::sandbox::payment::capture">
+      <a href="../../Mollie/Sandbox/Payment/Capture.html">Capture</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Payment/Chargeback" data-name="mollie::sandbox::payment::chargeback">
+      <a href="../../Mollie/Sandbox/Payment/Chargeback.html">Chargeback</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Payment/Refund" data-name="mollie::sandbox::payment::refund">
+      <a href="../../Mollie/Sandbox/Payment/Refund.html">Refund</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Permission" data-name="mollie::sandbox::permission">
+      <a href="../../Mollie/Sandbox/Permission.html">Permission</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Profile" data-name="mollie::sandbox::profile">
+      <a href="../../Mollie/Sandbox/Profile.html">Profile</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Refund" data-name="mollie::sandbox::refund">
+      <a href="../../Mollie/Sandbox/Refund.html">Refund</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Settlement" data-name="mollie::sandbox::settlement">
+      <a href="../../Mollie/Sandbox/Settlement.html">Settlement</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Settlement/Chargeback" data-name="mollie::sandbox::settlement::chargeback">
+      <a href="../../Mollie/Sandbox/Settlement/Chargeback.html">Chargeback</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Settlement/Payment" data-name="mollie::sandbox::settlement::payment">
+      <a href="../../Mollie/Sandbox/Settlement/Payment.html">Payment</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Settlement/Refund" data-name="mollie::sandbox::settlement::refund">
+      <a href="../../Mollie/Sandbox/Settlement/Refund.html">Refund</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Sandbox/Subscription" data-name="mollie::sandbox::subscription">
+      <a href="../../Mollie/Sandbox/Subscription.html">Subscription</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Settlement" data-name="mollie::settlement">
+      <a href="../../Mollie/Settlement.html">Settlement</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Settlement/Chargeback" data-name="mollie::settlement::chargeback">
+      <a href="../../Mollie/Settlement/Chargeback.html">Chargeback</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Settlement/Item" data-name="mollie::settlement::item">
+      <a href="../../Mollie/Settlement/Item.html">Item</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Settlement/Item/Rate" data-name="mollie::settlement::item::rate">
+      <a href="../../Mollie/Settlement/Item/Rate.html">Rate</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Settlement/Payment" data-name="mollie::settlement::payment">
+      <a href="../../Mollie/Settlement/Payment.html">Payment</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Settlement/Refund" data-name="mollie::settlement::refund">
+      <a href="../../Mollie/Settlement/Refund.html">Refund</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Settlement/Status" data-name="mollie::settlement::status">
+      <a href="../../Mollie/Settlement/Status.html">Status</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/State" data-name="mollie::state">
+      <a href="../../Mollie/State.html">State</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Subscription" data-name="mollie::subscription">
+      <a href="../../Mollie/Subscription.html">Subscription</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Util" data-name="mollie::util">
+      <a href="../../Mollie/Util.html">Util</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">struct</span> Mollie::Sandbox::Order
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Mollie/Sandbox/Order.html">Mollie::Sandbox::Order</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/tilishop/mollie.cr/blob/1a10a2d5cb21edc0616dda2f89814b9d78fa9246/src/mollie/sandbox.cr#L8" target="_blank">
+        mollie/sandbox.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new(client:Client)-class-method" class="signature"><strong>.new</strong>(client : Client)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#all(*args)-instance-method" class="signature"><strong>#all</strong>(*args)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cancel(*args)-instance-method" class="signature"><strong>#cancel</strong>(*args)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#client:Client-instance-method" class="signature"><strong>#client</strong> : Client</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#create(*args)-instance-method" class="signature"><strong>#create</strong>(*args)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete(*args)-instance-method" class="signature"><strong>#delete</strong>(*args)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get(*args)-instance-method" class="signature"><strong>#get</strong>(*args)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#update(*args)-instance-method" class="signature"><strong>#update</strong>(*args)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(client:Client)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(client : <a href="../../Mollie/Client.html">Client</a>)
+
+        <a class="method-permalink" href="#new(client:Client)-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/tilishop/mollie.cr/blob/1a10a2d5cb21edc0616dda2f89814b9d78fa9246/src/mollie/sandbox.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="all(*args)-instance-method">
+      <div class="signature">
+        
+        def <strong>all</strong>(*args)
+
+        <a class="method-permalink" href="#all(*args)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/tilishop/mollie.cr/blob/1a10a2d5cb21edc0616dda2f89814b9d78fa9246/src/mollie/sandbox.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cancel(*args)-instance-method">
+      <div class="signature">
+        
+        def <strong>cancel</strong>(*args)
+
+        <a class="method-permalink" href="#cancel(*args)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/tilishop/mollie.cr/blob/1a10a2d5cb21edc0616dda2f89814b9d78fa9246/src/mollie/sandbox.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="client:Client-instance-method">
+      <div class="signature">
+        
+        def <strong>client</strong> : <a href="../../Mollie/Client.html">Client</a>
+
+        <a class="method-permalink" href="#client:Client-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="create(*args)-instance-method">
+      <div class="signature">
+        
+        def <strong>create</strong>(*args)
+
+        <a class="method-permalink" href="#create(*args)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/tilishop/mollie.cr/blob/1a10a2d5cb21edc0616dda2f89814b9d78fa9246/src/mollie/sandbox.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete(*args)-instance-method">
+      <div class="signature">
+        
+        def <strong>delete</strong>(*args)
+
+        <a class="method-permalink" href="#delete(*args)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/tilishop/mollie.cr/blob/1a10a2d5cb21edc0616dda2f89814b9d78fa9246/src/mollie/sandbox.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get(*args)-instance-method">
+      <div class="signature">
+        
+        def <strong>get</strong>(*args)
+
+        <a class="method-permalink" href="#get(*args)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/tilishop/mollie.cr/blob/1a10a2d5cb21edc0616dda2f89814b9d78fa9246/src/mollie/sandbox.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="update(*args)-instance-method">
+      <div class="signature">
+        
+        def <strong>update</strong>(*args)
+
+        <a class="method-permalink" href="#update(*args)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/tilishop/mollie.cr/blob/1a10a2d5cb21edc0616dda2f89814b9d78fa9246/src/mollie/sandbox.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
