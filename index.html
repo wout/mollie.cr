@@ -40,26 +40,6 @@
   <div class="types-list">
     <ul>
   
-  <li class=" " data-id="github.com/tilishop/mollie.cr/HS2" data-name="hs2">
-      <a href="HS2.html">HS2</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/tilishop/mollie.cr/HSBFIS" data-name="hsbfis">
-      <a href="HSBFIS.html">HSBFIS</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/tilishop/mollie.cr/HSHS2" data-name="hshs2">
-      <a href="HSHS2.html">HSHS2</a>
-      
-    </li>
-  
-  <li class=" " data-id="github.com/tilishop/mollie.cr/Links" data-name="links">
-      <a href="Links.html">Links</a>
-      
-    </li>
-  
   <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie" data-name="mollie">
       <a href="Mollie.html">Mollie</a>
       
@@ -210,6 +190,21 @@
       
     </li>
   
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/HS2" data-name="mollie::hs2">
+      <a href="Mollie/HS2.html">HS2</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/HSBFIS" data-name="mollie::hsbfis">
+      <a href="Mollie/HSBFIS.html">HSBFIS</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/HSHS2" data-name="mollie::hshs2">
+      <a href="Mollie/HSHS2.html">HSHS2</a>
+      
+    </li>
+  
   <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Invoice" data-name="mollie::invoice">
       <a href="Mollie/Invoice.html">Invoice</a>
       
@@ -262,6 +257,11 @@
   
   <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Line" data-name="mollie::line">
       <a href="Mollie/Line.html">Line</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/Links" data-name="mollie::links">
+      <a href="Mollie/Links.html">Links</a>
       
     </li>
   
@@ -537,8 +537,15 @@
 
 
 <div class="main-content">
+<p>
+<h1>Mollie API client for Crystal</h1></p>
+
+<p><img src="https://raw.githubusercontent.com/tilishop/mollie.cr/master/img/editor.png" alt="Example payment" width="882"/></p>
 
 <p>Accepting <a href="https://www.mollie.com/en/payments/ideal" target="_blank">iDEAL</a>, <a href="https://www.mollie.com/en/payments/bancontact" target="_blank">Bancontact</a>, <a href="https://www.mollie.com/en/payments/sofort" target="_blank">SOFORT Banking</a>, <a href="https://www.mollie.com/en/payments/credit-card" target="_blank">Creditcard</a>, <a href="https://www.mollie.com/en/payments/bank-transfer" target="_blank">SEPA Bank transfer</a>, <a href="https://www.mollie.com/en/payments/direct-debit" target="_blank">SEPA Direct debit</a>, <a href="https://www.mollie.com/en/payments/paypal" target="_blank">PayPal</a>, <a href="https://www.mollie.com/en/payments/kbc-cbc" target="_blank">KBC/CBC Payment Button</a>, <a href="https://www.mollie.com/en/payments/belfius" target="_blank">Belfius Direct Net</a>, <a href="https://www.mollie.com/en/payments/paysafecard" target="_blank">paysafecard</a>, <a href="https://www.mollie.com/en/payments/ing-homepay" target="_blank">ING Home’Pay</a>, <a href="https://www.mollie.com/en/payments/gift-cards" target="_blank">Gift cards</a>, <a href="https://www.mollie.com/en/payments/eps" target="_blank">EPS</a>, <a href="https://www.mollie.com/en/payments/giropay" target="_blank">Giropay</a> and <a href="https://www.mollie.com/en/payments/apple-pay" target="_blank">Apple Pay</a> online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.</p>
+
+<p><a href="https://travis-ci.org/tilishop/mollie.cr" target="_blank"><img src="https://travis-ci.org/tilishop/mollie.cr.svg?branch=master" alt="Build Status"/></a>
+<a href="https://badge.fury.io/gh/tilishop%2Fmollie.cr" target="_blank"><img src="https://badge.fury.io/gh/tilishop%2Fmollie.cr.svg" alt="GitHub version"/></a></p>
 
 <h2><a id="disclaimer" class="anchor" href="#disclaimer">
   <svg class="octicon-link" aria-hidden="true">
@@ -571,7 +578,7 @@ differences and to make the most of Crystal's type system.</p>
 
 <pre><code class="language-yaml">dependencies:
   mollie:
-    github: tilishop/mollie</code></pre>
+    github: tilishop/mollie.cr</code></pre>
 
 <p>Then run <code>shards install</code>.</p>
 
@@ -584,14 +591,17 @@ differences and to make the most of Crystal's type system.</p>
 <p>Configure your API key:</p>
 
 <pre><code class="language-crystal"><span class="t">Mollie</span>.configure <span class="k">do</span> <span class="o">|</span>config<span class="o">|</span>
-  config.api_key <span class="o">=</span> <span class="s">&quot;test_O5GwT48772F3f3Cr0211c83341Q83F&quot;</span>
+  config.api_key <span class="o">=</span> <span class="t">ENV</span>[<span class="s">&quot;MOLLIE_API_KEY&quot;</span>]
+  <span class="c"># Timeouts (default is 60)</span>
+  <span class="c"># config.open_timeout = 60</span>
+  <span class="c"># config.read_timeout = 60</span>
 <span class="k">end</span></code></pre>
 
 <p>Create a payment:</p>
 
 <pre><code class="language-crystal">payment <span class="o">=</span> <span class="t">Mollie</span><span class="t">::</span><span class="t">Payment</span>.create({
   amount: {
-    value: <span class="s">&quot;10.00&quot;</span>,
+    value:    <span class="s">&quot;10.00&quot;</span>,
     currency: <span class="s">&quot;EUR&quot;</span>,
   },
   method:       <span class="s">&quot;creditcard&quot;</span>,
@@ -623,14 +633,6 @@ differences and to make the most of Crystal's type system.</p>
 </a>Contributors</h2>
 
 <ul><li><a href="https://github.com/wout" target="_blank">wout</a> - creator and maintainer</li><li><a href="https://github.com/tilishop" target="_blank">tilishop</a> - owner and maintainer</li></ul>
-
-<h2><a id="api-documentation" class="anchor" href="#api-documentation">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>API documentation ##</h2>
-
-<p>If you wish to learn more about the Mollie API, please visit the <a href="https://docs.mollie.com" target="_blank">Mollie API Documentation</a>.</p>
 
 <h2><a id="license" class="anchor" href="#license">
   <svg class="octicon-link" aria-hidden="true">
