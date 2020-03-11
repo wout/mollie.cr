@@ -57,7 +57,7 @@ If you need to do multiple calls with the same API Key, use the following helper
 
 ```crystal
 Mollie::Client.with_api_key("<your-api-key>") do |mollie|
-  mandates = mollie.customer_mandate.all(customer_id: "customer-id")
+  mandates = mollie.customer_mandate.all({ customer_id: "customer-id" })
   if mandates.any?
     payment = mollie.payment.create({
       amount: {
