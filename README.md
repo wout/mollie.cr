@@ -60,10 +60,11 @@ Mollie::Client.with_api_key("<your-api-key>") do |mollie|
   mandates = mollie.customer_mandate.all(customer_id: "customer-id")
   if mandates.any?
     payment = mollie.payment.create({
-      amount:       {
+      amount: {
         value:    "10.00",
         currency: "EUR",
       },
+      method:       "creditcard",
       description:  "My first API payment",
       redirect_url: "https://webshop.example.org/order/12345/",
       webhook_url:  "https://webshop.example.org/mollie-webhook/",
@@ -89,7 +90,7 @@ payment = Mollie::Payment.create({
 
 ### Retrieving a payment
 
-```
+```crystal
 payment = Mollie::Payment.get("pay-id")
 
 if payment.paid?
