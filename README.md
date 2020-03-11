@@ -11,10 +11,11 @@ Accepting [iDEAL](https://www.mollie.com/en/payments/ideal), [Bancontact](https:
 [![GitHub version](https://badge.fury.io/gh/tilishop%2Fmollie.cr.svg)](https://badge.fury.io/gh/tilishop%2Fmollie.cr)
 
 ## Disclaimer
-This is the unofficial Crystal shard for Mollie. It is directly ported from the
-Ruby version ([mollie-ruby-api](https://github.com/mollie/mollie-api-ruby)) but
-not an exact copy. Usage might vary from the Ruby version due to language
-differences and to make the most of Crystal's type system.
+This is the unofficial [Crystal](https://crystal-lang.org/) shard for Mollie.
+It is directly ported from the Ruby version
+([mollie-ruby-api](https://github.com/mollie/mollie-api-ruby)) but not an exact
+copy. Usage might vary from the Ruby version due to language differences and to
+make the most of Crystal's type system.
 
 ## Requirements
 To use the Mollie API client, the following things are required:
