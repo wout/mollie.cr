@@ -16,11 +16,17 @@ describe Mollie::RequestException do
     end
   end
 
-  describe "#to_s" do
-    it "description" do
+  describe "#message" do
+    it "compiles a message based on api response" do
       test_exception.to_s.should start_with("401 Unauthorized Request")
       test_exception.to_s.should contain("Missing authentication")
       test_exception.to_s.should end_with("or failed to authenticate")
+    end
+  end
+
+  describe "#to_s" do
+    it "is an alias for message" do
+      test_exception.to_s.should eq(test_exception.message)
     end
   end
 end

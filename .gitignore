@@ -1,6 +1,7 @@
 /docs/
 /lib/
 /bin/
+!/bin/run_spec.cr
 /.shards/
 *.dwarf
 

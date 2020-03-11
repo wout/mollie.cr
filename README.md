@@ -54,7 +54,7 @@ Create a payment:
 ```crystal
 payment = Mollie::Payment.create({
   amount: {
-    value: "10.00",
+    value:    "10.00",
     currency: "EUR",
   },
   method:       "creditcard",
@@ -81,10 +81,6 @@ payment = Mollie::Payment.create({
 
 - [wout](https://github.com/wout) - creator and maintainer
 - [tilishop](https://github.com/tilishop) - owner and maintainer
-
-## API documentation ##
-
-If you wish to learn more about the Mollie API, please visit the [Mollie API Documentation](https://docs.mollie.com).
 
 ## License
 [BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/bsd-license.php).

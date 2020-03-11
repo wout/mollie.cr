@@ -10,13 +10,16 @@ struct Mollie
       links:  {type: Links, key: "_links"},
     })
 
-    def to_s
+    def message
       "#{status} #{title}: #{detail}"
+    end
+
+    def to_s
+      message
     end
   end
 
-  class ResourceNotFoundException < Mollie::RequestException
-  end
+  class ResourceNotFoundException < Mollie::RequestException; end
 
   class MissingApiKeyException < Mollie::Exception; end
 
