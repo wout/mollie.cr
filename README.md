@@ -39,18 +39,40 @@ Then run `shards install`.
 
 ## Usage
 
-Configure your API key:
+Create an initializer and add the following line:
 
 ```crystal
 Mollie.configure do |config|
   config.api_key = ENV["MOLLIE_API_KEY"]
-  # Timeouts (default is 60)
-  # config.open_timeout = 60
-  # config.read_timeout = 60
 end
 ```
 
-Create a payment:
+You can also include a client instance in each request you make:
+
+```crystal
+Mollie::Payment.get("pay-id", client: Mollie::Client.new("<your-api-key>"))
+```
+
+If you need to do multiple calls with the same API Key, use the following helper:
+
+```crystal
+Mollie::Client.with_api_key("<your-api-key>") do |mollie|
+  mandates = mollie.customer_mandate.all(customer_id: "customer-id")
+  if mandates.any?
+    payment = mollie.payment.create({
+      amount:       {
+        value:    "10.00",
+        currency: "EUR",
+      },
+      description:  "My first API payment",
+      redirect_url: "https://webshop.example.org/order/12345/",
+      webhook_url:  "https://webshop.example.org/mollie-webhook/",
+    })
+  end
+end
+```
+
+### Creating a new payment
 
 ```crystal
 payment = Mollie::Payment.create({
@@ -63,6 +85,49 @@ payment = Mollie::Payment.create({
   redirect_url: "https://shop.org/order/12345",
   webhook_url:  "https://shop.org/mollie-webhook",    
 })
+```
+
+### Retrieving a payment
+
+```
+payment = Mollie::Payment.get("pay-id")
+
+if payment.paid?
+  puts "Payment received."
+end
+```
+
+### Refunding payments
+
+The API also supports refunding payments. Note that there is no confirmation and
+that all refunds are immediate and definitive. Refunds are only supported for
+[certain payment methods](https://help.mollie.com/hc/en-us/articles/115000014489-How-do-I-refund-a-payment-to-one-of-my-consumers-).
+
+```crystal
+payment = Mollie::Payment.get("pay-id")
+refund = payment.refund!({
+  amount: {
+    value: "10.00",
+    currency: "EUR"
+  }
+})
+```
+
+### Pagination
+
+Fetching all objects of a resource can be convenient. At the same time,
+returning too many objects at once can be unpractical from a performance
+perspective. Doing so might be too much work for the Mollie API to generate, or
+for your website to process. The maximum number of objects returned is 250.
+
+For this reason the Mollie API only returns a subset of the requested set of
+objects. In other words, the Mollie API chops the result of a certain API method
+call into pages you’re able to programmatically scroll through.
+
+```crystal
+payments = Mollie::Payment.all
+payments.next
+payments.previous
 ```
 
 ## Documentation
