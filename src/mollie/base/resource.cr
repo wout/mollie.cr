@@ -5,48 +5,77 @@ struct Mollie
 
       @@name_parts : Array(String)?
 
-      def self.all(options : Hash | NamedTuple = HS2.new)
-        request(method: "GET", options: options) do |response|
+      def self.all(
+        options : Hash | NamedTuple = HS2.new,
+        client : Client = Client.instance
+      )
+        request("GET", options: options, client: client) do |response|
           List(self).from_json(response)
         end
       end
 
-      def self.get(id : String, options : Hash | NamedTuple = HS2.new)
-        request(method: "GET", id: id, options: options) do |response|
+      def self.get(
+        id : String,
+        options : Hash | NamedTuple = HS2.new,
+        client : Client = Client.instance
+      )
+        request("GET", id: id, options: options, client: client) do |response|
           from_json(response)
         end
       end
 
-      def self.create(data : Hash | NamedTuple, options : Hash | NamedTuple = HS2.new)
-        request(method: "POST", data: data, options: options) do |response|
+      def self.create(
+        data : Hash | NamedTuple,
+        options : Hash | NamedTuple = HS2.new,
+        client : Client = Client.instance
+      )
+        request("POST", data: data, options: options, client: client) do |response|
           from_json(response)
         end
       end
 
-      def self.update(id : String, data : Hash | NamedTuple)
-        request(method: "PATCH", id: id, data: data) do |response|
+      def self.update(
+        id : String,
+        data : Hash | NamedTuple,
+        client : Client = Client.instance
+      )
+        request("PATCH", id: id, data: data, client: client) do |response|
           from_json(response)
         end
       end
 
-      def update(data : Hash | NamedTuple)
-        self.class.update(id.to_s, options_with_parent_id(data))
+      def update(data : Hash | NamedTuple, client : Client = Client.instance)
+        self.class.update(id, options_with_parent_id(data), client)
       end
 
-      def self.delete(id : String, data : Hash | NamedTuple = HS2.new)
-        request(method: "DELETE", id: id, data: data)
+      def self.delete(
+        id : String,
+        data : Hash | NamedTuple = HS2.new,
+        client : Client = Client.instance
+      )
+        request("DELETE", id: id, data: data, client: client)
       end
 
-      def self.cancel(id : String, data : Hash | NamedTuple = HS2.new)
-        delete(id, data)
+      def self.cancel(
+        id : String,
+        data : Hash | NamedTuple = HS2.new,
+        client : Client = Client.instance
+      )
+        delete(id, data, client)
       end
 
-      def delete(data : Hash | NamedTuple = HS2.new)
-        self.class.delete(id.to_s, options_with_parent_id(data))
+      def delete(
+        data : Hash | NamedTuple = HS2.new,
+        client : Client = Client.instance
+      )
+        self.class.delete(id, options_with_parent_id(data), client)
       end
 
-      def cancel(data : Hash | NamedTuple = HS2.new)
-        delete(data)
+      def cancel(
+        data : Hash | NamedTuple = HS2.new,
+        client : Client = Client.instance
+      )
+        delete(data, client)
       end
 
       def self.id_param
@@ -98,12 +127,13 @@ struct Mollie
         method : String,
         id : String? = nil,
         data : Hash | NamedTuple = HS2.new,
-        options : Hash | NamedTuple = HS2.new
+        options : Hash | NamedTuple = HS2.new,
+        client : Client = Client.instance
       )
         data = Util.stringify_keys(data)
         options = Util.stringify_keys(options)
         parent_id = options.delete(parent_param) || data.delete(parent_param)
-        Client.instance.perform_http_call(
+        client.perform_http_call(
           method, resource_name(parent_id.as(String?)), id, data, options)
       end
 
@@ -112,9 +142,9 @@ struct Mollie
         id : String? = nil,
         data : Hash | NamedTuple = HS2.new,
         options : Hash | NamedTuple = HS2.new,
-        &block
+        client : Client = Client.instance
       )
-        yield(request(method, id, data, options))
+        yield(request(method, id, data, options, client))
       end
 
       private def self.name_parts

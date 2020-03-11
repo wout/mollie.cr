@@ -103,11 +103,15 @@ struct Mollie
     end
 
     def self.instance
-      self.with_api_key(Config.api_key.as(String?))
+      self.with_api_key(Config.api_key)
     end
 
     def self.with_api_key(api_key : String?)
       State.instances[api_key]? || new(api_key)
+    end
+
+    def self.with_api_key(api_key : String?)
+      yield(Mollie::Sandbox.new(with_api_key(api_key)))
     end
   end
 end

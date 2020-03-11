@@ -1,6 +1,16 @@
 require "../../spec_helper.cr"
 require "../../spec_helpers/base_helper.cr"
 
+def custom_client
+  Mollie::Client.new("test_sandboxed_key")
+end
+
+def sandbox_http_headers
+  client_http_headers.merge({
+    "Authorization" => "Bearer test_sandboxed_key",
+  })
+end
+
 describe Mollie::TestObject do
   before_each do
     configure_test_api_key
@@ -9,6 +19,7 @@ describe Mollie::TestObject do
   describe ".all" do
     it "fetches a list of resources" do
       WebMock.stub(:get, "https://api.mollie.com/v2/testobjects")
+        .with(headers: client_http_headers)
         .to_return(status: 200, body: test_collection_json)
 
       resource = Mollie::TestObject.all
@@ -17,15 +28,31 @@ describe Mollie::TestObject do
       resource[0].should be_a(Mollie::TestObject)
       resource.first.id.should eq("my-id")
     end
+
+    it "accepts a client as argument to make the call on" do
+      WebMock.stub(:get, "https://api.mollie.com/v2/testobjects")
+        .with(headers: sandbox_http_headers)
+        .to_return(status: 200, body: test_collection_json)
+
+      Mollie::TestObject.all(client: custom_client)
+    end
   end
 
   describe ".get" do
     it "fetches a resource" do
       WebMock.stub(:get, "https://api.mollie.com/v2/testobjects/mastaba")
+        .with(headers: client_http_headers)
         .to_return(status: 200, body: test_object_json)
 
-      resource = Mollie::TestObject.get("mastaba")
-      resource.id.should eq("mastaba")
+      Mollie::TestObject.get("mastaba").id.should eq("mastaba")
+    end
+
+    it "accepts a client as argument to make the call on" do
+      WebMock.stub(:get, "https://api.mollie.com/v2/testobjects/mastaba")
+        .with(headers: sandbox_http_headers)
+        .to_return(status: 200, body: test_object_json)
+
+      Mollie::TestObject.get("mastaba", client: custom_client)
     end
   end
 
@@ -49,6 +76,14 @@ describe Mollie::TestObject do
       resource.id.should eq("my-id")
       resource.amount.should eq(1.0)
     end
+
+    it "accepts a client as argument to make the call on" do
+      WebMock.stub(:post, "https://api.mollie.com/v2/testobjects")
+        .with(body: %({"amount":1.95}), headers: sandbox_http_headers)
+        .to_return(status: 201, body: %({"id":"my-id", "amount":1.0}))
+
+      Mollie::TestObject.create({:amount => 1.95}, client: custom_client)
+    end
   end
 
   describe ".update" do
@@ -60,6 +95,14 @@ describe Mollie::TestObject do
       resource = Mollie::TestObject.update("my-id", {:amount => 1.95})
       resource.id.should eq("my-id")
       resource.amount.should eq(1.0)
+    end
+
+    it "accepts a client as argument to make the call on" do
+      WebMock.stub(:patch, "https://api.mollie.com/v2/testobjects/my-id")
+        .with(body: %({"amount":1.95}), headers: sandbox_http_headers)
+        .to_return(status: 201, body: %({"id":"my-id", "amount":1.0}))
+
+      Mollie::TestObject.update("my-id", {:amount => 1.95}, client: custom_client)
     end
   end
 
@@ -76,6 +119,15 @@ describe Mollie::TestObject do
       new_resource.id.should eq("my-id")
       new_resource.amount.should eq(1.0)
     end
+
+    it "accepts a client as argument to make the call on" do
+      WebMock.stub(:patch, "https://api.mollie.com/v2/testobjects/my-id")
+        .with(body: %({"amount":1.95}), headers: sandbox_http_headers)
+        .to_return(status: 201, body: %({"id":"my-id", "amount":1.0}))
+
+      resource = Mollie::TestObject.from_json(%({"id": "my-id"}))
+      resource.update({:amount => 1.95}, client: custom_client)
+    end
   end
 
   describe ".delete" do
@@ -88,13 +140,31 @@ describe Mollie::TestObject do
       response.should eq("")
     end
 
-    it "is also called .cancel" do
+    it "accepts a client as argument to make the call on" do
+      WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/my-id")
+        .with(body: "{}", headers: sandbox_http_headers)
+        .to_return(status: 204, body: "")
+
+      Mollie::TestObject.delete("my-id", client: custom_client)
+    end
+  end
+
+  describe ".cancel" do
+    it "deletes a resource" do
       WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/my-id")
         .with(body: "{}", headers: client_http_headers)
         .to_return(status: 204, body: "")
 
-      response = Mollie::TestObject.delete("my-id")
+      response = Mollie::TestObject.cancel("my-id")
       response.should eq("")
+    end
+
+    it "accepts a client as argument to make the call on" do
+      WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/my-id")
+        .with(body: "{}", headers: sandbox_http_headers)
+        .to_return(status: 204, body: "")
+
+      Mollie::TestObject.cancel("my-id", client: custom_client)
     end
   end
 
@@ -108,13 +178,33 @@ describe Mollie::TestObject do
       resource.delete.should eq("")
     end
 
-    it "is also called #cancel" do
+    it "accepts a client as argument to make the call on" do
+      WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/my-id")
+        .with(body: "{}", headers: sandbox_http_headers)
+        .to_return(status: 204, body: "")
+
+      resource = Mollie::TestObject.from_json(%({"id": "my-id"}))
+      resource.delete(client: custom_client)
+    end
+  end
+
+  describe "#cancel" do
+    it "deletes a resource" do
       WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/my-id")
         .with(body: "{}", headers: client_http_headers)
         .to_return(status: 204, body: "")
 
       resource = Mollie::TestObject.from_json(%({"id": "my-id"}))
       resource.cancel.should eq("")
+    end
+
+    it "accepts a client as argument to make the call on" do
+      WebMock.stub(:delete, "https://api.mollie.com/v2/testobjects/my-id")
+        .with(body: "{}", headers: sandbox_http_headers)
+        .to_return(status: 204, body: "")
+
+      resource = Mollie::TestObject.from_json(%({"id": "my-id"}))
+      resource.cancel(client: custom_client)
     end
   end
 
@@ -299,12 +389,12 @@ struct Mollie
   struct TestObject < Base::Resource
     json_field(:amount, Float64?)
     json_field(:foo, String?)
-    json_field(:id, String?)
+    json_field(:id, String)
     json_field(:my_field, String?)
 
     struct NestedObject < Base::Resource
       json_field(:foo, String?)
-      json_field(:id, String?)
+      json_field(:id, String)
       json_field(:testobject_id, String?)
     end
   end

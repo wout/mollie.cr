@@ -128,16 +128,44 @@ describe Mollie::Client do
   end
 
   describe ".with_api_key" do
-    it "returns the instance for a given api key" do
-      client_1 = Mollie::Client.new("key_1")
-      client_2 = Mollie::Client.new("key_2")
-      Mollie::Client.with_api_key("key_1").should eq(client_1)
-      Mollie::Client.with_api_key("key_2").should eq(client_2)
+    context "without a block" do
+      it "returns the instance for a given api key" do
+        client_1 = Mollie::Client.new("key_1")
+        client_2 = Mollie::Client.new("key_2")
+        Mollie::Client.with_api_key("key_1").should eq(client_1)
+        Mollie::Client.with_api_key("key_2").should eq(client_2)
+      end
+
+      it "never initializes another instance for the given api key" do
+        client = Mollie::Client.with_api_key("mastaba")
+        Mollie::Client.with_api_key("mastaba").should eq(client)
+      end
     end
 
-    it "never initializes another instance for the given api key" do
-      client = Mollie::Client.with_api_key("mastaba")
-      Mollie::Client.with_api_key("mastaba").should eq(client)
+    context "with a block" do
+      it "can be invoked" do
+        Mollie::Client.with_api_key("key_3") do |mollie|
+          mollie.should be_a(Mollie::Sandbox)
+          mollie.client.should eq(Mollie::Client.with_api_key("key_3"))
+        end
+      end
+
+      it "will use the same api key for all calls within the block" do
+        WebMock.stub(:get, "https://api.mollie.com/v2/payments/first_payment")
+          .with(headers: {"Authorization" => "Bearer first_key"})
+          .to_return(body: read_fixture("payments/get.json"))
+        WebMock.stub(:get, "https://api.mollie.com/v2/payments/another_payment")
+          .with(headers: {"Authorization" => "Bearer another_key"})
+          .to_return(body: read_fixture("payments/get.json"))
+
+        Mollie::Client.with_api_key("first_key") do |mollie|
+          mollie.payment.get("first_payment").should be_a(Mollie::Payment)
+        end
+
+        Mollie::Client.with_api_key("another_key") do |mollie|
+          mollie.payment.get("another_payment").should be_a(Mollie::Payment)
+        end
+      end
     end
   end
 end
