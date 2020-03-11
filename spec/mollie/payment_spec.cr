@@ -4,6 +4,10 @@ def test_payment
   Mollie::Payment.from_json(read_fixture("payments/get.json"))
 end
 
+def test_payment_with_relations
+  Mollie::Payment.from_json(read_fixture("payments/get-with-relations.json"))
+end
+
 describe Mollie::Payment do
   before_each do
     configure_test_api_key
@@ -118,17 +122,154 @@ describe Mollie::Payment do
   end
 
   describe ".create" do
-    it "creates a payments" do
+    it "creates a payment" do
+      body = %({"amount":{"value":1.95,"currency":"EUR"}})
+      WebMock.stub(:post, "https://api.mollie.com/v2/payments")
+        .with(body: body)
+        .to_return(status: 201, body: read_fixture("payments/post.json"))
+
+      payment = Mollie::Payment.create({
+        amount: {value: 1.95, currency: "EUR"},
+      })
+      payment.should be_a(Mollie::Payment)
+      payment.id.should eq("tr_WDqYK6vllg")
+      payment.amount.value.should eq(1.95)
+      payment.amount.currency.should eq("EUR")
+    end
+
+    it "creates a payment for a customer" do
       body = %({"customerId":"cst_8wmqcHMN4U","amount":{"value":1.95,"currency":"EUR"}})
       WebMock.stub(:post, "https://api.mollie.com/v2/payments")
         .with(body: body)
         .to_return(status: 201, body: read_fixture("payments/post.json"))
 
-      payment = Mollie::Payment.create(data: {
+      payment = Mollie::Payment.create({
         customer_id: "cst_8wmqcHMN4U",
         amount:      {value: 1.95, currency: "EUR"},
       })
       payment.customer_id.should eq("cst_8wmqcHMN4U")
+    end
+  end
+
+  describe "#refund!" do
+    it "refunds a payment" do
+      body = %({"amount":{"value":"10.00","currency":"EUR"}})
+      WebMock.stub(:post, "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds")
+        .with(body: body)
+        .to_return(body: read_fixture("refunds/get.json"))
+
+      refund = test_payment.refund!
+      refund.id.should eq("re_4qqhO89gsT")
+    end
+
+    it "refunds a payment with custom amount and description" do
+      body = %({"amount":{"value":"9.95","currency":"EUR"},"description":"Test refund"})
+      WebMock.stub(:post, "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds")
+        .with(body: body)
+        .to_return(body: read_fixture("refunds/get.json"))
+
+      refund = test_payment.refund!({
+        amount:      {value: "9.95", currency: "EUR"},
+        description: "Test refund",
+      })
+      refund.id.should eq("re_4qqhO89gsT")
+    end
+  end
+
+  describe "#refunds" do
+    it "fetches the related refunds" do
+      WebMock.stub(:get, "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/refunds")
+        .to_return(body: read_fixture("refunds/list.json"))
+
+      test_payment.refunds.first.id.should eq("re_4qqhO89gsT")
+    end
+  end
+
+  describe "#chargebacks" do
+    it "fetches the related chargebacks" do
+      WebMock.stub(:get, "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/chargebacks")
+        .to_return(body: read_fixture("chargebacks/list.json"))
+
+      test_payment.chargebacks.first.id.should eq("chb_n9z0tp")
+    end
+  end
+
+  describe "#captures" do
+    it "fetches the related captures" do
+      WebMock.stub(:get, "https://api.mollie.com/v2/payments/tr_WDqYK6vllg/captures")
+        .to_return(status: 200, body: read_fixture("captures/list.json"))
+
+      test_payment.captures.first.id.should eq("cpt_4qqhO89gsT")
+    end
+  end
+
+  describe "#customer" do
+    it "fetches the related customer" do
+      WebMock.stub(:get, "https://api.mollie.com/v2/customers/cst_kEn1PlbGa")
+        .to_return(status: 200, body: read_fixture("customers/get.json"))
+
+      customer = test_payment_with_relations.customer.as(Mollie::Customer)
+      customer.id.should eq("cst_kEn1PlbGa")
+    end
+
+    it "is nilable" do
+      test_payment.customer.should be_nil
+    end
+  end
+
+  describe "#mandate" do
+    it "fetches the related mandate" do
+      WebMock.stub(:get, "https://api.mollie.com/v2/customers/cst_kEn1PlbGa/mandates/mdt_h3gAaD5zP")
+        .to_return(status: 200, body: read_fixture("mandates/get.json"))
+
+      mandate = test_payment_with_relations.mandate.as(Mollie::Customer::Mandate)
+      mandate.id.should eq("mdt_h3gAaD5zP")
+    end
+
+    it "is nilable" do
+      test_payment.mandate.should be_nil
+    end
+  end
+
+  describe "#settlement" do
+    it "fetches the related settlement" do
+      WebMock.stub(:get, "https://api.mollie.com/v2/settlements/stl_jDk30akdN")
+        .to_return(status: 200, body: read_fixture("settlements/get.json"))
+
+      settlement = test_payment_with_relations.settlement.as(Mollie::Settlement)
+      settlement.id.should eq("stl_jDk30akdN")
+    end
+
+    it "is nilable" do
+      test_payment.settlement.should be_nil
+    end
+  end
+
+  describe "#subscription" do
+    it "fetches the related subscription" do
+      WebMock.stub(:get, "https://api.mollie.com/v2/customers/cst_kEn1PlbGa/subscriptions/sub_rVKGtNd6s3")
+        .to_return(status: 200, body: read_fixture("subscriptions/get.json"))
+
+      subscription = test_payment_with_relations.subscription.as(Mollie::Customer::Subscription)
+      subscription.id.should eq("sub_rVKGtNd6s3")
+    end
+
+    it "is nilable" do
+      test_payment.subscription.should be_nil
+    end
+  end
+
+  describe "#order" do
+    it "fetches the related order" do
+      WebMock.stub(:get, "https://api.mollie.com/v2/orders/ord_kEn1PlbGa")
+        .to_return(status: 200, body: read_fixture("orders/get.json"))
+
+      order = test_payment_with_relations.order.as(Mollie::Order)
+      order.id.should eq("ord_kEn1PlbGa")
+    end
+
+    it "is nilable" do
+      test_payment.order.should be_nil
     end
   end
 end

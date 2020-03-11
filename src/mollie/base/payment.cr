@@ -62,6 +62,39 @@ struct Mollie
         link_for(:checkout)
       end
 
+      def refund!(options : Hash | NamedTuple = HS2.new)
+        Mollie::Payment::Refund.create({
+          :amount => amount.to_h,
+        }.merge(options.to_h).merge({:payment_id => id}))
+      end
+
+      {% begin %}
+        {% for method in %w[capture chargeback refund] %}
+          def {{ "#{method.id}s".id }}(options : Hash | NamedTuple = HS2.new)
+            Mollie::Payment::{{ method.camelcase.id }}.all(options.to_h.merge({
+              :payment_id => id
+            }))
+          end
+        {% end %}
+
+        {% for method in %w[customer settlement order] %}
+          def {{ method.id }}(options : Hash | NamedTuple = HS2.new)
+            if {{ method.id }}_id
+              {{ method.camelcase.id }}.get({{ method.id }}_id.as(String), options)
+            end
+          end
+        {% end %}
+
+        {% for method in %w[mandate subscription] %}
+          def {{ method.id }}(options : Hash | NamedTuple = HS2.new)
+            if customer_id && {{ method.id }}_id
+              options = options.to_h.merge({:customer_id => customer_id.as(String)})
+              Customer::{{ method.camelcase.id }}.get({{ method.id }}_id.as(String), options)
+            end
+          end
+        {% end %}
+      {% end %}
+
       struct ApplicationFee < Mollie::Base::ApplicationFee
       end
     end
