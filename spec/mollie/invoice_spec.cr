@@ -11,7 +11,7 @@ describe Mollie::Invoice do
 
   describe "#links" do
     it "contain links" do
-      test_invoice.links.should be_a(Links)
+      test_invoice.links.should be_a(Mollie::Links)
     end
   end
 

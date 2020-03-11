@@ -11,7 +11,7 @@ describe Mollie::Order do
 
   describe "#links" do
     it "is linkable" do
-      test_order.links.should be_a(Links)
+      test_order.links.should be_a(Mollie::Links)
     end
   end
 
@@ -36,7 +36,7 @@ describe Mollie::Order do
       test_order.amount.should be_a(Mollie::Amount)
       test_order.status.should eq("created")
       test_order.is_cancelable.should be_true
-      test_order.metadata.should be_a(HSBFIS?)
+      test_order.metadata.should be_a(Mollie::HSBFIS?)
       test_order.created_at.should eq(Time.parse_iso8601("2018-08-02T09:29:56+00:00"))
       test_order.expires_at.should eq(Time.parse_iso8601("2018-08-30T09:29:56+00:00"))
       test_order.mode.should eq("live")

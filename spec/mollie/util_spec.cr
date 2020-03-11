@@ -159,7 +159,7 @@ describe Mollie::Util do
     it "extracts a query hash from a given href" do
       href = "https://api.mollie.com/v2/mastabas?from=tr_1&limit=1"
       query = Mollie::Util.query_from_href(href)
-      query.should be_a(HS2)
+      query.should be_a(Mollie::HS2)
       query["from"].should eq("tr_1")
       query["limit"].should eq("1")
     end
@@ -167,7 +167,7 @@ describe Mollie::Util do
     it "returns an empty hash if no query params are present" do
       href = "https://api.mollie.com/v2/mastabas"
       query = Mollie::Util.query_from_href(href)
-      query.should eq(HS2.new)
+      query.should eq(Mollie::HS2.new)
     end
   end
 end

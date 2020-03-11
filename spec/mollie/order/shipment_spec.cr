@@ -11,7 +11,7 @@ describe Mollie::Order::Shipment do
 
   describe "#links" do
     it "contain links" do
-      test_shipment.links.should be_a(Links)
+      test_shipment.links.should be_a(Mollie::Links)
     end
   end
 

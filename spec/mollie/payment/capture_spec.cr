@@ -11,7 +11,7 @@ describe Mollie::Payment::Capture do
 
   describe "#links" do
     it "contain links" do
-      test_capture.links.should be_a(Links)
+      test_capture.links.should be_a(Mollie::Links)
     end
   end
 

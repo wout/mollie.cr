@@ -11,7 +11,7 @@ describe Mollie::Onboarding do
 
   describe "#links" do
     it "is linkable" do
-      test_onboarding.links.should be_a(Links)
+      test_onboarding.links.should be_a(Mollie::Links)
     end
   end
 

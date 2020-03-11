@@ -23,7 +23,7 @@ describe Mollie::Payment do
 
   describe "#links" do
     it "is linkable" do
-      test_payment.links.should be_a(Links)
+      test_payment.links.should be_a(Mollie::Links)
     end
   end
 
@@ -48,9 +48,9 @@ describe Mollie::Payment do
       payment.amount_remaining.should be_a(Mollie::Amount?)
       payment.description.should eq("My first payment")
       payment.method.should eq("ideal")
-      metadata = payment.metadata.as(HSBFIS)
+      metadata = payment.metadata.as(Mollie::HSBFIS)
       metadata["order_id"].should eq("12345")
-      details = payment.details.as(HSBFIS)
+      details = payment.details.as(Mollie::HSBFIS)
       details["consumer_name"].should eq("Hr E G H K\u00fcppers en/of MW M.J. K\u00fcppers-Veeneman")
       details["consumer_account"].should eq("NL53INGB0618365937")
       details["consumer_bic"].should eq("INGBNL2A")

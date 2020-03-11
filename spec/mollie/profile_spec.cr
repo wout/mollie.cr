@@ -11,7 +11,7 @@ describe Mollie::Profile do
 
   describe "#links" do
     it "is linkable" do
-      test_profile.links.should be_a(Links)
+      test_profile.links.should be_a(Mollie::Links)
     end
   end
 

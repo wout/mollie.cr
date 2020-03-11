@@ -21,7 +21,7 @@ describe Mollie::Subscription do
 
   describe "#links" do
     it "contain links" do
-      test_subscription.links.should be_a(Links)
+      test_subscription.links.should be_a(Mollie::Links)
     end
   end
 
@@ -41,7 +41,7 @@ describe Mollie::Subscription do
       test_subscription.method.should be_nil
       test_subscription.mandate_id.should eq("mdt_38HS4fsS")
       test_subscription.webhook_url.should eq("https://webshop.example.org/payments/webhook")
-      test_subscription.metadata.should be_a(HSBFIS)
+      test_subscription.metadata.should be_a(Mollie::HSBFIS)
       test_subscription.application_fee.should be_a(Mollie::Subscription::ApplicationFee?)
       test_subscription.interval.should eq("3 months")
     end

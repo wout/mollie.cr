@@ -7,7 +7,7 @@ end
 describe Mollie::Organization do
   describe "#links" do
     it "is linkable" do
-      test_orgganization.links.should be_a(Links)
+      test_orgganization.links.should be_a(Mollie::Links)
     end
   end
 

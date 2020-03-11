@@ -19,7 +19,7 @@ describe Mollie::Customer::Mandate do
 
   describe "#links" do
     it "contain links" do
-      test_mandate.links.should be_a(Links)
+      test_mandate.links.should be_a(Mollie::Links)
     end
   end
 
@@ -29,7 +29,7 @@ describe Mollie::Customer::Mandate do
       test_mandate.mode.should eq("test")
       test_mandate.status.should eq("valid")
       test_mandate.method.should eq("directdebit")
-      details = test_mandate.details.as(HSBFIS)
+      details = test_mandate.details.as(Mollie::HSBFIS)
       details["consumer_name"].should eq("John Doe")
       details["consumer_account"].should eq("NL55INGB0000000000")
       details["consumer_bic"].should eq("INGBNL2A")

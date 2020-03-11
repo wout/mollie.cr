@@ -7,7 +7,7 @@ end
 describe Mollie::Mixins::Linkable do
   describe "#links" do
     it "has links" do
-      test_linkable.links.should be_a(Links)
+      test_linkable.links.should be_a(Mollie::Links)
       links = test_linkable.links
       links.dig("self", "href").should eq("https://api.mollie.com/v2/linkableobjects/lob_d5E44r2gq")
       links.dig?("order", "href").should be_nil

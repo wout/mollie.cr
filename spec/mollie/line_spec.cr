@@ -24,7 +24,7 @@ describe Mollie::Line do
       test_line.discount_amount.as(Mollie::Amount).value.should eq(100.0)
       test_line.total_amount.should be_a(Mollie::Amount)
       test_line.total_amount.value.should eq(698.0)
-      test_line.metadata.should be_a(HSBFIS?)
+      test_line.metadata.should be_a(Mollie::HSBFIS?)
       test_line.is_cancelable.should be_true
       test_line.quantity_shipped.should eq(0)
       test_line.quantity_refunded.should eq(0)

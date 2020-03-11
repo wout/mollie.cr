@@ -49,7 +49,7 @@ describe Mollie::List do
 
   describe "#links" do
     it "contains links" do
-      test_list.links.should be_a(Links)
+      test_list.links.should be_a(Mollie::Links)
     end
   end
 

@@ -11,7 +11,7 @@ describe Mollie::Permission do
 
   describe "#links" do
     it "is linkable" do
-      test_permission.links.should be_a(Links)
+      test_permission.links.should be_a(Mollie::Links)
     end
   end
 

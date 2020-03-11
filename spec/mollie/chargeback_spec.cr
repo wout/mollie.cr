@@ -15,7 +15,7 @@ describe Mollie::Chargeback do
 
   describe "#links" do
     it "contain links" do
-      test_chargeback.links.should be_a(Links)
+      test_chargeback.links.should be_a(Mollie::Links)
     end
   end
 

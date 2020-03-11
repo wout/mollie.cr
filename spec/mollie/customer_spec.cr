@@ -11,7 +11,7 @@ describe Mollie::Customer do
 
   describe "#links" do
     it "contain links" do
-      test_customer.links.should be_a(Links)
+      test_customer.links.should be_a(Mollie::Links)
     end
   end
 
@@ -22,7 +22,7 @@ describe Mollie::Customer do
       test_customer.name.should eq("Customer A")
       test_customer.email.should eq("customer@example.org")
       test_customer.locale.should eq("nl_NL")
-      test_customer.metadata.should be_a(HSBFIS?)
+      test_customer.metadata.should be_a(Mollie::HSBFIS?)
       test_customer.metadata.should be_nil
       test_customer.created_at.should eq(Time.parse_iso8601("2018-04-06T13:23:21.0Z"))
     end
