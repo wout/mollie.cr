@@ -3,7 +3,7 @@ require "webmock"
 require "../src/mollie"
 
 def empty_string_hash
-  Hash(String, String).new
+  Mollie::HS2.new
 end
 
 def mollie_test_api_key
@@ -14,7 +14,7 @@ def configure_test_api_key
   Mollie::Config.api_key = mollie_test_api_key
 end
 
-def client_http_headers(overrides : Hash(String, String)? = Hash(String, String).new)
+def client_http_headers(overrides : Mollie::HS2? = Mollie::HS2.new)
   {
     "Accept"        => "application/json",
     "Content-type"  => "application/json",
@@ -33,6 +33,7 @@ def read_fixture(file : String)
 end
 
 Spec.after_each do
+  WebMock.reset
   Mollie::Config.api_key = nil
   Mollie::Config.open_timeout = 60
   Mollie::Config.read_timeout = 60
