@@ -129,6 +129,13 @@ describe Mollie::Client do
 
   describe ".with_api_key" do
     context "without a block" do
+      it "returns an new instance if none exists yet" do
+        Mollie::State.instances.clear
+        client = Mollie::Client.with_api_key("coolyo")
+        Mollie::State.instances.size.should eq(1)
+        Mollie::State.instances["coolyo"].should eq(client)
+      end
+
       it "returns the instance for a given api key" do
         client_1 = Mollie::Client.new("key_1")
         client_2 = Mollie::Client.new("key_2")
@@ -150,20 +157,29 @@ describe Mollie::Client do
         end
       end
 
-      it "will use the same api key for all calls within the block" do
+      it "will use the same api key for all calls within a block" do
         WebMock.stub(:get, "https://api.mollie.com/v2/payments/first_payment")
           .with(headers: {"Authorization" => "Bearer first_key"})
           .to_return(body: read_fixture("payments/get.json"))
+        WebMock.stub(:get, "https://api.mollie.com/v2/refunds/first_refund")
+          .with(headers: {"Authorization" => "Bearer first_key"})
+          .to_return(body: read_fixture("refunds/get.json"))
+
         WebMock.stub(:get, "https://api.mollie.com/v2/payments/another_payment")
           .with(headers: {"Authorization" => "Bearer another_key"})
           .to_return(body: read_fixture("payments/get.json"))
+        WebMock.stub(:get, "https://api.mollie.com/v2/profiles/another_profile")
+          .with(headers: {"Authorization" => "Bearer another_key"})
+          .to_return(body: read_fixture("profiles/get.json"))
 
         Mollie::Client.with_api_key("first_key") do |mollie|
           mollie.payment.get("first_payment").should be_a(Mollie::Payment)
+          mollie.refund.get("first_refund").should be_a(Mollie::Refund)
         end
 
         Mollie::Client.with_api_key("another_key") do |mollie|
           mollie.payment.get("another_payment").should be_a(Mollie::Payment)
+          mollie.profile.get("another_profile").should be_a(Mollie::Profile)
         end
       end
     end
