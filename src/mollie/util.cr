@@ -52,6 +52,18 @@ struct Mollie
       URI.parse(href).query_params.to_h
     end
 
+    def self.amount_with_decimals(
+      amount : BigDecimal | AmountValue,
+      currency : String
+    )
+      decimals = Mollie::Config.currency_decimals[currency]? || 2
+      if decimals > 0
+        "%.#{decimals}f" % amount.round(decimals)
+      else
+        amount.round.to_i.to_s
+      end
+    end
+
     private def self.escape(value : String | Symbol)
       URI.encode_www_form(value.to_s)
     end

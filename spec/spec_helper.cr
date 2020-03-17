@@ -37,4 +37,8 @@ Spec.after_each do
   Mollie::Config.api_key = nil
   Mollie::Config.open_timeout = 60
   Mollie::Config.read_timeout = 60
+  Mollie::Config.currency_decimals = {
+    "ISK" => 0,
+    "JPY" => 0,
+  }
 end

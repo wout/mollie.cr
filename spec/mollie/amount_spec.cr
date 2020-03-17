@@ -9,27 +9,37 @@ describe Mollie::Amount do
     end
 
     it "accepts a value as integer" do
-      amount = Mollie::Amount.new(4040, "EUR")
-      amount.value.should eq(4040.0)
+      Mollie::Amount.new(-3232.to_i32, "EUR").value.should eq(-3232.0)
+      Mollie::Amount.new(3232.to_u32, "EUR").value.should eq(3232.0)
+      Mollie::Amount.new(-6464.to_i64, "EUR").value.should eq(-6464.0)
+      Mollie::Amount.new(6464.to_u64, "EUR").value.should eq(6464.0)
+    end
+
+    it "accepts a value as float" do
+      Mollie::Amount.new(3232.to_f32, "EUR").value.should eq(3232.0)
+      Mollie::Amount.new(-6464.to_f64, "EUR").value.should eq(-6464.0)
     end
 
     it "accepts a value as string" do
-      amount = Mollie::Amount.new("3.1415", "EUR")
+      Mollie::Amount.new("3.1415", "EUR").value.should eq(3.1415)
+    end
+
+    it "accepts a value as big decimal" do
+      amount = Mollie::Amount.new(BigDecimal.new("3.1415"), "EUR")
       amount.value.should eq(3.1415)
+      amount.currency.should eq("EUR")
     end
   end
 
   describe "#value" do
     it "returns the given value" do
-      amount = Mollie::Amount.new(32.32, "EUR")
-      amount.value.should eq(32.32)
+      Mollie::Amount.new(32.32, "EUR").value.should eq(32.32)
     end
   end
 
   describe "#currency" do
     it "returns the given value" do
-      amount = Mollie::Amount.new(0, "EUR")
-      amount.currency.should eq("EUR")
+      Mollie::Amount.new(0, "EUR").currency.should eq("EUR")
     end
   end
 
@@ -37,6 +47,18 @@ describe Mollie::Amount do
     it "returns the value/currency pair as a named tuple" do
       tuple = Mollie::Amount.new(60.0, "EUR").to_tuple
       tuple.should eq({value: "60.00", currency: "EUR"})
+    end
+
+    it "rounds the amount according to the given currecny" do
+      Mollie::Config.currency_decimals["SEK"] = 4
+      tuple = Mollie::Amount.new(60.31555, "EUR").to_tuple
+      tuple.should eq({value: "60.32", currency: "EUR"})
+      tuple = Mollie::Amount.new(60.31555, "JPY").to_tuple
+      tuple.should eq({value: "60", currency: "JPY"})
+      tuple = Mollie::Amount.new(60.31555, "SEK").to_tuple
+      tuple.should eq({value: "60.3156", currency: "SEK"})
+      tuple = Mollie::Amount.new(65.985, "GBP").to_tuple
+      tuple.should eq({value: "65.99", currency: "GBP"})
     end
   end
 

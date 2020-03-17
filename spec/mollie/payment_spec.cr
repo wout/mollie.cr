@@ -123,13 +123,13 @@ describe Mollie::Payment do
 
   describe ".create" do
     it "creates a payment" do
-      body = %({"amount":{"value":1.95,"currency":"EUR"}})
+      body = %({"amount":{"value":"1.95","currency":"EUR"}})
       WebMock.stub(:post, "https://api.mollie.com/v2/payments")
         .with(body: body)
         .to_return(status: 201, body: read_fixture("payments/post.json"))
 
       payment = Mollie::Payment.create({
-        amount: {value: 1.95, currency: "EUR"},
+        amount: {value: "1.95", currency: "EUR"},
       })
       payment.should be_a(Mollie::Payment)
       payment.id.should eq("tr_WDqYK6vllg")
@@ -138,16 +138,28 @@ describe Mollie::Payment do
     end
 
     it "creates a payment for a customer" do
-      body = %({"customerId":"cst_8wmqcHMN4U","amount":{"value":1.95,"currency":"EUR"}})
+      body = %({"customerId":"cst_8wmqcHMN4U","amount":{"value":"1.95","currency":"EUR"}})
       WebMock.stub(:post, "https://api.mollie.com/v2/payments")
         .with(body: body)
         .to_return(status: 201, body: read_fixture("payments/post.json"))
 
       payment = Mollie::Payment.create({
         customer_id: "cst_8wmqcHMN4U",
-        amount:      {value: 1.95, currency: "EUR"},
+        amount:      {value: "1.95", currency: "EUR"},
       })
       payment.customer_id.should eq("cst_8wmqcHMN4U")
+    end
+
+    it "creates a payment with an instance of amount" do
+      body = %({"customerId":"cst_8wmqcHMN4V","amount":{"value":"61.98","currency":"GBP"}})
+      WebMock.stub(:post, "https://api.mollie.com/v2/payments")
+        .with(body: body)
+        .to_return(status: 201, body: read_fixture("payments/post.json"))
+
+      Mollie::Payment.create({
+        customer_id: "cst_8wmqcHMN4V",
+        amount:      Mollie::Amount.new("61.975", "GBP"),
+      })
     end
   end
 

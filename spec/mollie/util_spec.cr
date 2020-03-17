@@ -170,4 +170,14 @@ describe Mollie::Util do
       query.should eq(Mollie::HS2.new)
     end
   end
+
+  describe ".amount_with_decimals" do
+    it "returns the amount as string with correct decimals" do
+      amount = 101.88557
+      Mollie::Config.currency_decimals["SEK"] = 4
+      Mollie::Util.amount_with_decimals(amount, "EUR").should eq("101.89")
+      Mollie::Util.amount_with_decimals(amount, "JPY").should eq("102")
+      Mollie::Util.amount_with_decimals(amount, "SEK").should eq("101.8856")
+    end
+  end
 end

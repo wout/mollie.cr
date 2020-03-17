@@ -87,6 +87,19 @@ payment = Mollie::Payment.create({
   webhook_url:  "https://shop.org/mollie-webhook",    
 })
 ```
+*Note: Make sure to send the right amount of decimals and omit the thousands
+separator. Non-string values are not accepted.*
+
+To ensure amount values always carry the correct amount of decimals, an instance
+of `Mollie::Amount` can be passed, which accepts integers, floats and strings:
+
+```crystal
+payment = Mollie::Payment.create({
+  amount:       Mollie::Amount.new(10, "EUR"),
+  method:       "creditcard",
+  description:  "My first API payment",
+})
+```
 
 ### Retrieving a payment
 

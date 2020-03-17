@@ -18,4 +18,13 @@ describe Mollie::Config do
       Mollie::Config.read_timeout.should eq(60)
     end
   end
+
+  describe ".decimals" do
+    it "contains decimal points for diverging currencies" do
+      Mollie::Config.currency_decimals.should eq({
+        "ISK" => 0,
+        "JPY" => 0,
+      })
+    end
+  end
 end
