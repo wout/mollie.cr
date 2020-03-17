@@ -50,6 +50,11 @@
       
     </li>
   
+  <li class=" " data-id="github.com/tilishop/mollie.cr/Mollie/AmountValue" data-name="mollie::amountvalue">
+      <a href="Mollie/AmountValue.html">AmountValue</a>
+      
+    </li>
+  
   <li class="parent " data-id="github.com/tilishop/mollie.cr/Mollie/Base" data-name="mollie::base">
       <a href="Mollie/Base.html">Base</a>
       
@@ -693,9 +698,8 @@
 
 <div class="main-content">
 <p>
-  <h1>Mollie API client for Crystal</h1>
+<h1>Mollie API client for Crystal</h1>
 </p>
-
 <p>
   <img src="https://info.mollie.com/hubfs/github/crystal/editor.png"
        alt="Example payment"
@@ -792,6 +796,18 @@ make the most of Crystal's type system.</p>
   description:  <span class="s">&quot;My first API payment&quot;</span>,
   redirect_url: <span class="s">&quot;https://shop.org/order/12345&quot;</span>,
   webhook_url:  <span class="s">&quot;https://shop.org/mollie-webhook&quot;</span>,    
+})</code></pre>
+
+<p><em>Note: Make sure to send the right amount of decimals and omit the thousands
+separator. Non-string values are not accepted.</em></p>
+
+<p>To ensure amount values always carry the correct amount of decimals, an instance
+of <code><a href="Mollie/Amount.html">Mollie::Amount</a></code> can be passed, which accepts integers, floats and strings:</p>
+
+<pre><code class="language-crystal">payment <span class="o">=</span> <span class="t">Mollie</span><span class="t">::</span><span class="t">Payment</span>.create({
+  amount:       <span class="t">Mollie</span><span class="t">::</span><span class="t">Amount</span>.<span class="k">new</span>(<span class="n">10</span>, <span class="s">&quot;EUR&quot;</span>),
+  method:       <span class="s">&quot;creditcard&quot;</span>,
+  description:  <span class="s">&quot;My first API payment&quot;</span>,
 })</code></pre>
 
 <h3><a id="retrieving-a-payment" class="anchor" href="#retrieving-a-payment">
