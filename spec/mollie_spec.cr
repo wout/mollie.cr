@@ -1,8 +1,8 @@
 require "./spec_helper.cr"
 
-describe "Mollie" do
+describe Mollie do
   describe ".configure" do
-    it "changes global confguration" do
+    it "changes global the confguration" do
       Mollie.configure do |config|
         config.api_key = "my_key"
         config.open_timeout = 1.5
