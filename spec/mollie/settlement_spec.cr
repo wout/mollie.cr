@@ -106,4 +106,16 @@ describe Mollie::Settlement do
       refunds.first.id.should eq("re_4qqhO89gsT")
     end
   end
+
+  describe "#captures" do
+    it "fetches all related payments" do
+      WebMock.stub(:get, "https://api.mollie.com/v2/settlements/stl_jDk30akdN/captures")
+        .to_return(status: 200, body: read_fixture("settlements/get-captures.json"))
+
+      captures = test_settlement.captures
+      captures.should be_a(Mollie::List(Mollie::Settlement::Capture))
+      captures.size.should eq(1)
+      captures.first.id.should eq("cpt_4qqhO89gsT")
+    end
+  end
 end

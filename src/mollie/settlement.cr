@@ -35,6 +35,10 @@ struct Mollie
       Refund.all(options.merge({:settlement_id => id}))
     end
 
+    def captures(options : Hash | NamedTuple = HS2.new)
+      Capture.all(options.merge({:settlement_id => id}))
+    end
+
     struct Item
       include Json::Serializable
 
