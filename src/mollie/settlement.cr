@@ -2,6 +2,8 @@ struct Mollie
   struct Settlement < Base::Resource
     include Mixins::Linkable
 
+    alias PeriodsHash = Hash(String, Hash(String, Period))
+
     enum Status
       Open
       Pending
@@ -14,7 +16,7 @@ struct Mollie
     json_field(:amount, Amount)
     json_field(:created_at, Time)
     json_field(:id, String)
-    json_field(:periods, Hash(String, Hash(String, Hash(String, Array(Item)))))
+    json_field(:periods, PeriodsHash)
     json_field(:reference, String)
     json_field(:settled_at, Time)
     json_field(:status, String)
@@ -33,6 +35,18 @@ struct Mollie
 
     def refunds(options : Hash | NamedTuple = HS2.new)
       Refund.all(options.merge({:settlement_id => id}))
+    end
+
+    def captures(options : Hash | NamedTuple = HS2.new)
+      Capture.all(options.merge({:settlement_id => id}))
+    end
+
+    struct Period
+      include Json::Serializable
+
+      json_field(:revenue, Array(Item))
+      json_field(:costs, Array(Item))
+      json_field(:invoice_id, String)
     end
 
     struct Item

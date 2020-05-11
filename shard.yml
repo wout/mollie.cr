@@ -18,5 +18,8 @@ development_dependencies:
   webmock:
     github: manastech/webmock.cr
     branch: master
+  spec_mirror:
+    github: tilishop/spec_mirror.cr
+    branch: master
 
 license: BSD

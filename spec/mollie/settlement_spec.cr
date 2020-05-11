@@ -1,7 +1,5 @@
 require "../spec_helper.cr"
 
-alias AI = Array(Mollie::Settlement::Item)
-
 def test_settlement
   Mollie::Settlement.from_json(read_fixture("settlements/get.json"))
 end
@@ -30,12 +28,15 @@ describe Mollie::Settlement do
     it "pulls the required attributes" do
       test_settlement.id.should eq("stl_jDk30akdN")
       test_settlement.reference.should eq("1234567.1511.03")
-      test_settlement.settled_at.should eq(Time.parse_iso8601("2015-11-06T06:00:02.0Z"))
-      test_settlement.created_at.should eq(Time.parse_iso8601("2014-11-06T06:00:02.0Z"))
+      test_settlement.settled_at
+        .should eq(Time.parse_iso8601("2015-11-06T06:00:02.0Z"))
+      test_settlement.created_at
+        .should eq(Time.parse_iso8601("2014-11-06T06:00:02.0Z"))
       test_settlement.amount.should be_a(Mollie::Amount)
-      test_settlement.periods.should be_a(Hash(String, Hash(String, Hash(String, AI))))
-      revenue = test_settlement.periods.dig("2015", "11", "revenue")
-      revenue.should be_a(AI)
+      test_settlement.periods
+        .should be_a(Mollie::Settlement::PeriodsHash)
+      revenue = test_settlement.periods.dig("2015", "11").revenue
+      revenue.should be_a(Array(Mollie::Settlement::Item))
       item = revenue.first
       item.should be_a(Mollie::Settlement::Item)
       item.description.should eq("iDEAL")
@@ -44,8 +45,8 @@ describe Mollie::Settlement do
       item.amount_net.should be_a(Mollie::Amount)
       item.amount_vat.should be_a(Mollie::Amount?)
       item.amount_gross.should be_a(Mollie::Amount)
-      costs = test_settlement.periods.dig("2015", "11", "costs")
-      costs.should be_a(AI)
+      costs = test_settlement.periods.dig("2015", "11").costs
+      costs.should be_a(Array(Mollie::Settlement::Item))
       costs.first.should be_a(Mollie::Settlement::Item)
       item = costs.first
       item.description.should eq("iDEAL")
@@ -104,6 +105,18 @@ describe Mollie::Settlement do
       refunds.should be_a(Mollie::List(Mollie::Settlement::Refund))
       refunds.size.should eq(1)
       refunds.first.id.should eq("re_4qqhO89gsT")
+    end
+  end
+
+  describe "#captures" do
+    it "fetches all related payments" do
+      WebMock.stub(:get, "https://api.mollie.com/v2/settlements/stl_jDk30akdN/captures")
+        .to_return(status: 200, body: read_fixture("settlements/get-captures.json"))
+
+      captures = test_settlement.captures
+      captures.should be_a(Mollie::List(Mollie::Settlement::Capture))
+      captures.size.should eq(1)
+      captures.first.id.should eq("cpt_4qqhO89gsT")
     end
   end
 end

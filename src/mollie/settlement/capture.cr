@@ -1,5 +1,5 @@
 struct Mollie
-  struct Payment
+  struct Settlement
     struct Capture < Base::Capture
     end
   end
