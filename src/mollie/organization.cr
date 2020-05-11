@@ -9,6 +9,10 @@ struct Mollie
     json_field(:registration_number, String)
     json_field(:vat_number, String)
 
+    def dashboard_url
+      link_for(:dashboard)
+    end
+
     struct Address
       include Json::Serializable
 
