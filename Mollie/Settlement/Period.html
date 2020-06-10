@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="mollie">
-  <title>Mollie::Settlement::Payment - mollie HEAD</title>
+  <title>Mollie::Settlement::Period - mollie HEAD</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
   </script>
@@ -681,12 +681,12 @@
       
     </li>
   
-  <li class=" current" data-id="mollie/Mollie/Settlement/Payment" data-name="mollie::settlement::payment">
+  <li class=" " data-id="mollie/Mollie/Settlement/Payment" data-name="mollie::settlement::payment">
       <a href="../../Mollie/Settlement/Payment.html">Payment</a>
       
     </li>
   
-  <li class=" " data-id="mollie/Mollie/Settlement/Period" data-name="mollie::settlement::period">
+  <li class=" current" data-id="mollie/Mollie/Settlement/Period" data-name="mollie::settlement::period">
       <a href="../../Mollie/Settlement/Period.html">Period</a>
       
     </li>
@@ -740,12 +740,12 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">struct</span> Mollie::Settlement::Payment
+  <span class="kind">struct</span> Mollie::Settlement::Period
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Mollie/Settlement/Payment.html">Mollie::Settlement::Payment</a></li><li class="superclass"><a href="../../Mollie/Base/Payment.html">Mollie::Base::Payment</a></li><li class="superclass"><a href="../../Mollie/Base/Resource.html">Mollie::Base::Resource</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Mollie/Settlement/Period.html">Mollie::Settlement::Period</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
 
 
 
@@ -753,6 +753,22 @@
 
 
 
+
+  <h2>
+    <a id="included-modules" class="anchor" href="#included-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Included Modules
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type">JSON::Serializable</li>
+    
+      <li class="other-type"><a href="../../Mollie/Json/Serializable.html">Mollie::Json::Serializable</a></li>
+    
+  </ul>
 
 
 
@@ -773,8 +789,8 @@
   </h2>
   
     
-      <a href="https://github.com/tilishop/mollie.cr/blob/9c7bdc46c45fb4ed99d7f54b4810efc7f020245d/src/mollie/settlement/payment.cr#L3" target="_blank">
-        mollie/settlement/payment.cr
+      <a href="https://github.com/tilishop/mollie.cr/blob/9c7bdc46c45fb4ed99d7f54b4810efc7f020245d/src/mollie/settlement.cr#L44" target="_blank">
+        mollie/settlement.cr
       </a>
     
     <br/>
@@ -805,415 +821,38 @@
 
 
 
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#costs:Array(Item)-instance-method" class="signature"><strong>#costs</strong> : Array(Item)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#invoice_id:String-instance-method" class="signature"><strong>#invoice_id</strong> : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#revenue:Array(Item)-instance-method" class="signature"><strong>#revenue</strong> : Array(Item)</a>
+        
+      </li>
+    
+  </ul>
+
 
 
 
 
 <div class="methods-inherited">
-  
-    
-
-  <h3>Instance methods inherited from struct <code><a href="../../Mollie/Base/Payment.html">Mollie::Base::Payment</a></code></h3>
-  
-  
-    <a href="../../Mollie/Base/Payment.html#amount:Amount-instance-method" class="tooltip">
-      <span>amount : Amount</span>
-    amount</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#amount_captured:Union(Amount,Nil)-instance-method" class="tooltip">
-      <span>amount_captured : Union(Amount, Nil)</span>
-    amount_captured</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#amount_refunded:Union(Amount,Nil)-instance-method" class="tooltip">
-      <span>amount_refunded : Union(Amount, Nil)</span>
-    amount_refunded</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#amount_remaining:Union(Amount,Nil)-instance-method" class="tooltip">
-      <span>amount_remaining : Union(Amount, Nil)</span>
-    amount_remaining</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#application_fee:Union(Payment::ApplicationFee,Nil)-instance-method" class="tooltip">
-      <span>application_fee : Union(Payment::ApplicationFee, Nil)</span>
-    application_fee</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#authorized?-instance-method" class="tooltip">
-      <span>authorized?</span>
-    authorized?</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#authorized_at:Union(Time,Nil)-instance-method" class="tooltip">
-      <span>authorized_at : Union(Time, Nil)</span>
-    authorized_at</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#canceled?-instance-method" class="tooltip">
-      <span>canceled?</span>
-    canceled?</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#canceled_at:Union(Time,Nil)-instance-method" class="tooltip">
-      <span>canceled_at : Union(Time, Nil)</span>
-    canceled_at</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#captures(options:Hash%7CNamedTuple=HS2.new)-instance-method" class="tooltip">
-      <span>captures(options : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>)</span>
-    captures</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#chargebacks(options:Hash%7CNamedTuple=HS2.new)-instance-method" class="tooltip">
-      <span>chargebacks(options : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>)</span>
-    chargebacks</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#checkout_url-instance-method" class="tooltip">
-      <span>checkout_url</span>
-    checkout_url</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#country_code:Union(String,Nil)-instance-method" class="tooltip">
-      <span>country_code : Union(String, Nil)</span>
-    country_code</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#created_at:Time-instance-method" class="tooltip">
-      <span>created_at : Time</span>
-    created_at</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#customer(options:Hash%7CNamedTuple=HS2.new)-instance-method" class="tooltip">
-      <span>customer(options : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>)</span>
-    customer</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#customer_id:Union(String,Nil)-instance-method" class="tooltip">
-      <span>customer_id : Union(String, Nil)</span>
-    customer_id</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#description:String-instance-method" class="tooltip">
-      <span>description : String</span>
-    description</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#details:HSBFIS?-instance-method" class="tooltip">
-      <span>details : HSBFIS?</span>
-    details</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#expired?-instance-method" class="tooltip">
-      <span>expired?</span>
-    expired?</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#expired_at:Union(Time,Nil)-instance-method" class="tooltip">
-      <span>expired_at : Union(Time, Nil)</span>
-    expired_at</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#expires_at:Union(Time,Nil)-instance-method" class="tooltip">
-      <span>expires_at : Union(Time, Nil)</span>
-    expires_at</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#failed?-instance-method" class="tooltip">
-      <span>failed?</span>
-    failed?</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#failed_at:Union(Time,Nil)-instance-method" class="tooltip">
-      <span>failed_at : Union(Time, Nil)</span>
-    failed_at</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#id:String-instance-method" class="tooltip">
-      <span>id : String</span>
-    id</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#is_cancelable:Union(Bool,Nil)-instance-method" class="tooltip">
-      <span>is_cancelable : Union(Bool, Nil)</span>
-    is_cancelable</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#locale:Union(String,Nil)-instance-method" class="tooltip">
-      <span>locale : Union(String, Nil)</span>
-    locale</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#mandate(options:Hash%7CNamedTuple=HS2.new)-instance-method" class="tooltip">
-      <span>mandate(options : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>)</span>
-    mandate</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#mandate_id:Union(String,Nil)-instance-method" class="tooltip">
-      <span>mandate_id : Union(String, Nil)</span>
-    mandate_id</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#metadata:Union(HSBFIS,Nil)-instance-method" class="tooltip">
-      <span>metadata : Union(HSBFIS, Nil)</span>
-    metadata</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#method:Union(String,Nil)-instance-method" class="tooltip">
-      <span>method : Union(String, Nil)</span>
-    method</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#mode:String-instance-method" class="tooltip">
-      <span>mode : String</span>
-    mode</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#open?-instance-method" class="tooltip">
-      <span>open?</span>
-    open?</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#order(options:Hash%7CNamedTuple=HS2.new)-instance-method" class="tooltip">
-      <span>order(options : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>)</span>
-    order</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#order_id:Union(String,Nil)-instance-method" class="tooltip">
-      <span>order_id : Union(String, Nil)</span>
-    order_id</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#paid?-instance-method" class="tooltip">
-      <span>paid?</span>
-    paid?</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#paid_at:Union(Time,Nil)-instance-method" class="tooltip">
-      <span>paid_at : Union(Time, Nil)</span>
-    paid_at</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#pending?-instance-method" class="tooltip">
-      <span>pending?</span>
-    pending?</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#profile_id:String-instance-method" class="tooltip">
-      <span>profile_id : String</span>
-    profile_id</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#redirect_url:Union(String,Nil)-instance-method" class="tooltip">
-      <span>redirect_url : Union(String, Nil)</span>
-    redirect_url</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#refund!(options:Hash%7CNamedTuple=HS2.new)-instance-method" class="tooltip">
-      <span>refund!(options : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>)</span>
-    refund!</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#refunded?-instance-method" class="tooltip">
-      <span>refunded?</span>
-    refunded?</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#refunds(options:Hash%7CNamedTuple=HS2.new)-instance-method" class="tooltip">
-      <span>refunds(options : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>)</span>
-    refunds</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#restrict_payment_methods_to_country:Union(String,Nil)-instance-method" class="tooltip">
-      <span>restrict_payment_methods_to_country : Union(String, Nil)</span>
-    restrict_payment_methods_to_country</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#sequence_type:Union(String,Nil)-instance-method" class="tooltip">
-      <span>sequence_type : Union(String, Nil)</span>
-    sequence_type</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#settlement(options:Hash%7CNamedTuple=HS2.new)-instance-method" class="tooltip">
-      <span>settlement(options : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>)</span>
-    settlement</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#settlement_amount:Union(Amount,Nil)-instance-method" class="tooltip">
-      <span>settlement_amount : Union(Amount, Nil)</span>
-    settlement_amount</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#settlement_id:Union(String,Nil)-instance-method" class="tooltip">
-      <span>settlement_id : Union(String, Nil)</span>
-    settlement_id</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#status:String-instance-method" class="tooltip">
-      <span>status : String</span>
-    status</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#subscription(options:Hash%7CNamedTuple=HS2.new)-instance-method" class="tooltip">
-      <span>subscription(options : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>)</span>
-    subscription</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#subscription_id:Union(String,Nil)-instance-method" class="tooltip">
-      <span>subscription_id : Union(String, Nil)</span>
-    subscription_id</a>, 
-    
-  
-    <a href="../../Mollie/Base/Payment.html#webhook_url:Union(String,Nil)-instance-method" class="tooltip">
-      <span>webhook_url : Union(String, Nil)</span>
-    webhook_url</a>
-    
-  
-
-
-    
-
-  <h3>Constructor methods inherited from struct <code><a href="../../Mollie/Base/Payment.html">Mollie::Base::Payment</a></code></h3>
-  
-  
-    <a href="../../Mollie/Base/Payment.html#new(pull:JSON::PullParser)-class-method" class="tooltip">
-      <span>new(pull : JSON::PullParser)</span>
-    new</a>
-    
-  
-
-
-    
-
-
-  
-    
-
-  <h3>Instance methods inherited from module <code><a href="../../Mollie/Mixins/Linkable.html">Mollie::Mixins::Linkable</a></code></h3>
-  
-  
-    <a href="../../Mollie/Mixins/Linkable.html#id_from_link(key:Symbol%7CString)-instance-method" class="tooltip">
-      <span>id_from_link(key : Symbol | String)</span>
-    id_from_link</a>, 
-    
-  
-    <a href="../../Mollie/Mixins/Linkable.html#id_from_link?(key:Symbol%7CString)-instance-method" class="tooltip">
-      <span>id_from_link?(key : Symbol | String)</span>
-    id_from_link?</a>, 
-    
-  
-    <a href="../../Mollie/Mixins/Linkable.html#link_for(key:Symbol%7CString)-instance-method" class="tooltip">
-      <span>link_for(key : Symbol | String)</span>
-    link_for</a>, 
-    
-  
-    <a href="../../Mollie/Mixins/Linkable.html#link_for?(key:Symbol%7CString)-instance-method" class="tooltip">
-      <span>link_for?(key : Symbol | String)</span>
-    link_for?</a>, 
-    
-  
-    <a href="../../Mollie/Mixins/Linkable.html#links:Links-instance-method" class="tooltip">
-      <span>links : Links</span>
-    links</a>
-    
-  
-
-
-    
-
-
-    
-
-
-  
-    
-
-  <h3>Instance methods inherited from struct <code><a href="../../Mollie/Base/Resource.html">Mollie::Base::Resource</a></code></h3>
-  
-  
-    <a href="../../Mollie/Base/Resource.html#cancel(data:Hash%7CNamedTuple=HS2.new,client:Client=Client.instance)-instance-method" class="tooltip">
-      <span>cancel(data : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>, client : Client = <span class="t">Client</span>.instance)</span>
-    cancel</a>, 
-    
-  
-    <a href="../../Mollie/Base/Resource.html#delete(data:Hash%7CNamedTuple=HS2.new,client:Client=Client.instance)-instance-method" class="tooltip">
-      <span>delete(data : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>, client : Client = <span class="t">Client</span>.instance)</span>
-    delete</a>, 
-    
-  
-    <a href="../../Mollie/Base/Resource.html#update(data:Hash%7CNamedTuple,client:Client=Client.instance)-instance-method" class="tooltip">
-      <span>update(data : Hash | NamedTuple, client : Client = <span class="t">Client</span>.instance)</span>
-    update</a>
-    
-  
-
-
-    
-
-  <h3>Constructor methods inherited from struct <code><a href="../../Mollie/Base/Resource.html">Mollie::Base::Resource</a></code></h3>
-  
-  
-    <a href="../../Mollie/Base/Resource.html#new(pull:JSON::PullParser)-class-method" class="tooltip">
-      <span>new(pull : JSON::PullParser)</span>
-    new</a>
-    
-  
-
-
-    
-
-  <h3>Class methods inherited from struct <code><a href="../../Mollie/Base/Resource.html">Mollie::Base::Resource</a></code></h3>
-  
-  
-    <a href="../../Mollie/Base/Resource.html#all(options:Hash%7CNamedTuple=HS2.new,client:Client=Client.instance)-class-method" class="tooltip">
-      <span>all(options : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>, client : Client = <span class="t">Client</span>.instance)</span>
-    all</a>, 
-    
-  
-    <a href="../../Mollie/Base/Resource.html#cancel(id:String,data:Hash%7CNamedTuple=HS2.new,client:Client=Client.instance)-class-method" class="tooltip">
-      <span>cancel(id : String, data : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>, client : Client = <span class="t">Client</span>.instance)</span>
-    cancel</a>, 
-    
-  
-    <a href="../../Mollie/Base/Resource.html#create(data:Hash%7CNamedTuple,options:Hash%7CNamedTuple=HS2.new,client:Client=Client.instance)-class-method" class="tooltip">
-      <span>create(data : Hash | NamedTuple, options : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>, client : Client = <span class="t">Client</span>.instance)</span>
-    create</a>, 
-    
-  
-    <a href="../../Mollie/Base/Resource.html#delete(id:String,data:Hash%7CNamedTuple=HS2.new,client:Client=Client.instance)-class-method" class="tooltip">
-      <span>delete(id : String, data : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>, client : Client = <span class="t">Client</span>.instance)</span>
-    delete</a>, 
-    
-  
-    <a href="../../Mollie/Base/Resource.html#get(id:String,options:Hash%7CNamedTuple=HS2.new,client:Client=Client.instance)-class-method" class="tooltip">
-      <span>get(id : String, options : Hash | NamedTuple = <span class="t">HS2</span>.<span class="k">new</span>, client : Client = <span class="t">Client</span>.instance)</span>
-    get</a>, 
-    
-  
-    <a href="../../Mollie/Base/Resource.html#id_param-class-method" class="tooltip">
-      <span>id_param</span>
-    id_param</a>, 
-    
-  
-    <a href="../../Mollie/Base/Resource.html#parent_param-class-method" class="tooltip">
-      <span>parent_param</span>
-    parent_param</a>, 
-    
-  
-    <a href="../../Mollie/Base/Resource.html#resource_name(parent_id:String?=nil)-class-method" class="tooltip">
-      <span>resource_name(parent_id : String? = <span class="n">nil</span>)</span>
-    resource_name</a>, 
-    
-  
-    <a href="../../Mollie/Base/Resource.html#update(id:String,data:Hash%7CNamedTuple,client:Client=Client.instance)-class-method" class="tooltip">
-      <span>update(id : String, data : Hash | NamedTuple, client : Client = <span class="t">Client</span>.instance)</span>
-    update</a>
-    
-  
-
-
   
     
 
@@ -1288,8 +927,6 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/tilishop/mollie.cr/blob/9c7bdc46c45fb4ed99d7f54b4810efc7f020245d/src/mollie/settlement/payment.cr#L3" target="_blank">View source</a>]
-        
       </div>
     </div>
   
@@ -1297,6 +934,58 @@
 
 
 
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="costs:Array(Item)-instance-method">
+      <div class="signature">
+        
+        def <strong>costs</strong> : Array(<a href="../../Mollie/Settlement/Item.html">Item</a>)
+
+        <a class="method-permalink" href="#costs:Array(Item)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="invoice_id:String-instance-method">
+      <div class="signature">
+        
+        def <strong>invoice_id</strong> : String
+
+        <a class="method-permalink" href="#invoice_id:String-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="revenue:Array(Item)-instance-method">
+      <div class="signature">
+        
+        def <strong>revenue</strong> : Array(<a href="../../Mollie/Settlement/Item.html">Item</a>)
+
+        <a class="method-permalink" href="#revenue:Array(Item)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
 
 
 
