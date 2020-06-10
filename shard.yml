@@ -4,7 +4,7 @@ version: 1.2.5
 authors:
   - wout <wout@mick-wout.com>
 
-crystal: 0.34.0
+crystal: 0.35.0
 
 dependencies:
   wordsmith:
