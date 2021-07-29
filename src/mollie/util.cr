@@ -58,9 +58,9 @@ struct Mollie
     )
       decimals = Mollie::Config.currency_decimals[currency]? || 2
 
-      return amount.round.to_i.to_s unless decimals > 0
+      return amount.round.to_i.to_s if decimals.zero?
 
-     "%.#{decimals}f" % amount.round(decimals, mode: Number::RoundingMode::TIES_AWAY)
+      "%.#{decimals}f" % amount.round(decimals, mode: Number::RoundingMode::TIES_AWAY)
     end
 
     private def self.escape(value : String | Symbol)
