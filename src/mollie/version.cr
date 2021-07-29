@@ -1,3 +1,3 @@
 struct Mollie
-  VERSION = "v1.2.6"
+  VERSION = "v1.3.0"
 end
