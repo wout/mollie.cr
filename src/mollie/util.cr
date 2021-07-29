@@ -45,7 +45,7 @@ struct Mollie
     end
 
     def self.stringify_keys(value : Hash | NamedTuple)
-      value.to_h.transform_keys { |key| key.to_s }
+      value.to_h.transform_keys(&.to_s)
     end
 
     def self.query_from_href(href : String)
@@ -57,11 +57,10 @@ struct Mollie
       currency : String
     )
       decimals = Mollie::Config.currency_decimals[currency]? || 2
-      if decimals > 0
-        "%.#{decimals}f" % amount.round(decimals)
-      else
-        amount.round.to_i.to_s
-      end
+
+      return amount.round.to_i.to_s unless decimals > 0
+
+     "%.#{decimals}f" % amount.round(decimals, mode: Number::RoundingMode::TIES_AWAY)
     end
 
     private def self.escape(value : String | Symbol)
