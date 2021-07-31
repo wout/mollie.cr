@@ -758,9 +758,9 @@
 </a>Disclaimer</h2>
 
 <p>This is the unofficial <a href="https://crystal-lang.org/">Crystal</a> shard for Mollie.
-It is directly ported from the Ruby version
+It's directly ported from the Ruby version
 (<a href="https://github.com/mollie/mollie-api-ruby">mollie-ruby-api</a>) but not an exact
-copy. Usage might vary from the Ruby version due to language differences and to
+copy. Usage may vary from the Ruby version due to language differences and to
 make the most of Crystal's type system.</p>
 
 <h2><a id="requirements" class="anchor" href="#requirements">
@@ -807,18 +807,19 @@ make the most of Crystal's type system.</p>
 
 <pre><code class="language-crystal"><span class="t">Mollie</span><span class="t">::</span><span class="t">Client</span>.with_api_key(<span class="s">&quot;&lt;your-api-key&gt;&quot;</span>) <span class="k">do</span> <span class="o">|</span>mollie<span class="o">|</span>
   mandates <span class="o">=</span> mollie.customer_mandate.all({ customer_id: <span class="s">&quot;customer-id&quot;</span> })
-  <span class="k">if</span> mandates.any?
-    payment <span class="o">=</span> mollie.payment.create({
-      amount: {
-        value:    <span class="s">&quot;10.00&quot;</span>,
-        currency: <span class="s">&quot;EUR&quot;</span>,
-      },
-      method:       <span class="s">&quot;creditcard&quot;</span>,
-      description:  <span class="s">&quot;My first API payment&quot;</span>,
-      redirect_url: <span class="s">&quot;https://webshop.example.org/order/12345/&quot;</span>,
-      webhook_url:  <span class="s">&quot;https://webshop.example.org/mollie-webhook/&quot;</span>,
-    })
-  <span class="k">end</span>
+
+  <span class="k">return</span> <span class="k">if</span> mandates.empty? 
+  
+  payment <span class="o">=</span> mollie.payment.create({
+    amount: {
+      value:    <span class="s">&quot;10.00&quot;</span>,
+      currency: <span class="s">&quot;EUR&quot;</span>,
+    },
+    method:       <span class="s">&quot;creditcard&quot;</span>,
+    description:  <span class="s">&quot;My first API payment&quot;</span>,
+    redirect_url: <span class="s">&quot;https://webshop.example.org/order/12345/&quot;</span>,
+    webhook_url:  <span class="s">&quot;https://webshop.example.org/mollie-webhook/&quot;</span>,
+  })
 <span class="k">end</span></code></pre>
 
 <h3><a id="creating-a-new-payment" class="anchor" href="#creating-a-new-payment">
@@ -858,9 +859,7 @@ of <code><a href="Mollie/Amount.html">Mollie::Amount</a></code> can be passed, w
 
 <pre><code class="language-crystal">payment <span class="o">=</span> <span class="t">Mollie</span><span class="t">::</span><span class="t">Payment</span>.get(<span class="s">&quot;pay-id&quot;</span>)
 
-<span class="k">if</span> payment.paid?
-  puts <span class="s">&quot;Payment received.&quot;</span>
-<span class="k">end</span></code></pre>
+puts <span class="s">&quot;Payment received.&quot;</span> <span class="k">if</span> payment.paid?</code></pre>
 
 <h3><a id="refunding-payments" class="anchor" href="#refunding-payments">
   <svg class="octicon-link" aria-hidden="true">
