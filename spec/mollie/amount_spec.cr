@@ -49,7 +49,7 @@ describe Mollie::Amount do
       tuple.should eq({value: "60.00", currency: "EUR"})
     end
 
-    it "rounds the amount according to the given currecny" do
+    it "rounds the amount according to the given currency" do
       Mollie::Config.currency_decimals["SEK"] = 4
       tuple = Mollie::Amount.new(60.31555, "EUR").to_tuple
       tuple.should eq({value: "60.32", currency: "EUR"})
