@@ -13,9 +13,9 @@ Accepting [iDEAL](https://www.mollie.com/en/payments/ideal), [Bancontact](https:
 
 ## Disclaimer
 This is the unofficial [Crystal](https://crystal-lang.org/) shard for Mollie.
-It is directly ported from the Ruby version
+It's directly ported from the Ruby version
 ([mollie-ruby-api](https://github.com/mollie/mollie-api-ruby)) but not an exact
-copy. Usage might vary from the Ruby version due to language differences and to
+copy. Usage may vary from the Ruby version due to language differences and to
 make the most of Crystal's type system.
 
 ## Requirements
@@ -59,18 +59,19 @@ If you need to do multiple calls with the same API Key, use the following helper
 ```crystal
 Mollie::Client.with_api_key("<your-api-key>") do |mollie|
   mandates = mollie.customer_mandate.all({ customer_id: "customer-id" })
-  if mandates.any?
-    payment = mollie.payment.create({
-      amount: {
-        value:    "10.00",
-        currency: "EUR",
-      },
-      method:       "creditcard",
-      description:  "My first API payment",
-      redirect_url: "https://webshop.example.org/order/12345/",
-      webhook_url:  "https://webshop.example.org/mollie-webhook/",
-    })
-  end
+
+  return if mandates.empty? 
+  
+  payment = mollie.payment.create({
+    amount: {
+      value:    "10.00",
+      currency: "EUR",
+    },
+    method:       "creditcard",
+    description:  "My first API payment",
+    redirect_url: "https://webshop.example.org/order/12345/",
+    webhook_url:  "https://webshop.example.org/mollie-webhook/",
+  })
 end
 ```
 
@@ -107,9 +108,7 @@ payment = Mollie::Payment.create({
 ```crystal
 payment = Mollie::Payment.get("pay-id")
 
-if payment.paid?
-  puts "Payment received."
-end
+puts "Payment received." if payment.paid?
 ```
 
 ### Refunding payments
