@@ -15,7 +15,7 @@ struct Mollie
 
     def to_tuple
       {
-        value:    Util.amount_with_decimals(@value.to_f64, @currency),
+        value:    Util.amount_with_decimals(@value, @currency),
         currency: @currency,
       }
     end
