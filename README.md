@@ -7,9 +7,9 @@
 
 Accepting [iDEAL](https://www.mollie.com/en/payments/ideal), [Bancontact](https://www.mollie.com/en/payments/bancontact), [SOFORT Banking](https://www.mollie.com/en/payments/sofort), [Creditcard](https://www.mollie.com/en/payments/credit-card), [SEPA Bank transfer](https://www.mollie.com/en/payments/bank-transfer), [SEPA Direct debit](https://www.mollie.com/en/payments/direct-debit), [PayPal](https://www.mollie.com/en/payments/paypal), [KBC/CBC Payment Button](https://www.mollie.com/en/payments/kbc-cbc), [Belfius Direct Net](https://www.mollie.com/en/payments/belfius), [paysafecard](https://www.mollie.com/en/payments/paysafecard), [ING Home’Pay](https://www.mollie.com/en/payments/ing-homepay), [Gift cards](https://www.mollie.com/en/payments/gift-cards), [EPS](https://www.mollie.com/en/payments/eps), [Giropay](https://www.mollie.com/en/payments/giropay) and [Apple Pay](https://www.mollie.com/en/payments/apple-pay) online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
 
-![GitHub](https://img.shields.io/github/license/tilitribe/mollie.cr)
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/tilitribe/mollie.cr)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/tilitribe/mollie.cr/Mollie%20CI)
+![GitHub](https://img.shields.io/github/license/wout/mollie.cr)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/wout/mollie.cr)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/wout/mollie.cr/Mollie%20CI)
 
 ## Disclaimer
 This is the unofficial [Crystal](https://crystal-lang.org/) shard for Mollie.
@@ -33,7 +33,7 @@ Add mollie as a depencency to your application's `shard.yml`:
 ```yaml
 dependencies:
   mollie:
-    github: tilitribe/mollie.cr
+    github: wout/mollie.cr
 ```
 
 Then run `shards install`.
@@ -146,7 +146,7 @@ payments.previous
 
 ## Documentation
 
-- [Shard API Docs](https://tilitribe.github.io/mollie.cr/)
+- [Shard API Docs](https://wout.github.io/mollie.cr/)
 - [Official Mollie API Reference](https://docs.mollie.com/reference/v2/payments-api/create-payment)
 
 ## Contributing
@@ -160,7 +160,7 @@ payments.previous
 ## Contributors
 
 - [wout](https://github.com/wout) - creator and maintainer
-- [tilitribe](https://github.com/tilitribe) - owner and maintainer
+- [wout](https://github.com/wout) - owner and maintainer
 
 ## License
 [BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/bsd-license.php).

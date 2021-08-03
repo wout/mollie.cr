@@ -1,5 +1,5 @@
 name: mollie
-version: 1.3.2
+version: 1.3.3
 
 authors:
   - wout <hi@wout.codes>
@@ -19,7 +19,7 @@ development_dependencies:
     github: manastech/webmock.cr
     branch: master
   spec_mirror:
-    github: tilishop/spec_mirror.cr
+    github: wout/spec_mirror.cr
     branch: master
 
 license: BSD
