@@ -160,7 +160,6 @@ payments.previous
 ## Contributors
 
 - [wout](https://github.com/wout) - creator and maintainer
-- [wout](https://github.com/wout) - owner and maintainer
 
 ## License
 [BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/bsd-license.php).
