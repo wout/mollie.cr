@@ -1,27 +1,43 @@
 require "../spec_helper.cr"
 
+describe Mollie do
+  describe ".configure" do
+    it "changes global the confguration" do
+      Mollie.configure do |config|
+        config.api_key = "my_key"
+        config.open_timeout = 1.5
+        config.read_timeout = 2.5
+      end
+
+      Mollie.config.api_key.should eq("my_key")
+      Mollie.config.open_timeout.should eq(1.5)
+      Mollie.config.read_timeout.should eq(2.5)
+    end
+  end
+end
+
 describe Mollie::Config do
-  describe ".api_key" do
+  describe "#api_key" do
     it "has no default api key" do
-      Mollie::Config.api_key.should be_nil
+      Mollie.config.api_key.should be_nil
     end
   end
 
-  describe ".open_timeout" do
+  describe "#open_timeout" do
     it "has a default open timeout" do
-      Mollie::Config.open_timeout.should eq(60)
+      Mollie.config.open_timeout.should eq(60)
     end
   end
 
-  describe ".read_timeout" do
+  describe "#read_timeout" do
     it "has a default read timeout" do
-      Mollie::Config.read_timeout.should eq(60)
+      Mollie.config.read_timeout.should eq(60)
     end
   end
 
-  describe ".decimals" do
+  describe "#decimals" do
     it "contains decimal points for diverging currencies" do
-      Mollie::Config.currency_decimals.should eq({
+      Mollie.config.currency_decimals.should eq({
         "ISK" => 0,
         "JPY" => 0,
       })

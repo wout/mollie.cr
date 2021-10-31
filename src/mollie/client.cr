@@ -12,7 +12,7 @@ struct Mollie
     getter api_endpoint : String
 
     def initialize(
-      @api_key : String? = Config.api_key,
+      @api_key : String? = Mollie.config.api_key,
       api_endpoint : String = API_ENDPOINT
     )
       @api_endpoint = api_endpoint.chomp("/")
@@ -84,8 +84,8 @@ struct Mollie
       tls_context = OpenSSL::SSL::Context::Client.new
       tls_context.ca_certificates = ca_cert
       client = HTTP::Client.new(uri, tls: tls_context)
-      client.read_timeout = Config.read_timeout
-      client.connect_timeout = Config.open_timeout
+      client.read_timeout = Mollie.config.read_timeout
+      client.connect_timeout = Mollie.config.open_timeout
       client
     end
 
@@ -103,7 +103,7 @@ struct Mollie
     end
 
     def self.instance
-      self.with_api_key(Config.api_key)
+      self.with_api_key(Mollie.config.api_key)
     end
 
     def self.with_api_key(api_key : String?)

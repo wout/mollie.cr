@@ -11,7 +11,7 @@ def mollie_test_api_key
 end
 
 def configure_test_api_key
-  Mollie::Config.api_key = mollie_test_api_key
+  Mollie.config.api_key = mollie_test_api_key
 end
 
 def client_http_headers(overrides : Mollie::HS2? = Mollie::HS2.new)
@@ -34,11 +34,13 @@ end
 
 Spec.after_each do
   WebMock.reset
-  Mollie::Config.api_key = nil
-  Mollie::Config.open_timeout = 60
-  Mollie::Config.read_timeout = 60
-  Mollie::Config.currency_decimals = {
-    "ISK" => 0,
-    "JPY" => 0,
-  }
+  Mollie.configure do |config|
+    config.api_key = nil
+    config.open_timeout = 60
+    config.read_timeout = 60
+    config.currency_decimals = {
+      "ISK" => 0,
+      "JPY" => 0,
+    }
+  end
 end

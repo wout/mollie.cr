@@ -56,7 +56,7 @@ struct Mollie
       amount : BigDecimal | AmountValue,
       currency : String
     )
-      decimals = Mollie::Config.currency_decimals[currency]? || 2
+      decimals = Mollie.config.currency_decimals[currency]? || 2
       rounded = amount.to_f.round(decimals, mode: Number::RoundingMode::TIES_AWAY)
 
       decimals.zero? ? rounded.to_i.to_s : "%.#{decimals}f" % rounded

@@ -9,13 +9,13 @@ describe Mollie::Client do
     end
 
     it "stores the api endpoint without trailing slash" do
-      Mollie::Config.api_key = "my_key"
+      Mollie.config.api_key = "my_key"
       client = Mollie::Client.new(api_endpoint: "http://my.endpoint/")
       client.api_endpoint.should eq("http://my.endpoint")
     end
 
     it "falls back to the globally configured api key" do
-      Mollie::Config.api_key = "my_key"
+      Mollie.config.api_key = "my_key"
       Mollie::Client.new.api_key.should eq("my_key")
     end
 
@@ -116,12 +116,12 @@ describe Mollie::Client do
 
   describe ".instance" do
     it "returns a new instance" do
-      Mollie::Config.api_key = "my_key"
+      Mollie.config.api_key = "my_key"
       Mollie::Client.instance.should be_a(Mollie::Client)
     end
 
     it "never initializes another new instance" do
-      Mollie::Config.api_key = "my_key"
+      Mollie.config.api_key = "my_key"
       instance = Mollie::Client.instance
       Mollie::Client.instance.should eq(instance)
     end
