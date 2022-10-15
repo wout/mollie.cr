@@ -9,11 +9,7 @@ struct Mollie
       new(Mapper.from_json(json))
     end
 
-    {% begin %}
-      {% for method in %w[status title detail field links] %}
-        delegate {{method.id}}, to: @mapper
-      {% end %}
-    {% end %}
+    delegate status, title, detail, field, links, to: @mapper
 
     def message
       "#{status} #{title}: #{detail}"
