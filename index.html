@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 1.2.2">
+<meta name="generator" content="Crystal Docs 1.5.0">
 <meta name="crystal_docs.project_version" content="master">
 <meta name="crystal_docs.project_name" content="mollie">
 
@@ -789,7 +789,7 @@ make the most of Crystal's type system.</p>
   config.api_key <span class="o">=</span> <span class="t">ENV</span>[<span class="s">&quot;MOLLIE_API_KEY&quot;</span>]
 <span class="k">end</span></code></pre>
 <p>You can also include a client instance in each request you make:</p>
-<pre><code class="language-crystal"><span class="t">Mollie</span><span class="t">::</span><span class="t">Payment</span>.get(<span class="s">&quot;pay-id&quot;</span>, client: <span class="t">Mollie</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span>(<span class="s">&quot;&lt;your-api-key&gt;&quot;</span>))</code></pre>
+<pre><code class="language-crystal"><span class="t">Mollie</span><span class="t">::</span><span class="t">Payment</span>.get(<span class="s">&quot;pay-id&quot;</span>, client: <span class="t">Mollie</span><span class="t">::</span><span class="t">Client</span>.new(<span class="s">&quot;&lt;your-api-key&gt;&quot;</span>))</code></pre>
 <p>If you need to do multiple calls with the same API Key, use the following helper:</p>
 <pre><code class="language-crystal"><span class="t">Mollie</span><span class="t">::</span><span class="t">Client</span>.with_api_key(<span class="s">&quot;&lt;your-api-key&gt;&quot;</span>) <span class="k">do</span> <span class="o">|</span>mollie<span class="o">|</span>
   mandates <span class="o">=</span> mollie.customer_mandate.all({ customer_id: <span class="s">&quot;customer-id&quot;</span> })
@@ -827,7 +827,7 @@ separator. Non-string values are not accepted.</em></p>
 <p>To ensure amount values always carry the correct amount of decimals, an instance
 of <code><a href="Mollie/Amount.html">Mollie::Amount</a></code> can be passed, which accepts integers, floats and strings:</p>
 <pre><code class="language-crystal">payment <span class="o">=</span> <span class="t">Mollie</span><span class="t">::</span><span class="t">Payment</span>.create({
-  amount:       <span class="t">Mollie</span><span class="t">::</span><span class="t">Amount</span>.<span class="k">new</span>(<span class="n">10</span>, <span class="s">&quot;EUR&quot;</span>),
+  amount:       <span class="t">Mollie</span><span class="t">::</span><span class="t">Amount</span>.new(<span class="n">10</span>, <span class="s">&quot;EUR&quot;</span>),
   method:       <span class="s">&quot;creditcard&quot;</span>,
   description:  <span class="s">&quot;My first API payment&quot;</span>,
 })</code></pre>
