@@ -1,3 +1,3 @@
-struct Mollie
-  VERSION = "1.4.2"
+module Rosetta
+  VERSION = {{ `shards version "#{__DIR__}"`.chomp.stringify }}
 end
