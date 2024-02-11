@@ -58,7 +58,7 @@ struct Mollie
         if http_method == "GET"
           response = client.get(path, headers: headers)
         else
-          http_body = http_body.to_h.reject! { |_k, v| v.nil? }
+          http_body = http_body.to_h.reject! { |_, v| v.nil? }
           body = Util.camelize_keys(http_body).to_json
           response = client.exec(http_method, path, headers: headers, body: body)
         end
@@ -110,7 +110,7 @@ struct Mollie
       State.instances[api_key]? || new(api_key)
     end
 
-    def self.with_api_key(api_key : String?)
+    def self.with_api_key(api_key : String?, &)
       yield(Mollie::Sandbox.new(with_api_key(api_key)))
     end
   end

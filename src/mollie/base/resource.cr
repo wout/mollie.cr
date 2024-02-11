@@ -87,7 +87,9 @@ struct Mollie
       end
 
       def self.resource_name(parent_id : String? = nil)
-        path = name_parts[1..-1].map { |p| Wordsmith::Inflector.pluralize(p) }
+        path = name_parts[1..-1].map do |part|
+          Wordsmith::Inflector.pluralize(part)
+        end
 
         if path.size == 2 && parent_id
           path.join("/#{parent_id}/")
@@ -142,7 +144,8 @@ struct Mollie
         id : String? = nil,
         data : Hash | NamedTuple = HS2.new,
         options : Hash | NamedTuple = HS2.new,
-        client : Client = Client.instance
+        client : Client = Client.instance,
+        &
       )
         yield(request(method, id, data, options, client))
       end

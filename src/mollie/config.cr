@@ -1,5 +1,5 @@
 struct Mollie
-  def self.configure : Void
+  def self.configure(&) : Void
     yield(Mollie.config)
   end
 

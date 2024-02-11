@@ -26,8 +26,8 @@ struct Mollie
         super.downcase
       end
 
-      def ==(value)
-        to_s == value
+      def ==(other)
+        to_s == other
       end
     end
 
