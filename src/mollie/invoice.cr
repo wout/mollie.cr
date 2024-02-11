@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Invoice < Base::Resource
     include Mixins::Linkable
 

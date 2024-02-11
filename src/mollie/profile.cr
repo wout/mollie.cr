@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Profile < Base::Resource
     include Mixins::Linkable
 

@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Order
     struct Shipment < Base::Resource
       include Mixins::Linkable

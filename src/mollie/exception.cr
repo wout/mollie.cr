@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   class Exception < Exception; end
 
   class RequestException < Mollie::Exception

@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Onboarding < Base::Resource
     include Mixins::Linkable
 

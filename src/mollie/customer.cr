@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Customer < Base::Resource
     include Mixins::Linkable
 

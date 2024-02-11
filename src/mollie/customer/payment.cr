@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Customer
     struct Payment < Base::Payment
     end

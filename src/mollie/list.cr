@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct List(T) < Base::Resource
     include Mixins::Linkable
 

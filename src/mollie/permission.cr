@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Permission < Base::Resource
     include Mixins::Linkable
 

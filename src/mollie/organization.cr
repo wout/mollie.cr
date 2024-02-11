@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Organization < Base::Resource
     include Mixins::Linkable
 

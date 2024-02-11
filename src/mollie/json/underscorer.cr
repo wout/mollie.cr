@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Json
     struct Underscorer
       def self.from_json(pull : JSON::PullParser)

@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Mixins
     module Linkable
       @[JSON::Field(key: "_links")]

@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Amount
     include Json::Serializable
 

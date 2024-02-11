@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Order
     struct Line < Base::Line
       def cancel(options : Hash | NamedTuple = HS2.new)

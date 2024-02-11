@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Json
     module Serializable
       macro included

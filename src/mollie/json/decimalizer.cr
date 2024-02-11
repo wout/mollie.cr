@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Json
     struct Decimalizer
       def self.from_json(pull : JSON::PullParser)

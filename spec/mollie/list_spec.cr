@@ -71,7 +71,7 @@ describe Mollie::List do
   end
 end
 
-struct Mollie
+module Mollie
   struct Mastaba < Base::Resource
     getter id : String?
   end

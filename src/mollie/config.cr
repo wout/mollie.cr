@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   def self.configure(&) : Void
     yield(Mollie.config)
   end

@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Settlement
     struct Capture < Base::Capture
     end

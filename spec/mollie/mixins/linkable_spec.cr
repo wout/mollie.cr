@@ -79,7 +79,7 @@ describe Mollie::Mixins::Linkable do
   end
 end
 
-struct Mollie
+module Mollie
   struct LinkableObject < Base::Resource
     include Mollie::Mixins::Linkable
   end

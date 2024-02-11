@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Sandbox
     getter client : Client
 

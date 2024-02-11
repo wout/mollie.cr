@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Base
     abstract struct Refund < Resource
       include Mixins::Linkable

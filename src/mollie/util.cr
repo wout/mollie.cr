@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   module Util
     def self.version_string
       mollie = VERSION

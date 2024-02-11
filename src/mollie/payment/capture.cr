@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Payment
     struct Capture < Base::Capture
     end

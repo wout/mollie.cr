@@ -385,7 +385,7 @@ describe Mollie::TestObject::NestedObject do
   end
 end
 
-struct Mollie
+module Mollie
   struct TestObject < Base::Resource
     json_field(:amount, Float64?)
     json_field(:foo, String?)

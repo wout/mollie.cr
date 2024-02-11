@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Settlement
     struct Chargeback < Base::Chargeback
     end

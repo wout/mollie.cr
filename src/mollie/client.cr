@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Client
     API_ENDPOINT = "https://api.mollie.com"
     API_VERSION  = "v2"

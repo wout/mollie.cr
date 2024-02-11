@@ -1,4 +1,4 @@
-struct Mollie
+module Mollie
   struct Order
     struct Refund < Base::Refund
     end
