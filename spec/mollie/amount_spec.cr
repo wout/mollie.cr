@@ -4,7 +4,7 @@ describe Mollie::Amount do
   describe "#initialize" do
     it "accepts a value and currency" do
       amount = Mollie::Amount.new(12.34, "EUR")
-      amount.value.should eq(12.34)
+      amount.value.should eq(12.34.to_big_d)
       amount.currency.should eq("EUR")
     end
 
@@ -21,19 +21,19 @@ describe Mollie::Amount do
     end
 
     it "accepts a value as string" do
-      Mollie::Amount.new("3.1415", "EUR").value.should eq(3.1415)
+      Mollie::Amount.new("3.1415", "EUR").value.should eq(3.1415.to_big_d)
     end
 
     it "accepts a value as big decimal" do
       amount = Mollie::Amount.new(BigDecimal.new("3.1415"), "EUR")
-      amount.value.should eq(3.1415)
+      amount.value.should eq(3.1415.to_big_d)
       amount.currency.should eq("EUR")
     end
   end
 
   describe "#value" do
     it "returns the given value" do
-      Mollie::Amount.new(32.32, "EUR").value.should eq(32.32)
+      Mollie::Amount.new(32.32, "EUR").value.should eq(32.32.to_big_d)
     end
   end
 

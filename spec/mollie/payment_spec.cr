@@ -105,7 +105,7 @@ describe Mollie::Payment do
 
       payment = Mollie::Payment.get("tr_WDqYK6vllf")
       fee = payment.application_fee.as(Mollie::Payment::ApplicationFee)
-      fee.amount.value.should eq(42.1)
+      fee.amount.value.should eq(42.1.to_big_d)
       fee.amount.currency.should eq("EUR")
       fee.description.should eq("Example application fee")
     end
@@ -133,7 +133,7 @@ describe Mollie::Payment do
       })
       payment.should be_a(Mollie::Payment)
       payment.id.should eq("tr_WDqYK6vllg")
-      payment.amount.value.should eq(1.95)
+      payment.amount.value.should eq(1.95.to_big_d)
       payment.amount.currency.should eq("EUR")
     end
 

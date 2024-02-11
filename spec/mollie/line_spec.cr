@@ -18,7 +18,7 @@ describe Mollie::Line do
       test_line.unit_price.should be_a(Mollie::Amount)
       test_line.unit_price.value.should eq(399.0)
       test_line.vat_amount.should be_a(Mollie::Amount)
-      test_line.vat_amount.value.should eq(121.14)
+      test_line.vat_amount.value.should eq(121.14.to_big_d)
       test_line.vat_rate.should eq("21.00")
       test_line.discount_amount.should be_a(Mollie::Amount)
       test_line.discount_amount.as(Mollie::Amount).value.should eq(100.0)
