@@ -36,8 +36,8 @@ Spec.after_each do
   WebMock.reset
   Mollie.configure do |config|
     config.api_key = nil
-    config.open_timeout = 60
-    config.read_timeout = 60
+    config.open_timeout = 60.seconds
+    config.read_timeout = 60.seconds
     config.currency_decimals = {
       "ISK" => 0,
       "JPY" => 0,

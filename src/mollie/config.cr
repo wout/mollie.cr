@@ -10,8 +10,8 @@ module Mollie
 
   class Config
     property api_key : String?
-    property open_timeout : Int32 | Float64 = 60
-    property read_timeout : Int32 | Float64 = 60
+    property open_timeout : Time::Span = 60.seconds
+    property read_timeout : Time::Span = 60.seconds
     property currency_decimals = {
       "ISK" => 0,
       "JPY" => 0,
