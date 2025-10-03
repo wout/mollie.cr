@@ -13,7 +13,7 @@ module Mollie
 
     def initialize(
       @api_key : String? = Mollie.config.api_key,
-      api_endpoint : String = API_ENDPOINT
+      api_endpoint : String = API_ENDPOINT,
     )
       @api_endpoint = api_endpoint.chomp("/")
 
@@ -38,7 +38,7 @@ module Mollie
       api_method : String,
       id : String? = nil,
       http_body : Hash | NamedTuple = HS2.new,
-      query : Hash | NamedTuple = HS2.new
+      query : Hash | NamedTuple = HS2.new,
     )
       unless METHODS.includes?(http_method)
         raise MethodNotSupportedException.new(

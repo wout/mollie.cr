@@ -31,7 +31,7 @@ module Mollie
 
     def self.submit(
       data : Hash | NamedTuple = HS2.new,
-      options : Hash | NamedTuple = HS2.new
+      options : Hash | NamedTuple = HS2.new,
     )
       Client.instance.perform_http_call(
         http_method: "POST",

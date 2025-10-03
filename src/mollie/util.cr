@@ -21,7 +21,7 @@ module Mollie
 
     def self.build_nested_query(
       value : Hash(String | Symbol, Array(String) | Array(Hash) | Int32 | String) | NamedTuple,
-      prefix : String? = nil
+      prefix : String? = nil,
     )
       value.map do |k, v|
         escaped = prefix ? "#{prefix}[#{self.escape(k)}]" : self.escape(k)
@@ -31,7 +31,7 @@ module Mollie
 
     def self.build_nested_query(
       value : Array(String) | Array(Hash),
-      prefix : String? = nil
+      prefix : String? = nil,
     )
       value.map { |v| self.build_nested_query(v, "#{prefix}[]") }.join("&")
     end
@@ -54,7 +54,7 @@ module Mollie
 
     def self.amount_with_decimals(
       amount : BigDecimal | AmountValue,
-      currency : String
+      currency : String,
     )
       decimals = Mollie.config.currency_decimals[currency]? || 2
       rounded = amount.to_f.round(decimals, mode: Number::RoundingMode::TIES_AWAY)
