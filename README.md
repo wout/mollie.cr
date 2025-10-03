@@ -8,7 +8,7 @@ Accepting [iDEAL](https://www.mollie.com/en/payments/ideal), [Bancontact](https:
 
 ![GitHub](https://img.shields.io/github/license/wout/mollie.cr)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/wout/mollie.cr)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/wout/mollie.cr/ci.yml?branch=master)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/wout/mollie.cr/ci.yml?branch=main)
 
 ## Disclaimer
 This is the unofficial [Crystal](https://crystal-lang.org/) shard for Mollie.
