@@ -1,5 +1,4 @@
-<p align="center">
-  <img src="https://info.mollie.com/hubfs/github/crystal/crystal_icon.png" width="128" height="128"/>
+<p align="center"> <img src="https://info.mollie.com/hubfs/github/crystal/crystal_icon.png" width="128" height="128"/>
 </p>
 <h1 align="center">Mollie API client for Crystal</h1>
 
