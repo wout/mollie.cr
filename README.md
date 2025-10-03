@@ -1,8 +1,8 @@
-<p align="center"> <img src="https://info.mollie.com/hubfs/github/crystal/crystal_icon.png" width="128" height="128"/>
+<p align="center"> <img src="https://github.com/wout/mollie.cr/assets/mollie_crystal_logo.png" width="128" height="128"/>
 </p>
 <h1 align="center">Mollie API client for Crystal</h1>
 
-![Example payment](https://info.mollie.com/hubfs/github/crystal/editor.png)
+![Example payment](https://github.com/wout/mollie.cr/assets/example.png)
 
 Accepting [iDEAL](https://www.mollie.com/en/payments/ideal), [Bancontact](https://www.mollie.com/en/payments/bancontact), [SOFORT Banking](https://www.mollie.com/en/payments/sofort), [Creditcard](https://www.mollie.com/en/payments/credit-card), [SEPA Bank transfer](https://www.mollie.com/en/payments/bank-transfer), [SEPA Direct debit](https://www.mollie.com/en/payments/direct-debit), [PayPal](https://www.mollie.com/en/payments/paypal), [KBC/CBC Payment Button](https://www.mollie.com/en/payments/kbc-cbc), [Belfius Direct Net](https://www.mollie.com/en/payments/belfius), [paysafecard](https://www.mollie.com/en/payments/paysafecard), [ING Home’Pay](https://www.mollie.com/en/payments/ing-homepay), [Gift cards](https://www.mollie.com/en/payments/gift-cards), [EPS](https://www.mollie.com/en/payments/eps), [Giropay](https://www.mollie.com/en/payments/giropay) and [Apple Pay](https://www.mollie.com/en/payments/apple-pay) online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
 
