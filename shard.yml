@@ -5,12 +5,12 @@ license: BSD
 authors:
   - wout <hi@wout.codes>
 
-crystal: ">= 1.4.0"
+crystal: ">= 1.14.0"
 
 dependencies:
   wordsmith:
     github: luckyframework/wordsmith
-    version: ~> 0.4
+    version: ~> 0.5
 
 development_dependencies:
   ameba:
@@ -18,4 +18,4 @@ development_dependencies:
     version: ~> 1.6.4
   webmock:
     github: manastech/webmock.cr
-    branch: master
+    version: ~> 0.14.0
