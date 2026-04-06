@@ -2,10 +2,10 @@ require "../spec_helper.cr"
 require "../spec_helpers/exception_helper.cr"
 
 def test_exception
-  Mollie::RequestException.from_json(example_error_response_json)
+  Mollie::RequestError.from_json(example_error_response_json)
 end
 
-describe Mollie::RequestException do
+describe Mollie::RequestError do
   describe "#initialize" do
     it "serializes json" do
       test_exception.status.should eq(401)

@@ -18,7 +18,7 @@ describe Mollie::Method do
 
     describe "#==" do
       it "tests against a lower case string" do
-        (Mollie::Method::Type::IngHomePay == "inghomepay").should be_true
+        (Mollie::Method::Type::BankTransfer == "banktransfer").should be_true
       end
     end
   end

@@ -1,7 +1,7 @@
 module Mollie
-  class Exception < Exception; end
+  class Error < ::Exception; end
 
-  class RequestException < Mollie::Exception
+  class RequestError < Mollie::Error
     def initialize(@mapper : Mapper)
     end
 
@@ -31,11 +31,11 @@ module Mollie
     end
   end
 
-  class ResourceNotFoundException < Mollie::RequestException; end
+  class ResourceNotFoundError < Mollie::RequestError; end
 
-  class MissingApiKeyException < Mollie::Exception; end
+  class MissingApiKeyError < Mollie::Error; end
 
-  class RequestTimeoutException < Mollie::Exception; end
+  class RequestTimeoutError < Mollie::Error; end
 
-  class MethodNotSupportedException < Mollie::Exception; end
+  class MethodNotSupportedError < Mollie::Error; end
 end

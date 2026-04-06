@@ -28,6 +28,7 @@ module Mollie
            profile
            refund
            settlement
+           settlement_capture
            settlement_chargeback
            settlement_payment
            settlement_refund

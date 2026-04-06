@@ -5,7 +5,16 @@ module Mollie
         hash = HSBFIS.new
         pull.read_object do |key|
           underscored = Wordsmith::Inflector.underscore(key)
-          hash[underscored] = pull.read_string
+          hash[underscored] = case pull.kind
+                              when .int?
+                                pull.read_int.to_i32
+                              when .float?
+                                pull.read_float
+                              when .bool?
+                                pull.read_bool
+                              else
+                                pull.read_string
+                              end
         end
         hash
       end

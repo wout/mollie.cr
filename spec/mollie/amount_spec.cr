@@ -74,5 +74,10 @@ describe Mollie::Amount do
       json = Mollie::Amount.new(1.1189, "EUR").to_json
       json.should eq(%({"value":"1.12","currency":"EUR"}))
     end
+
+    it "respects currency-specific decimal places" do
+      json = Mollie::Amount.new(1050, "JPY").to_json
+      json.should eq(%({"value":"1050","currency":"JPY"}))
+    end
   end
 end

@@ -21,5 +21,12 @@ module Mollie
     end
 
     delegate to_h, to: to_tuple
+
+    def to_json(json : JSON::Builder)
+      json.object do
+        json.field "value", Util.amount_with_decimals(@value, @currency)
+        json.field "currency", @currency
+      end
+    end
   end
 end

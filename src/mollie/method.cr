@@ -3,24 +3,33 @@ module Mollie
     include Mixins::Linkable
 
     enum Type
+      Alma
       ApplePay
+      Bancolombia
       Bancontact
       BankTransfer
       Belfius
+      Billie
+      Blik
       Creditcard
       DirectDebit
       Eps
       Giftcard
-      Giropay
       Ideal
-      IngHomePay
+      In3
       Kbc
       KlarnaPayLater
       KlarnaSliceIt
+      MyBank
+      Payconiq
       PayPal
       Paysafecard
       Przelewy24
+      Riverty
+      Satispay
       Sofort
+      Trustly
+      Twint
 
       def to_s
         super.downcase

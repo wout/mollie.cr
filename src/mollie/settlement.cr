@@ -29,6 +29,10 @@ module Mollie
       {% end %}
     {% end %}
 
+    def chargebacks(options : Hash | NamedTuple = HS2.new)
+      Chargeback.all(options.merge({:settlement_id => id}))
+    end
+
     def payments(options : Hash | NamedTuple = HS2.new)
       Payment.all(options.merge({:settlement_id => id}))
     end

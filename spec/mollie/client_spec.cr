@@ -20,7 +20,7 @@ describe Mollie::Client do
     end
 
     it "fails if no api key is provided" do
-      expect_raises(Mollie::MissingApiKeyException) do
+      expect_raises(Mollie::MissingApiKeyError) do
         Mollie::Client.new
       end
     end
@@ -52,7 +52,7 @@ describe Mollie::Client do
 
   describe "#perform_http_call" do
     it "fails with an invalid http method" do
-      expect_raises(Mollie::MethodNotSupportedException) do
+      expect_raises(Mollie::MethodNotSupportedError) do
         create_mollie_client.perform_http_call("PUT", "my-method")
       end
     end
@@ -98,7 +98,7 @@ describe Mollie::Client do
         .with(headers: client_http_headers)
         .to_return(status: 401, body: example_error_response_json)
 
-      expect_raises(Mollie::RequestException) do
+      expect_raises(Mollie::RequestError) do
         create_mollie_client.perform_http_call("POST", "my-method")
       end
     end
@@ -108,7 +108,7 @@ describe Mollie::Client do
         .with(body: "{}", headers: client_http_headers)
         .to_return(status: 404, body: example_not_found_response_json)
 
-      expect_raises(Mollie::ResourceNotFoundException) do
+      expect_raises(Mollie::ResourceNotFoundError) do
         create_mollie_client.perform_http_call("POST", "no-method")
       end
     end

@@ -18,9 +18,9 @@ module Mollie
       @api_endpoint = api_endpoint.chomp("/")
 
       if @api_key
-        State.instances[@api_key.as(String)] = self unless @api_key.nil?
+        State.instances[@api_key.as(String)] = self
       else
-        raise MissingApiKeyException.new(
+        raise MissingApiKeyError.new(
           "Expected API key but none was provided")
       end
     end
@@ -41,7 +41,7 @@ module Mollie
       query : Hash | NamedTuple = HS2.new,
     )
       unless METHODS.includes?(http_method)
-        raise MethodNotSupportedException.new(
+        raise MethodNotSupportedError.new(
           "Invalid HTTP Method #{http_method}")
       end
 
@@ -64,9 +64,9 @@ module Mollie
         end
         render(response)
       rescue e : IO::TimeoutError
-        raise RequestTimeoutException.new(e.message)
+        raise RequestTimeoutError.new(e.message)
       rescue e : IO::EOFError
-        raise Exception.new(e.message)
+        raise Error.new(e.message)
       end
     end
 
@@ -80,10 +80,7 @@ module Mollie
     end
 
     private def http_client(uri : URI)
-      ca_cert = File.expand_path("../cacert.pem", File.dirname(__FILE__))
-      tls_context = OpenSSL::SSL::Context::Client.new
-      tls_context.ca_certificates = ca_cert
-      client = HTTP::Client.new(uri, tls: tls_context)
+      client = HTTP::Client.new(uri, tls: true)
       client.read_timeout = Mollie.config.read_timeout
       client.connect_timeout = Mollie.config.open_timeout
       client
@@ -96,9 +93,9 @@ module Mollie
       when 204
         ""
       when 404
-        raise ResourceNotFoundException.from_json(response.body)
+        raise ResourceNotFoundError.from_json(response.body)
       else
-        raise RequestException.from_json(response.body)
+        raise RequestError.from_json(response.body)
       end
     end
 
