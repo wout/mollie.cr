@@ -33,7 +33,8 @@ module Mollie
 
     status_enum_methods
 
-    json_field(:category_code, Int32)
+    json_field(:business_category, String?)
+    json_field(:category_code, Int32?)
     json_field(:created_at, Time)
     json_field(:email, String)
     json_field(:id, String)

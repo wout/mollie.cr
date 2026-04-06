@@ -17,29 +17,50 @@ module Mollie
 
     json_field(:id, String)
     json_field(:profile_id, String)
-    json_field(:method, String)
+    json_field(:method, String?)
     json_field(:amount, Amount)
+    json_field(:amount_captured, Amount?)
+    json_field(:amount_refunded, Amount?)
     json_field(:status, String)
     json_field(:is_cancelable, Bool?)
     json_field(:metadata, HSBFIS?)
     json_field(:created_at, Time)
-    json_field(:expires_at, Time)
+    json_field(:expires_at, Time?)
+    json_field(:expired_at, Time?)
+    json_field(:paid_at, Time?)
+    json_field(:authorized_at, Time?)
+    json_field(:canceled_at, Time?)
+    json_field(:completed_at, Time?)
     json_field(:mode, String)
     json_field(:locale, String)
     json_field(:billing_address, Address)
     json_field(:shopper_country_must_match_billing_country, Bool)
-    json_field(:consumer_date_of_birth, String)
+    json_field(:consumer_date_of_birth, String?)
     json_field(:order_number, String)
     json_field(:shipping_address, Address)
     json_field(:redirect_url, String)
+    json_field(:cancel_url, String?)
+    json_field(:webhook_url, String?)
     json_field(:lines, Array(Mollie::Order::Line))
+
+    def cancelable?
+      !!is_cancelable
+    end
 
     def checkout_url
       link_for(:checkout)
     end
 
+    def payments(options : Hash | NamedTuple = HS2.new)
+      Order::Payment.all(options.to_h.merge({:order_id => id}))
+    end
+
     def refunds(options : Hash | NamedTuple = HS2.new)
       Order::Refund.all(options.to_h.merge({:order_id => id}))
+    end
+
+    def shipments(options : Hash | NamedTuple = HS2.new)
+      Order::Shipment.all(options.to_h.merge({:order_id => id}))
     end
 
     def refund!(options : Hash | NamedTuple = HS2.new)

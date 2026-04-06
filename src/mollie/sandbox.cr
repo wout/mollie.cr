@@ -7,6 +7,7 @@ module Mollie
 
     {% begin %}
       {% resources = %w[
+           balance
            chargeback
            customer
            customer_mandate
@@ -17,12 +18,15 @@ module Mollie
            onboarding
            order
            order_line
+           order_payment
            order_refund
            order_shipment
            organization
+           partner
            payment
            payment_capture
            payment_chargeback
+           payment_link
            payment_refund
            permission
            profile
@@ -33,6 +37,7 @@ module Mollie
            settlement_payment
            settlement_refund
            subscription
+           terminal
          ] %}
 
       {% for resource in resources %}

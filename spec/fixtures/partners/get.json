@@ -1,0 +1,28 @@
+{
+  "resource": "partner",
+  "partnerType": "signuplink",
+  "isCommissionPartner": false,
+  "partnerContractSignedAt": "2018-03-20T13:13:37+00:00",
+  "partnerContractUpdateAvailable": false,
+  "userAgentTokens": [
+    {
+      "token": "abc123",
+      "startsAt": "2018-03-20",
+      "endsAt": "2020-03-20"
+    }
+  ],
+  "_links": {
+    "self": {
+      "href": "https://api.mollie.com/v2/organizations/me/partner",
+      "type": "application/hal+json"
+    },
+    "signuplink": {
+      "href": "https://www.mollie.com/dashboard/signup/myCode?lang=en",
+      "type": "text/html"
+    },
+    "documentation": {
+      "href": "https://docs.mollie.com/reference/v2/partners-api/get-partner",
+      "type": "text/html"
+    }
+  }
+}

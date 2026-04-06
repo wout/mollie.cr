@@ -16,6 +16,7 @@ module Mollie
     json_field(:amount, Amount)
     json_field(:created_at, Time)
     json_field(:id, String)
+    json_field(:invoice_id, String?)
     json_field(:periods, PeriodsHash)
     json_field(:reference, String)
     json_field(:settled_at, Time)
@@ -43,6 +44,10 @@ module Mollie
 
     def captures(options : Hash | NamedTuple = HS2.new)
       Capture.all(options.merge({:settlement_id => id}))
+    end
+
+    def invoice(options : Hash | NamedTuple = HS2.new)
+      Invoice.get(invoice_id.as(String), options) if invoice_id
     end
 
     struct Period

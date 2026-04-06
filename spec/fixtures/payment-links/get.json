@@ -1,0 +1,32 @@
+{
+  "resource": "payment-link",
+  "id": "pl_4Y0eZitmBnQ6IDoMqZQKh",
+  "mode": "test",
+  "profileId": "pfl_QkEhN94Ba",
+  "description": "Bicycle tires",
+  "archived": false,
+  "redirectUrl": "https://webshop.example.org/thanks",
+  "webhookUrl": "https://webshop.example.org/payment-links/webhook/",
+  "amount": {
+    "value": "24.95",
+    "currency": "EUR"
+  },
+  "createdAt": "2021-03-20T09:13:37+00:00",
+  "paidAt": null,
+  "updatedAt": "2021-03-20T09:13:37+00:00",
+  "expiresAt": "2021-06-06T11:00:00+00:00",
+  "_links": {
+    "self": {
+      "href": "https://api.mollie.com/v2/payment-links/pl_4Y0eZitmBnQ6IDoMqZQKh",
+      "type": "application/hal+json"
+    },
+    "paymentLink": {
+      "href": "https://paymentlink.mollie.com/payment/4Y0eZitmBnQ6IDoMqZQKh/",
+      "type": "text/html"
+    },
+    "documentation": {
+      "href": "https://docs.mollie.com/reference/v2/payment-links-api/get-payment-link",
+      "type": "text/html"
+    }
+  }
+}

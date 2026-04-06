@@ -17,10 +17,12 @@ module Mollie
 
       json_field(:amount, Amount)
       json_field(:amount_captured, Amount?)
+      json_field(:amount_charged_back, Amount?)
       json_field(:amount_refunded, Amount?)
       json_field(:amount_remaining, Amount?)
       json_field(:application_fee, Payment::ApplicationFee?)
       json_field(:authorized_at, Time?)
+      json_field(:cancel_url, String?)
       json_field(:canceled_at, Time?)
       json_field(:country_code, String?)
       json_field(:created_at, Time)
@@ -47,6 +49,7 @@ module Mollie
       json_field(:status, String)
       json_field(:subscription_id, String?)
       json_field(:webhook_url, String?)
+      json_field(:lines, Array(Mollie::Payment::Line)?)
       @[JSON::Field(converter: Mollie::Json::Underscorer)]
       getter details : HSBFIS?
 

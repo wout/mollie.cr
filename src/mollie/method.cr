@@ -6,6 +6,7 @@ module Mollie
       Alma
       ApplePay
       Bancolombia
+      BancomatPay
       Bancontact
       BankTransfer
       Belfius
@@ -20,6 +21,7 @@ module Mollie
       IngHomePay
       In3
       Kbc
+      Klarna
       KlarnaPayLater
       KlarnaSliceIt
       MyBank
@@ -45,9 +47,11 @@ module Mollie
     json_field(:description, String)
     json_field(:id, String)
     json_field(:image, HS2)
+    json_field(:issuers, Array(Issuer)?)
     json_field(:maximum_amount, Amount)
     json_field(:minimum_amount, Amount)
     json_field(:pricing, Array(Method::Fee)?)
+    json_field(:status, String?)
 
     def normal_image
       image["size1x"]
@@ -61,6 +65,10 @@ module Mollie
       image["svg"]
     end
 
+    def self.all_available(options : Hash | NamedTuple = HS2.new)
+      all(options.to_h.merge({"include" => "issuers,pricing"}))
+    end
+
     struct Fee
       include Json::Serializable
 
@@ -68,6 +76,14 @@ module Mollie
       json_field(:fee_region, String?)
       json_field(:fixed, Amount)
       json_field(:variable, BigDecimal)
+    end
+
+    struct Issuer
+      include Json::Serializable
+
+      json_field(:id, String)
+      json_field(:name, String)
+      json_field(:image, HS2)
     end
   end
 end
