@@ -15,7 +15,9 @@ module Mollie
       DirectDebit
       Eps
       Giftcard
+      Giropay
       Ideal
+      IngHomePay
       In3
       Kbc
       KlarnaPayLater
