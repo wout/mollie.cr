@@ -4,7 +4,7 @@
 
 ![Example payment](https://github.com/wout/mollie.cr/blob/main/assets/example.png)
 
-Accepting [iDEAL](https://www.mollie.com/en/payments/ideal), [Bancontact](https://www.mollie.com/en/payments/bancontact), [SOFORT Banking](https://www.mollie.com/en/payments/sofort), [Creditcard](https://www.mollie.com/en/payments/credit-card), [SEPA Bank transfer](https://www.mollie.com/en/payments/bank-transfer), [SEPA Direct debit](https://www.mollie.com/en/payments/direct-debit), [PayPal](https://www.mollie.com/en/payments/paypal), [KBC/CBC Payment Button](https://www.mollie.com/en/payments/kbc-cbc), [Belfius Direct Net](https://www.mollie.com/en/payments/belfius), [paysafecard](https://www.mollie.com/en/payments/paysafecard), [ING Home’Pay](https://www.mollie.com/en/payments/ing-homepay), [Gift cards](https://www.mollie.com/en/payments/gift-cards), [EPS](https://www.mollie.com/en/payments/eps), [Giropay](https://www.mollie.com/en/payments/giropay) and [Apple Pay](https://www.mollie.com/en/payments/apple-pay) online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
+Accepting [iDEAL](https://www.mollie.com/en/payments/ideal), [Bancontact](https://www.mollie.com/en/payments/bancontact), [Creditcard](https://www.mollie.com/en/payments/credit-card), [SEPA Bank transfer](https://www.mollie.com/en/payments/bank-transfer), [SEPA Direct debit](https://www.mollie.com/en/payments/direct-debit), [PayPal](https://www.mollie.com/en/payments/paypal), [KBC/CBC](https://www.mollie.com/en/payments/kbc-cbc), [Belfius](https://www.mollie.com/en/payments/belfius), [paysafecard](https://www.mollie.com/en/payments/paysafecard), [Gift cards](https://www.mollie.com/en/payments/gift-cards), [EPS](https://www.mollie.com/en/payments/eps), [Apple Pay](https://www.mollie.com/en/payments/apple-pay), [Klarna](https://www.mollie.com/en/payments/klarna), [in3](https://www.mollie.com/en/payments/in3), [Trustly](https://www.mollie.com/en/payments/trustly), [Riverty](https://www.mollie.com/en/payments/riverty), [Przelewy24](https://www.mollie.com/en/payments/przelewy24), [TWINT](https://www.mollie.com/en/payments/twint), [Blik](https://www.mollie.com/en/payments/blik) and [more](https://www.mollie.com/en/payments) online payments without fixed monthly costs or any punishing registration procedures. Just use the Mollie API to receive payments directly on your website or easily refund transactions to your customers.
 
 ![GitHub](https://img.shields.io/github/license/wout/mollie.cr)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/wout/mollie.cr)
@@ -150,7 +150,7 @@ payments.previous
 
 ## Contributing
 
-1. Fork it (<https://github.com/your-github-user/mollie/fork>)
+1. Fork it (<https://github.com/wout/mollie.cr/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -164,20 +164,7 @@ payments.previous
 [BSD (Berkeley Software Distribution) License](https://opensource.org/licenses/bsd-license.php).
 
 ## Support
-Mollie Contact: [www.mollie.com](https://www.mollie.com) — info@mollie.com — +31 20-612 88 55
+Mollie Contact: [www.mollie.com](https://www.mollie.com) — info@mollie.com
 
-+ [More information about iDEAL via Mollie](https://www.mollie.com/en/payments/ideal/)
-+ [More information about Credit card via Mollie](https://www.mollie.com/en/payments/credit-card/)
-+ [More information about Apple Pay via Mollie](https://www.mollie.com/en/payments/apple-pay/)
-+ [More information about Bancontact via Mollie](https://www.mollie.com/en/payments/bancontact/)
-+ [More information about SOFORT Banking via Mollie](https://www.mollie.com/en/payments/sofort/)
-+ [More information about SEPA Bank transfer via Mollie](https://www.mollie.com/en/payments/bank-transfer/)
-+ [More information about SEPA Direct debit via Mollie](https://www.mollie.com/en/payments/direct-debit/)
-+ [More information about PayPal via Mollie](https://www.mollie.com/en/payments/paypal/)
-+ [More information about KBC/CBC Payment Button via Mollie](https://www.mollie.com/en/payments/kbc-cbc/)
-+ [More information about Belfius Direct Net via Mollie](https://www.mollie.com/en/payments/belfius)
-+ [More information about paysafecard via Mollie](https://www.mollie.com/en/payments/paysafecard/)
-+ [More information about ING Home’Pay via Mollie](https://www.mollie.com/en/payments/ing-homepay/)
-+ [More information about Gift cards via Mollie](https://www.mollie.com/en/payments/gift-cards)
-+ [More information about EPS via Mollie](https://www.mollie.com/en/payments/eps)
-+ [More information about Giropay via Mollie](https://www.mollie.com/en/payments/giropay)
++ [All payment methods](https://www.mollie.com/en/payments)
++ [Mollie API documentation](https://docs.mollie.com/)
